@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+
+  "copyright": "Copyright (c) Conceptual Vision Consulting LLC. 2016",
+  "title": "Pip.Benchmark Net Framework",
+  "authors": [ "Sergey Seroukhov", "Volodymyr Tkachenko" ],
+  "description": "Synchronous and asynchronous communication components for Pip.Services in .NET",
+
+  "dependencies": {
+    "CoreCompat.System.Drawing": "1.0.0-beta006",
+    "NETStandard.Library": "1.6.1",
+    "System.Threading.Thread": "4.3.0"
+  },
+
+  "buildOptions": {
+    "outputName": "PipBenchmark.Framework",
+    "define": [ "CORE_NET" ]
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PipBenchmark</id>
+    <version>1.0.10</version>
+    <title>PipBenchmark</title>
+    <authors>Sergey Seroukhov</authors>
+
+    <projectUrl>https://github.com/pip-benchmark/pip-benchmark-dotnet</projectUrl>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <iconUrl>https://raw.githubusercontent.com/pip-services/pip-services/master/design/Icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    
+    <description>Portable Benchmarking Framework in .NET</description>
+    <releaseNotes>Pre release</releaseNotes>
+    <copyright>Conceptual Vision Consulting LLC. 2017</copyright>
+    <tags>pip-benchmark benchmarking framework</tags>
+  </metadata>
+
+  <files>
+    <file src="src\PipBenchmark.Net45\bin\Release\PipBenchmark.Framework.dll" target="lib\net45" />
+    <file src="src\PipBenchmark.Net45\bin\Release\PipBenchmark.Framework.pdb" target="lib\net45" />
+    <file src="src\PipBenchmark.Hardware.Net45\bin\Release\PipBenchmark.Hardware.dll" target="lib\net45" />
+    <file src="src\PipBenchmark.Hardware.Net45\bin\Release\PipBenchmark.Hardware.pdb" target="lib\net45" />
+    <file src="src\PipBenchmark.Database.Net45\bin\Release\PipBenchmark.Database.dll" target="lib\net45" />
+    <file src="src\PipBenchmark.Database.Net45\bin\Release\PipBenchmark.Database.pdb" target="lib\net45" />
+    <file src="src\PipBenchmark.Graphics.Net45\bin\Release\PipBenchmark.Graphics.dll" target="lib\net45" />
+    <file src="src\PipBenchmark.Graphics.Net45\bin\Release\PipBenchmark.Graphics.pdb" target="lib\net45" />
+    <file src="src\PipBenchmark.ConsoleRunner.Net45\bin\Release\PipBenchmark.exe" target="lib\net45" />
+    <file src="src\PipBenchmark.GuiRunner.Net45\bin\Release\PipBenchmarkGui.exe" target="lib\net45" />
+  </files>
+</package>
