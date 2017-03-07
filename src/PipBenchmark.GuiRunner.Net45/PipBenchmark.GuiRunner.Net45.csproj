@@ -78,14 +78,14 @@
       <DependentUpon>ErrorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Errors\ErrorHandlingController.cs" />
-    <Compile Include="Config\ConfigurationController.cs" />
-    <Compile Include="Config\ConfigurationPerspective.cs">
+    <Compile Include="Parameters\ParametersController.cs" />
+    <Compile Include="Parameters\ParametersPerspective.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Config\ConfigurationPerspective.Designer.cs">
-      <DependentUpon>ConfigurationPerspective.cs</DependentUpon>
+    <Compile Include="Parameters\ParametersPerspective.Designer.cs">
+      <DependentUpon>ParametersPerspective.cs</DependentUpon>
     </Compile>
-    <Compile Include="Config\IConfigurationView.cs" />
+    <Compile Include="Parameters\IParametersView.cs" />
     <Compile Include="Environment\EnvironmentController.cs" />
     <Compile Include="Environment\EnvironmentParameter.cs" />
     <Compile Include="Environment\EnvironmentPerspective.cs">
@@ -105,13 +105,13 @@
     <Compile Include="Execution\ExecutionResult.cs" />
     <Compile Include="Execution\IExecutionView.cs" />
     <Compile Include="HelpPrinter.cs" />
-    <Compile Include="Initialization\IInitializationView.cs" />
-    <Compile Include="Initialization\InitializationController.cs" />
-    <Compile Include="Initialization\InitializationPerspective.cs">
+    <Compile Include="Benchmarks\IBenchmarksView.cs" />
+    <Compile Include="Benchmarks\BenchmarksController.cs" />
+    <Compile Include="Benchmarks\BenchmarksPerspective.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Initialization\InitializationPerspective.Designer.cs">
-      <DependentUpon>InitializationPerspective.cs</DependentUpon>
+    <Compile Include="Benchmarks\BenchmarksPerspective.Designer.cs">
+      <DependentUpon>BenchmarksPerspective.cs</DependentUpon>
     </Compile>
     <Compile Include="Results\IResultsView.cs" />
     <Compile Include="Results\ResultsController.cs" />
@@ -144,8 +144,8 @@
     <EmbeddedResource Include="Errors\ErrorDialog.resx">
       <DependentUpon>ErrorDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Config\ConfigurationPerspective.resx">
-      <DependentUpon>ConfigurationPerspective.cs</DependentUpon>
+    <EmbeddedResource Include="Parameters\ParametersPerspective.resx">
+      <DependentUpon>ParametersPerspective.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Environment\EnvironmentPerspective.resx">
       <DependentUpon>EnvironmentPerspective.cs</DependentUpon>
@@ -153,8 +153,9 @@
     <EmbeddedResource Include="Execution\ExecutionPerspective.resx">
       <DependentUpon>ExecutionPerspective.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Initialization\InitializationPerspective.resx">
-      <DependentUpon>InitializationPerspective.cs</DependentUpon>
+    <EmbeddedResource Include="Benchmarks\BenchmarksPerspective.resx">
+      <DependentUpon>BenchmarksPerspective.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Results\ResultsPerspective.resx">
       <DependentUpon>ResultsPerspective.cs</DependentUpon>

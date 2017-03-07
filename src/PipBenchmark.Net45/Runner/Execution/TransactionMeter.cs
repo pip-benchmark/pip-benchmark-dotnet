@@ -20,7 +20,7 @@
             _counter++;
         }
 
-        public void SetCounter(double value)
+        public void SetTransactionCounter(double value)
         {
             _counter = value;
         }

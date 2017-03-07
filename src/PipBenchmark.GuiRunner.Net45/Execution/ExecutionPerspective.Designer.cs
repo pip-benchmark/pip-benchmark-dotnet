@@ -63,7 +63,7 @@
             this.nominalPerformanceNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.nominalPerformanceRadioButton = new System.Windows.Forms.RadioButton();
             this.peakPerformanceRadioButton = new System.Windows.Forms.RadioButton();
-            this.testingModeLabel = new System.Windows.Forms.Label();
+            this.measurementTypeLabel = new System.Windows.Forms.Label();
             this.numberOfThreadsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.numberOfThreadsLabel = new System.Windows.Forms.Label();
             this.resultsDataGridView = new System.Windows.Forms.DataGridView();
@@ -350,7 +350,7 @@
             this.benchmarkingSettingsGroupBox.Controls.Add(this.nominalPerformanceNumericUpDown);
             this.benchmarkingSettingsGroupBox.Controls.Add(this.nominalPerformanceRadioButton);
             this.benchmarkingSettingsGroupBox.Controls.Add(this.peakPerformanceRadioButton);
-            this.benchmarkingSettingsGroupBox.Controls.Add(this.testingModeLabel);
+            this.benchmarkingSettingsGroupBox.Controls.Add(this.measurementTypeLabel);
             this.benchmarkingSettingsGroupBox.Controls.Add(this.numberOfThreadsNumericUpDown);
             this.benchmarkingSettingsGroupBox.Controls.Add(this.numberOfThreadsLabel);
             this.benchmarkingSettingsGroupBox.Location = new System.Drawing.Point(26, 25);
@@ -372,7 +372,7 @@
             0,
             0});
             this.durationNumericUpDown.Minimum = new decimal(new int[] {
-            1,
+            0,
             0,
             0,
             0});
@@ -446,13 +446,13 @@
             // 
             // testingModeLabel
             // 
-            this.testingModeLabel.AutoSize = true;
-            this.testingModeLabel.Location = new System.Drawing.Point(26, 90);
-            this.testingModeLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.testingModeLabel.Name = "testingModeLabel";
-            this.testingModeLabel.Size = new System.Drawing.Size(230, 25);
-            this.testingModeLabel.TabIndex = 2;
-            this.testingModeLabel.Text = "Measure Performance:";
+            this.measurementTypeLabel.AutoSize = true;
+            this.measurementTypeLabel.Location = new System.Drawing.Point(26, 90);
+            this.measurementTypeLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.measurementTypeLabel.Name = "measurementTypeLabel";
+            this.measurementTypeLabel.Size = new System.Drawing.Size(230, 25);
+            this.measurementTypeLabel.TabIndex = 2;
+            this.measurementTypeLabel.Text = "Measure Performance:";
             // 
             // numberOfThreadsNumericUpDown
             // 
@@ -621,7 +621,7 @@
         private System.Windows.Forms.GroupBox benchmarkingSettingsGroupBox;
         private System.Windows.Forms.RadioButton nominalPerformanceRadioButton;
         private System.Windows.Forms.RadioButton peakPerformanceRadioButton;
-        private System.Windows.Forms.Label testingModeLabel;
+        private System.Windows.Forms.Label measurementTypeLabel;
         private System.Windows.Forms.NumericUpDown numberOfThreadsNumericUpDown;
         private System.Windows.Forms.Label numberOfThreadsLabel;
         private System.Windows.Forms.NumericUpDown nominalPerformanceNumericUpDown;

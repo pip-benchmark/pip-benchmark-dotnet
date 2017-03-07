@@ -1,6 +1,6 @@
-﻿namespace PipBenchmark.Gui.Initialization
+﻿namespace PipBenchmark.Gui.Benchmarks
 {
-    partial class InitializationPerspective
+    partial class BenchmarksPerspective
     {
         /// <summary> 
         /// Required designer variable.
@@ -36,10 +36,10 @@
             this.unloadSuiteButton = new System.Windows.Forms.Button();
             this.loadSuiteButton = new System.Windows.Forms.Button();
             this.suitesDataGridView = new System.Windows.Forms.DataGridView();
-            this.enabledColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.testSuiteNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.testSuiteDescriptionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.testSuiteAssemblyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.suitSelectedColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.suiteNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.suiteDescriptionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.suiteAssemblyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.suitesLabel = new System.Windows.Forms.Label();
             this.unselectAllBenchmarksButton = new System.Windows.Forms.Button();
             this.unselectBenchmarkButton = new System.Windows.Forms.Button();
@@ -47,10 +47,10 @@
             this.selectBenchmarkButton = new System.Windows.Forms.Button();
             this.benchmarksDataGridView = new System.Windows.Forms.DataGridView();
             this.benchmarksLabel = new System.Windows.Forms.Label();
-            this.testEnabledColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.testNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.testDescriptionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.testProportionColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.benchmarkSelectedColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.benchmarkNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.benchmarkDescriptionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.benchmarkProportionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.suitesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.benchmarksBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.contentContainer)).BeginInit();
@@ -73,6 +73,7 @@
             // 
             this.contentContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contentContainer.Location = new System.Drawing.Point(0, 0);
+            this.contentContainer.Margin = new System.Windows.Forms.Padding(6);
             this.contentContainer.Name = "contentContainer";
             this.contentContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -83,7 +84,7 @@
             this.contentContainer.Panel1.Controls.Add(this.loadSuiteButton);
             this.contentContainer.Panel1.Controls.Add(this.suitesDataGridView);
             this.contentContainer.Panel1.Controls.Add(this.suitesLabel);
-            this.contentContainer.Panel1.Padding = new System.Windows.Forms.Padding(10);
+            this.contentContainer.Panel1.Padding = new System.Windows.Forms.Padding(20, 19, 20, 19);
             // 
             // contentContainer.Panel2
             // 
@@ -93,17 +94,19 @@
             this.contentContainer.Panel2.Controls.Add(this.selectBenchmarkButton);
             this.contentContainer.Panel2.Controls.Add(this.benchmarksDataGridView);
             this.contentContainer.Panel2.Controls.Add(this.benchmarksLabel);
-            this.contentContainer.Panel2.Padding = new System.Windows.Forms.Padding(10);
-            this.contentContainer.Size = new System.Drawing.Size(500, 400);
-            this.contentContainer.SplitterDistance = 164;
+            this.contentContainer.Panel2.Padding = new System.Windows.Forms.Padding(20, 19, 20, 19);
+            this.contentContainer.Size = new System.Drawing.Size(1000, 769);
+            this.contentContainer.SplitterDistance = 315;
+            this.contentContainer.SplitterWidth = 8;
             this.contentContainer.TabIndex = 11;
             // 
             // unloadAllSuitesButton
             // 
             this.unloadAllSuitesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.unloadAllSuitesButton.Location = new System.Drawing.Point(412, 135);
+            this.unloadAllSuitesButton.Location = new System.Drawing.Point(824, 260);
+            this.unloadAllSuitesButton.Margin = new System.Windows.Forms.Padding(6);
             this.unloadAllSuitesButton.Name = "unloadAllSuitesButton";
-            this.unloadAllSuitesButton.Size = new System.Drawing.Size(75, 23);
+            this.unloadAllSuitesButton.Size = new System.Drawing.Size(150, 44);
             this.unloadAllSuitesButton.TabIndex = 9;
             this.unloadAllSuitesButton.Text = "UnloadAll";
             this.unloadAllSuitesButton.UseVisualStyleBackColor = true;
@@ -111,9 +114,10 @@
             // unloadSuiteButton
             // 
             this.unloadSuiteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.unloadSuiteButton.Location = new System.Drawing.Point(331, 135);
+            this.unloadSuiteButton.Location = new System.Drawing.Point(662, 260);
+            this.unloadSuiteButton.Margin = new System.Windows.Forms.Padding(6);
             this.unloadSuiteButton.Name = "unloadSuiteButton";
-            this.unloadSuiteButton.Size = new System.Drawing.Size(75, 23);
+            this.unloadSuiteButton.Size = new System.Drawing.Size(150, 44);
             this.unloadSuiteButton.TabIndex = 8;
             this.unloadSuiteButton.Text = "Unload";
             this.unloadSuiteButton.UseVisualStyleBackColor = true;
@@ -121,9 +125,10 @@
             // loadSuiteButton
             // 
             this.loadSuiteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadSuiteButton.Location = new System.Drawing.Point(250, 135);
+            this.loadSuiteButton.Location = new System.Drawing.Point(500, 260);
+            this.loadSuiteButton.Margin = new System.Windows.Forms.Padding(6);
             this.loadSuiteButton.Name = "loadSuiteButton";
-            this.loadSuiteButton.Size = new System.Drawing.Size(75, 23);
+            this.loadSuiteButton.Size = new System.Drawing.Size(150, 44);
             this.loadSuiteButton.TabIndex = 7;
             this.loadSuiteButton.Text = "Load...";
             this.loadSuiteButton.UseVisualStyleBackColor = true;
@@ -138,68 +143,71 @@
             this.suitesDataGridView.AutoGenerateColumns = false;
             this.suitesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.suitesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.enabledColumn,
-            this.testSuiteNameColumn,
-            this.testSuiteDescriptionColumn,
-            this.testSuiteAssemblyColumn});
+            this.suitSelectedColumn,
+            this.suiteNameColumn,
+            this.suiteDescriptionColumn,
+            this.suiteAssemblyColumn});
             this.suitesDataGridView.DataSource = this.suitesBindingSource;
-            this.suitesDataGridView.Location = new System.Drawing.Point(13, 26);
+            this.suitesDataGridView.Location = new System.Drawing.Point(26, 50);
+            this.suitesDataGridView.Margin = new System.Windows.Forms.Padding(6);
             this.suitesDataGridView.Name = "suitesDataGridView";
             this.suitesDataGridView.RowHeadersVisible = false;
-            this.suitesDataGridView.Size = new System.Drawing.Size(474, 103);
+            this.suitesDataGridView.Size = new System.Drawing.Size(948, 198);
             this.suitesDataGridView.TabIndex = 6;
             this.suitesDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnCellValueChanged);
             // 
-            // enabledColumn
+            // suitSelectedColumn
             // 
-            this.enabledColumn.DataPropertyName = "Enabled";
-            this.enabledColumn.HeaderText = "";
-            this.enabledColumn.MinimumWidth = 20;
-            this.enabledColumn.Name = "enabledColumn";
-            this.enabledColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.enabledColumn.Width = 20;
+            this.suitSelectedColumn.DataPropertyName = "IsSelected";
+            this.suitSelectedColumn.HeaderText = "";
+            this.suitSelectedColumn.MinimumWidth = 20;
+            this.suitSelectedColumn.Name = "suitSelectedColumn";
+            this.suitSelectedColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.suitSelectedColumn.Width = 20;
             // 
-            // testSuiteNameColumn
+            // suiteNameColumn
             // 
-            this.testSuiteNameColumn.DataPropertyName = "Name";
-            this.testSuiteNameColumn.HeaderText = "Name";
-            this.testSuiteNameColumn.MinimumWidth = 100;
-            this.testSuiteNameColumn.Name = "testSuiteNameColumn";
-            this.testSuiteNameColumn.ReadOnly = true;
-            this.testSuiteNameColumn.Width = 150;
+            this.suiteNameColumn.DataPropertyName = "Name";
+            this.suiteNameColumn.HeaderText = "Name";
+            this.suiteNameColumn.MinimumWidth = 100;
+            this.suiteNameColumn.Name = "suiteNameColumn";
+            this.suiteNameColumn.ReadOnly = true;
+            this.suiteNameColumn.Width = 150;
             // 
-            // testSuiteDescriptionColumn
+            // suiteDescriptionColumn
             // 
-            this.testSuiteDescriptionColumn.DataPropertyName = "Description";
-            this.testSuiteDescriptionColumn.HeaderText = "Description";
-            this.testSuiteDescriptionColumn.MinimumWidth = 150;
-            this.testSuiteDescriptionColumn.Name = "testSuiteDescriptionColumn";
-            this.testSuiteDescriptionColumn.ReadOnly = true;
-            this.testSuiteDescriptionColumn.Width = 200;
+            this.suiteDescriptionColumn.DataPropertyName = "Description";
+            this.suiteDescriptionColumn.HeaderText = "Description";
+            this.suiteDescriptionColumn.MinimumWidth = 150;
+            this.suiteDescriptionColumn.Name = "suiteDescriptionColumn";
+            this.suiteDescriptionColumn.ReadOnly = true;
+            this.suiteDescriptionColumn.Width = 200;
             // 
-            // testSuiteAssemblyColumn
+            // suiteAssemblyColumn
             // 
-            this.testSuiteAssemblyColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.testSuiteAssemblyColumn.DataPropertyName = "Assembly";
-            this.testSuiteAssemblyColumn.HeaderText = "Assembly";
-            this.testSuiteAssemblyColumn.Name = "testSuiteAssemblyColumn";
-            this.testSuiteAssemblyColumn.ReadOnly = true;
+            this.suiteAssemblyColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.suiteAssemblyColumn.DataPropertyName = "Assembly";
+            this.suiteAssemblyColumn.HeaderText = "Assembly";
+            this.suiteAssemblyColumn.Name = "suiteAssemblyColumn";
+            this.suiteAssemblyColumn.ReadOnly = true;
             // 
             // suitesLabel
             // 
             this.suitesLabel.AutoSize = true;
-            this.suitesLabel.Location = new System.Drawing.Point(13, 10);
+            this.suitesLabel.Location = new System.Drawing.Point(26, 19);
+            this.suitesLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.suitesLabel.Name = "suitesLabel";
-            this.suitesLabel.Size = new System.Drawing.Size(96, 13);
+            this.suitesLabel.Size = new System.Drawing.Size(192, 25);
             this.suitesLabel.TabIndex = 5;
             this.suitesLabel.Text = "Benchmark Suites:";
             // 
             // unselectAllBenchmarksButton
             // 
             this.unselectAllBenchmarksButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.unselectAllBenchmarksButton.Location = new System.Drawing.Point(412, 190);
+            this.unselectAllBenchmarksButton.Location = new System.Drawing.Point(824, 353);
+            this.unselectAllBenchmarksButton.Margin = new System.Windows.Forms.Padding(6);
             this.unselectAllBenchmarksButton.Name = "unselectAllBenchmarksButton";
-            this.unselectAllBenchmarksButton.Size = new System.Drawing.Size(75, 23);
+            this.unselectAllBenchmarksButton.Size = new System.Drawing.Size(150, 44);
             this.unselectAllBenchmarksButton.TabIndex = 16;
             this.unselectAllBenchmarksButton.Text = "Unselect All";
             this.unselectAllBenchmarksButton.UseVisualStyleBackColor = true;
@@ -207,9 +215,10 @@
             // unselectBenchmarkButton
             // 
             this.unselectBenchmarkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.unselectBenchmarkButton.Location = new System.Drawing.Point(331, 190);
+            this.unselectBenchmarkButton.Location = new System.Drawing.Point(662, 353);
+            this.unselectBenchmarkButton.Margin = new System.Windows.Forms.Padding(6);
             this.unselectBenchmarkButton.Name = "unselectBenchmarkButton";
-            this.unselectBenchmarkButton.Size = new System.Drawing.Size(75, 23);
+            this.unselectBenchmarkButton.Size = new System.Drawing.Size(150, 44);
             this.unselectBenchmarkButton.TabIndex = 15;
             this.unselectBenchmarkButton.Text = "Unselect";
             this.unselectBenchmarkButton.UseVisualStyleBackColor = true;
@@ -217,9 +226,10 @@
             // selectAllBenchmarksButton
             // 
             this.selectAllBenchmarksButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectAllBenchmarksButton.Location = new System.Drawing.Point(250, 190);
+            this.selectAllBenchmarksButton.Location = new System.Drawing.Point(500, 353);
+            this.selectAllBenchmarksButton.Margin = new System.Windows.Forms.Padding(6);
             this.selectAllBenchmarksButton.Name = "selectAllBenchmarksButton";
-            this.selectAllBenchmarksButton.Size = new System.Drawing.Size(75, 23);
+            this.selectAllBenchmarksButton.Size = new System.Drawing.Size(150, 44);
             this.selectAllBenchmarksButton.TabIndex = 14;
             this.selectAllBenchmarksButton.Text = "Select All";
             this.selectAllBenchmarksButton.UseVisualStyleBackColor = true;
@@ -227,9 +237,10 @@
             // selectBenchmarkButton
             // 
             this.selectBenchmarkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectBenchmarkButton.Location = new System.Drawing.Point(169, 190);
+            this.selectBenchmarkButton.Location = new System.Drawing.Point(338, 353);
+            this.selectBenchmarkButton.Margin = new System.Windows.Forms.Padding(6);
             this.selectBenchmarkButton.Name = "selectBenchmarkButton";
-            this.selectBenchmarkButton.Size = new System.Drawing.Size(75, 23);
+            this.selectBenchmarkButton.Size = new System.Drawing.Size(150, 44);
             this.selectBenchmarkButton.TabIndex = 13;
             this.selectBenchmarkButton.Text = "Select";
             this.selectBenchmarkButton.UseVisualStyleBackColor = true;
@@ -244,66 +255,77 @@
             this.benchmarksDataGridView.AutoGenerateColumns = false;
             this.benchmarksDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.benchmarksDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.testEnabledColumn,
-            this.testNameColumn,
-            this.testDescriptionColumn,
-            this.testProportionColumn1});
+            this.benchmarkSelectedColumn,
+            this.benchmarkNameColumn,
+            this.benchmarkDescriptionColumn,
+            this.benchmarkProportionColumn});
             this.benchmarksDataGridView.DataSource = this.benchmarksBindingSource;
-            this.benchmarksDataGridView.Location = new System.Drawing.Point(13, 20);
+            this.benchmarksDataGridView.Location = new System.Drawing.Point(26, 38);
+            this.benchmarksDataGridView.Margin = new System.Windows.Forms.Padding(6);
             this.benchmarksDataGridView.Name = "benchmarksDataGridView";
             this.benchmarksDataGridView.RowHeadersVisible = false;
-            this.benchmarksDataGridView.Size = new System.Drawing.Size(474, 164);
+            this.benchmarksDataGridView.Size = new System.Drawing.Size(948, 303);
             this.benchmarksDataGridView.TabIndex = 12;
             // 
             // benchmarksLabel
             // 
             this.benchmarksLabel.AutoSize = true;
-            this.benchmarksLabel.Location = new System.Drawing.Point(13, 4);
+            this.benchmarksLabel.Location = new System.Drawing.Point(26, 8);
+            this.benchmarksLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.benchmarksLabel.Name = "benchmarksLabel";
-            this.benchmarksLabel.Size = new System.Drawing.Size(69, 13);
+            this.benchmarksLabel.Size = new System.Drawing.Size(137, 25);
             this.benchmarksLabel.TabIndex = 11;
             this.benchmarksLabel.Text = "Benchmarks:";
             // 
-            // testEnabledColumn
+            // benchmarkSelectedColumn
             // 
-            this.testEnabledColumn.DataPropertyName = "IsSelected";
-            this.testEnabledColumn.HeaderText = "";
-            this.testEnabledColumn.MinimumWidth = 20;
-            this.testEnabledColumn.Name = "testEnabledColumn";
-            this.testEnabledColumn.Width = 20;
+            this.benchmarkSelectedColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.benchmarkSelectedColumn.DataPropertyName = "IsSelected";
+            this.benchmarkSelectedColumn.HeaderText = "";
+            this.benchmarkSelectedColumn.MinimumWidth = 20;
+            this.benchmarkSelectedColumn.Name = "benchmarkSelectedColumn";
+            this.benchmarkSelectedColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.benchmarkSelectedColumn.Width = 20;
             // 
-            // testNameColumn
+            // benchmarkNameColumn
             // 
-            this.testNameColumn.DataPropertyName = "FullName";
-            this.testNameColumn.HeaderText = "Name";
-            this.testNameColumn.MinimumWidth = 100;
-            this.testNameColumn.Name = "testNameColumn";
-            this.testNameColumn.ReadOnly = true;
-            this.testNameColumn.Width = 150;
+            this.benchmarkNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.benchmarkNameColumn.DataPropertyName = "FullName";
+            this.benchmarkNameColumn.HeaderText = "Name";
+            this.benchmarkNameColumn.MinimumWidth = 100;
+            this.benchmarkNameColumn.Name = "benchmarkNameColumn";
+            this.benchmarkNameColumn.ReadOnly = true;
+            this.benchmarkNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // testDescriptionColumn
+            // benchmarkDescriptionColumn
             // 
-            this.testDescriptionColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.testDescriptionColumn.DataPropertyName = "Description";
-            this.testDescriptionColumn.HeaderText = "Description";
-            this.testDescriptionColumn.MinimumWidth = 150;
-            this.testDescriptionColumn.Name = "testDescriptionColumn";
-            this.testDescriptionColumn.ReadOnly = true;
+            this.benchmarkDescriptionColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.benchmarkDescriptionColumn.DataPropertyName = "Description";
+            this.benchmarkDescriptionColumn.HeaderText = "Description";
+            this.benchmarkDescriptionColumn.MinimumWidth = 150;
+            this.benchmarkDescriptionColumn.Name = "benchmarkDescriptionColumn";
+            this.benchmarkDescriptionColumn.ReadOnly = true;
+            this.benchmarkDescriptionColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.benchmarkDescriptionColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // testProportionColumn1
+            // benchmarkProportionColumn
             // 
-            this.testProportionColumn1.DataPropertyName = "Proportion";
-            this.testProportionColumn1.HeaderText = "Proportion (%)";
-            this.testProportionColumn1.MinimumWidth = 100;
-            this.testProportionColumn1.Name = "testProportionColumn1";
+            this.benchmarkProportionColumn.DataPropertyName = "Proportion";
+            this.benchmarkProportionColumn.HeaderText = "Proportion %";
+            this.benchmarkProportionColumn.MinimumWidth = 150;
+            this.benchmarkProportionColumn.Name = "benchmarkProportionColumn";
+            this.benchmarkProportionColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.benchmarkProportionColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.benchmarkProportionColumn.Width = 150;
             // 
-            // InitializationPerspective
+            // BenchmarksPerspective
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.contentContainer);
-            this.Name = "InitializationPerspective";
-            this.Size = new System.Drawing.Size(500, 400);
+            this.Margin = new System.Windows.Forms.Padding(6);
+            this.Name = "BenchmarksPerspective";
+            this.Size = new System.Drawing.Size(1000, 769);
             ((System.ComponentModel.ISupportInitialize)(this.suitesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.benchmarksBindingSource)).EndInit();
             this.contentContainer.Panel1.ResumeLayout(false);
@@ -334,14 +356,13 @@
         private System.Windows.Forms.Button selectBenchmarkButton;
         private System.Windows.Forms.DataGridView benchmarksDataGridView;
         private System.Windows.Forms.Label benchmarksLabel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn testProportionColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn enabledColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn testSuiteNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn testSuiteDescriptionColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn testSuiteAssemblyColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn testEnabledColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn testNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn testDescriptionColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn testProportionColumn1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn suitSelectedColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn suiteNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn suiteDescriptionColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn suiteAssemblyColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn benchmarkSelectedColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn benchmarkNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn benchmarkDescriptionColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn benchmarkProportionColumn;
     }
 }

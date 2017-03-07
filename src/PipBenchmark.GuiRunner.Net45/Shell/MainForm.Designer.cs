@@ -36,8 +36,8 @@ namespace PipBenchmark.Gui.Shell
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSuiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.loadConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadParametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveParametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.saveReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,10 +57,10 @@ namespace PipBenchmark.Gui.Shell
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentTabControl = new System.Windows.Forms.TabControl();
-            this.initializationTabPage = new System.Windows.Forms.TabPage();
-            this.initializationPerspective = new PipBenchmark.Gui.Initialization.InitializationPerspective();
-            this.configurationTabPage = new System.Windows.Forms.TabPage();
-            this.configurationPerspective = new PipBenchmark.Gui.Config.ConfigurationPerspective();
+            this.benchmarksTabPage = new System.Windows.Forms.TabPage();
+            this.benchmarksPerspective = new PipBenchmark.Gui.Benchmarks.BenchmarksPerspective();
+            this.parametersTabPage = new System.Windows.Forms.TabPage();
+            this.parametersPerspective = new PipBenchmark.Gui.Parameters.ParametersPerspective();
             this.executionTabPage = new System.Windows.Forms.TabPage();
             this.executionPerspective = new PipBenchmark.Gui.Execution.ExecutionPerspective();
             this.resultsTabPage = new System.Windows.Forms.TabPage();
@@ -70,8 +70,8 @@ namespace PipBenchmark.Gui.Shell
             this.mainStatusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.contentTabControl.SuspendLayout();
-            this.initializationTabPage.SuspendLayout();
-            this.configurationTabPage.SuspendLayout();
+            this.benchmarksTabPage.SuspendLayout();
+            this.parametersTabPage.SuspendLayout();
             this.executionTabPage.SuspendLayout();
             this.resultsTabPage.SuspendLayout();
             this.environmentTabPage.SuspendLayout();
@@ -82,16 +82,17 @@ namespace PipBenchmark.Gui.Shell
             this.mainStatusStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 448);
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 867);
             this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(548, 22);
+            this.mainStatusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 28, 0);
+            this.mainStatusStrip.Size = new System.Drawing.Size(1096, 37);
             this.mainStatusStrip.TabIndex = 0;
             this.mainStatusStrip.Text = "statusStrip1";
             // 
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(16, 17);
+            this.statusLabel.Size = new System.Drawing.Size(30, 32);
             this.statusLabel.Text = "...";
             // 
             // mainMenuStrip
@@ -104,7 +105,8 @@ namespace PipBenchmark.Gui.Shell
             this.helpToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(548, 24);
+            this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(12, 4, 0, 4);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1096, 44);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -113,66 +115,66 @@ namespace PipBenchmark.Gui.Shell
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadSuiteToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.loadConfigurationToolStripMenuItem,
-            this.saveConfigurationToolStripMenuItem,
+            this.loadParametersToolStripMenuItem,
+            this.saveParametersToolStripMenuItem,
             this.toolStripMenuItem2,
             this.saveReportToolStripMenuItem,
             this.printReportToolStripMenuItem,
             this.toolStripMenuItem3,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 36);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // loadSuiteToolStripMenuItem
             // 
             this.loadSuiteToolStripMenuItem.Name = "loadSuiteToolStripMenuItem";
-            this.loadSuiteToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.loadSuiteToolStripMenuItem.Text = "&Load Benchmark Suite...";
+            this.loadSuiteToolStripMenuItem.Size = new System.Drawing.Size(305, 38);
+            this.loadSuiteToolStripMenuItem.Text = "&Load Suite...";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(198, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(302, 6);
             // 
-            // loadConfigurationToolStripMenuItem
+            // loadParametersToolStripMenuItem
             // 
-            this.loadConfigurationToolStripMenuItem.Name = "loadConfigurationToolStripMenuItem";
-            this.loadConfigurationToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.loadConfigurationToolStripMenuItem.Text = "&Load Configuration...";
+            this.loadParametersToolStripMenuItem.Name = "loadParametersToolStripMenuItem";
+            this.loadParametersToolStripMenuItem.Size = new System.Drawing.Size(305, 38);
+            this.loadParametersToolStripMenuItem.Text = "&Load Parameters...";
             // 
-            // saveConfigurationToolStripMenuItem
+            // saveParametersToolStripMenuItem
             // 
-            this.saveConfigurationToolStripMenuItem.Name = "saveConfigurationToolStripMenuItem";
-            this.saveConfigurationToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.saveConfigurationToolStripMenuItem.Text = "&Save Configuration...";
+            this.saveParametersToolStripMenuItem.Name = "saveParametersToolStripMenuItem";
+            this.saveParametersToolStripMenuItem.Size = new System.Drawing.Size(305, 38);
+            this.saveParametersToolStripMenuItem.Text = "&Save Parameters...";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(198, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(302, 6);
             // 
             // saveReportToolStripMenuItem
             // 
             this.saveReportToolStripMenuItem.Name = "saveReportToolStripMenuItem";
-            this.saveReportToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.saveReportToolStripMenuItem.Size = new System.Drawing.Size(305, 38);
             this.saveReportToolStripMenuItem.Text = "Save &Report...";
             // 
             // printReportToolStripMenuItem
             // 
             this.printReportToolStripMenuItem.Name = "printReportToolStripMenuItem";
-            this.printReportToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.printReportToolStripMenuItem.Size = new System.Drawing.Size(305, 38);
             this.printReportToolStripMenuItem.Text = "&Print Report...";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(198, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(302, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(305, 38);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // viewToolStripMenuItem
@@ -184,41 +186,41 @@ namespace PipBenchmark.Gui.Shell
             this.resultsToolStripMenuItem,
             this.environmentToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(78, 36);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // initializationToolStripMenuItem
             // 
             this.initializationToolStripMenuItem.Name = "initializationToolStripMenuItem";
-            this.initializationToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.initializationToolStripMenuItem.Text = "&Initialization";
+            this.initializationToolStripMenuItem.Size = new System.Drawing.Size(251, 38);
+            this.initializationToolStripMenuItem.Text = "&Benchmarks";
             this.initializationToolStripMenuItem.Click += new System.EventHandler(this.OnViewItemClick);
             // 
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.configurationToolStripMenuItem.Text = "&Configuration";
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(251, 38);
+            this.configurationToolStripMenuItem.Text = "&Parameters";
             this.configurationToolStripMenuItem.Click += new System.EventHandler(this.OnViewItemClick);
             // 
             // executionToolStripMenuItem
             // 
             this.executionToolStripMenuItem.Name = "executionToolStripMenuItem";
-            this.executionToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.executionToolStripMenuItem.Size = new System.Drawing.Size(251, 38);
             this.executionToolStripMenuItem.Text = "&Execution";
             this.executionToolStripMenuItem.Click += new System.EventHandler(this.OnViewItemClick);
             // 
             // resultsToolStripMenuItem
             // 
             this.resultsToolStripMenuItem.Name = "resultsToolStripMenuItem";
-            this.resultsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.resultsToolStripMenuItem.Size = new System.Drawing.Size(251, 38);
             this.resultsToolStripMenuItem.Text = "&Results";
             this.resultsToolStripMenuItem.Click += new System.EventHandler(this.OnViewItemClick);
             // 
             // environmentToolStripMenuItem
             // 
             this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
-            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(251, 38);
             this.environmentToolStripMenuItem.Text = "E&nvironment";
             this.environmentToolStripMenuItem.Click += new System.EventHandler(this.OnViewItemClick);
             // 
@@ -230,44 +232,44 @@ namespace PipBenchmark.Gui.Shell
             this.toolStripMenuItem4,
             this.benchmarkEnvironmentToolStripMenuItem});
             this.benchmarkToolStripMenuItem.Name = "benchmarkToolStripMenuItem";
-            this.benchmarkToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
-            this.benchmarkToolStripMenuItem.Text = "&Benchmark";
+            this.benchmarkToolStripMenuItem.Size = new System.Drawing.Size(119, 36);
+            this.benchmarkToolStripMenuItem.Text = "&Measure";
             // 
             // startBenchmarkingToolStripMenuItem
             // 
             this.startBenchmarkingToolStripMenuItem.Name = "startBenchmarkingToolStripMenuItem";
-            this.startBenchmarkingToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.startBenchmarkingToolStripMenuItem.Text = "&Start Benchmarking";
+            this.startBenchmarkingToolStripMenuItem.Size = new System.Drawing.Size(350, 38);
+            this.startBenchmarkingToolStripMenuItem.Text = "&Start Measuring";
             // 
             // stopBenchmarkingToolStripMenuItem
             // 
             this.stopBenchmarkingToolStripMenuItem.Name = "stopBenchmarkingToolStripMenuItem";
-            this.stopBenchmarkingToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.stopBenchmarkingToolStripMenuItem.Text = "&Stop Benchmarking";
+            this.stopBenchmarkingToolStripMenuItem.Size = new System.Drawing.Size(350, 38);
+            this.stopBenchmarkingToolStripMenuItem.Text = "&Stop Measuring";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(202, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(347, 6);
             // 
             // benchmarkEnvironmentToolStripMenuItem
             // 
             this.benchmarkEnvironmentToolStripMenuItem.Name = "benchmarkEnvironmentToolStripMenuItem";
-            this.benchmarkEnvironmentToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.benchmarkEnvironmentToolStripMenuItem.Text = "&Benchmark Environment";
+            this.benchmarkEnvironmentToolStripMenuItem.Size = new System.Drawing.Size(350, 38);
+            this.benchmarkEnvironmentToolStripMenuItem.Text = "&Measure Environment";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(77, 36);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(195, 38);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // contentTabControl
@@ -275,68 +277,72 @@ namespace PipBenchmark.Gui.Shell
             this.contentTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.contentTabControl.Controls.Add(this.initializationTabPage);
-            this.contentTabControl.Controls.Add(this.configurationTabPage);
+            this.contentTabControl.Controls.Add(this.benchmarksTabPage);
+            this.contentTabControl.Controls.Add(this.parametersTabPage);
             this.contentTabControl.Controls.Add(this.executionTabPage);
             this.contentTabControl.Controls.Add(this.resultsTabPage);
             this.contentTabControl.Controls.Add(this.environmentTabPage);
-            this.contentTabControl.Location = new System.Drawing.Point(0, 23);
+            this.contentTabControl.Location = new System.Drawing.Point(0, 44);
+            this.contentTabControl.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.contentTabControl.Name = "contentTabControl";
             this.contentTabControl.SelectedIndex = 0;
-            this.contentTabControl.Size = new System.Drawing.Size(548, 428);
+            this.contentTabControl.Size = new System.Drawing.Size(1096, 823);
             this.contentTabControl.TabIndex = 2;
             this.contentTabControl.Click += new System.EventHandler(this.OnContentTabClick);
             // 
-            // initializationTabPage
+            // benchmarksTabPage
             // 
-            this.initializationTabPage.Controls.Add(this.initializationPerspective);
-            this.initializationTabPage.Location = new System.Drawing.Point(4, 22);
-            this.initializationTabPage.Name = "initializationTabPage";
-            this.initializationTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.initializationTabPage.Size = new System.Drawing.Size(540, 402);
-            this.initializationTabPage.TabIndex = 0;
-            this.initializationTabPage.Text = "Initialization";
-            this.initializationTabPage.UseVisualStyleBackColor = true;
+            this.benchmarksTabPage.Controls.Add(this.benchmarksPerspective);
+            this.benchmarksTabPage.Location = new System.Drawing.Point(8, 39);
+            this.benchmarksTabPage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.benchmarksTabPage.Name = "benchmarksTabPage";
+            this.benchmarksTabPage.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.benchmarksTabPage.Size = new System.Drawing.Size(1080, 776);
+            this.benchmarksTabPage.TabIndex = 0;
+            this.benchmarksTabPage.Text = "Benchmarks";
+            this.benchmarksTabPage.UseVisualStyleBackColor = true;
             // 
-            // initializationPerspective
+            // benchmarksPerspective
             // 
-            this.initializationPerspective.AllBenchmarks = null;
-            this.initializationPerspective.AllSuites = null;
-            this.initializationPerspective.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.initializationPerspective.Location = new System.Drawing.Point(3, 3);
-            this.initializationPerspective.Margin = new System.Windows.Forms.Padding(6);
-            this.initializationPerspective.Name = "initializationPerspective";
-            this.initializationPerspective.Size = new System.Drawing.Size(534, 396);
-            this.initializationPerspective.TabIndex = 0;
+            this.benchmarksPerspective.AllBenchmarks = null;
+            this.benchmarksPerspective.AllSuites = null;
+            this.benchmarksPerspective.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.benchmarksPerspective.Location = new System.Drawing.Point(6, 6);
+            this.benchmarksPerspective.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            this.benchmarksPerspective.Name = "benchmarksPerspective";
+            this.benchmarksPerspective.Size = new System.Drawing.Size(1068, 764);
+            this.benchmarksPerspective.TabIndex = 0;
             // 
-            // configurationTabPage
+            // parametersTabPage
             // 
-            this.configurationTabPage.Controls.Add(this.configurationPerspective);
-            this.configurationTabPage.Location = new System.Drawing.Point(4, 22);
-            this.configurationTabPage.Name = "configurationTabPage";
-            this.configurationTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.configurationTabPage.Size = new System.Drawing.Size(540, 402);
-            this.configurationTabPage.TabIndex = 1;
-            this.configurationTabPage.Text = "Configuration";
-            this.configurationTabPage.UseVisualStyleBackColor = true;
+            this.parametersTabPage.Controls.Add(this.parametersPerspective);
+            this.parametersTabPage.Location = new System.Drawing.Point(8, 39);
+            this.parametersTabPage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.parametersTabPage.Name = "parametersTabPage";
+            this.parametersTabPage.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.parametersTabPage.Size = new System.Drawing.Size(1080, 776);
+            this.parametersTabPage.TabIndex = 1;
+            this.parametersTabPage.Text = "Parameters";
+            this.parametersTabPage.UseVisualStyleBackColor = true;
             // 
-            // configurationPerspective
+            // parametersPerspective
             // 
-            this.configurationPerspective.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.configurationPerspective.Location = new System.Drawing.Point(3, 3);
-            this.configurationPerspective.Margin = new System.Windows.Forms.Padding(6);
-            this.configurationPerspective.Name = "configurationPerspective";
-            this.configurationPerspective.Padding = new System.Windows.Forms.Padding(10);
-            this.configurationPerspective.Size = new System.Drawing.Size(534, 396);
-            this.configurationPerspective.TabIndex = 0;
+            this.parametersPerspective.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.parametersPerspective.Location = new System.Drawing.Point(6, 6);
+            this.parametersPerspective.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            this.parametersPerspective.Name = "parametersPerspective";
+            this.parametersPerspective.Padding = new System.Windows.Forms.Padding(20, 19, 20, 19);
+            this.parametersPerspective.Size = new System.Drawing.Size(1068, 764);
+            this.parametersPerspective.TabIndex = 0;
             // 
             // executionTabPage
             // 
             this.executionTabPage.Controls.Add(this.executionPerspective);
-            this.executionTabPage.Location = new System.Drawing.Point(4, 22);
+            this.executionTabPage.Location = new System.Drawing.Point(8, 39);
+            this.executionTabPage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.executionTabPage.Name = "executionTabPage";
-            this.executionTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.executionTabPage.Size = new System.Drawing.Size(540, 402);
+            this.executionTabPage.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.executionTabPage.Size = new System.Drawing.Size(1080, 776);
             this.executionTabPage.TabIndex = 2;
             this.executionTabPage.Text = "Execution";
             this.executionTabPage.UseVisualStyleBackColor = true;
@@ -347,27 +353,28 @@ namespace PipBenchmark.Gui.Shell
             this.executionPerspective.BenchmarkActionButton = "Start";
             this.executionPerspective.Dock = System.Windows.Forms.DockStyle.Fill;
             this.executionPerspective.Duration = 1;
-            this.executionPerspective.ExecutionType = ExecutionType.Proportional;
-            this.executionPerspective.Location = new System.Drawing.Point(3, 3);
-            this.executionPerspective.Margin = new System.Windows.Forms.Padding(6);
-            this.executionPerspective.MeasurementType = MeasurementType.Nominal;
-            this.executionPerspective.MinimumSize = new System.Drawing.Size(535, 400);
+            this.executionPerspective.ExecutionType = PipBenchmark.Runner.Config.ExecutionType.Proportional;
+            this.executionPerspective.Location = new System.Drawing.Point(6, 6);
+            this.executionPerspective.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            this.executionPerspective.MeasurementType = PipBenchmark.Runner.Config.MeasurementType.Nominal;
+            this.executionPerspective.MinimumSize = new System.Drawing.Size(1070, 769);
             this.executionPerspective.Name = "executionPerspective";
             this.executionPerspective.NominalRate = 1D;
             this.executionPerspective.NumberOfThreads = 1;
-            this.executionPerspective.Padding = new System.Windows.Forms.Padding(10);
+            this.executionPerspective.Padding = new System.Windows.Forms.Padding(20, 19, 20, 19);
             this.executionPerspective.PerformanceChartEnabled = true;
             this.executionPerspective.PerformanceChartName = "Performance Chart";
             this.executionPerspective.ShowPerformanceChart = true;
-            this.executionPerspective.Size = new System.Drawing.Size(535, 400);
+            this.executionPerspective.Size = new System.Drawing.Size(1070, 769);
             this.executionPerspective.TabIndex = 0;
             // 
             // resultsTabPage
             // 
             this.resultsTabPage.Controls.Add(this.resultsPerspective);
-            this.resultsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.resultsTabPage.Location = new System.Drawing.Point(8, 39);
+            this.resultsTabPage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.resultsTabPage.Name = "resultsTabPage";
-            this.resultsTabPage.Size = new System.Drawing.Size(540, 402);
+            this.resultsTabPage.Size = new System.Drawing.Size(1080, 776);
             this.resultsTabPage.TabIndex = 3;
             this.resultsTabPage.Text = "Results";
             this.resultsTabPage.UseVisualStyleBackColor = true;
@@ -376,19 +383,20 @@ namespace PipBenchmark.Gui.Shell
             // 
             this.resultsPerspective.Dock = System.Windows.Forms.DockStyle.Fill;
             this.resultsPerspective.Location = new System.Drawing.Point(0, 0);
-            this.resultsPerspective.Margin = new System.Windows.Forms.Padding(6);
+            this.resultsPerspective.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.resultsPerspective.Name = "resultsPerspective";
-            this.resultsPerspective.Padding = new System.Windows.Forms.Padding(10);
+            this.resultsPerspective.Padding = new System.Windows.Forms.Padding(20, 19, 20, 19);
             this.resultsPerspective.ReportContent = "";
-            this.resultsPerspective.Size = new System.Drawing.Size(540, 402);
+            this.resultsPerspective.Size = new System.Drawing.Size(1080, 776);
             this.resultsPerspective.TabIndex = 0;
             // 
             // environmentTabPage
             // 
             this.environmentTabPage.Controls.Add(this.environmentPerspective);
-            this.environmentTabPage.Location = new System.Drawing.Point(4, 22);
+            this.environmentTabPage.Location = new System.Drawing.Point(8, 39);
+            this.environmentTabPage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.environmentTabPage.Name = "environmentTabPage";
-            this.environmentTabPage.Size = new System.Drawing.Size(540, 402);
+            this.environmentTabPage.Size = new System.Drawing.Size(1080, 776);
             this.environmentTabPage.TabIndex = 4;
             this.environmentTabPage.Text = "Environment";
             this.environmentTabPage.UseVisualStyleBackColor = true;
@@ -397,22 +405,23 @@ namespace PipBenchmark.Gui.Shell
             // 
             this.environmentPerspective.Dock = System.Windows.Forms.DockStyle.Fill;
             this.environmentPerspective.Location = new System.Drawing.Point(0, 0);
-            this.environmentPerspective.Margin = new System.Windows.Forms.Padding(6);
+            this.environmentPerspective.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.environmentPerspective.Name = "environmentPerspective";
-            this.environmentPerspective.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
-            this.environmentPerspective.Size = new System.Drawing.Size(540, 402);
+            this.environmentPerspective.Padding = new System.Windows.Forms.Padding(20, 19, 20, 19);
+            this.environmentPerspective.Size = new System.Drawing.Size(1080, 776);
             this.environmentPerspective.TabIndex = 0;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 470);
+            this.ClientSize = new System.Drawing.Size(1096, 904);
             this.Controls.Add(this.contentTabControl);
             this.Controls.Add(this.mainStatusStrip);
             this.Controls.Add(this.mainMenuStrip);
             this.MainMenuStrip = this.mainMenuStrip;
-            this.MinimumSize = new System.Drawing.Size(564, 500);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.MinimumSize = new System.Drawing.Size(1102, 896);
             this.Name = "MainForm";
             this.Text = "Pip.Benchmark";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClosed);
@@ -422,8 +431,8 @@ namespace PipBenchmark.Gui.Shell
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.contentTabControl.ResumeLayout(false);
-            this.initializationTabPage.ResumeLayout(false);
-            this.configurationTabPage.ResumeLayout(false);
+            this.benchmarksTabPage.ResumeLayout(false);
+            this.parametersTabPage.ResumeLayout(false);
             this.executionTabPage.ResumeLayout(false);
             this.executionTabPage.PerformLayout();
             this.resultsTabPage.ResumeLayout(false);
@@ -441,8 +450,8 @@ namespace PipBenchmark.Gui.Shell
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSuiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem loadConfigurationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveConfigurationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadParametersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveParametersToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveReportToolStripMenuItem;
@@ -462,13 +471,13 @@ namespace PipBenchmark.Gui.Shell
         private System.Windows.Forms.ToolStripMenuItem benchmarkEnvironmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.TabControl contentTabControl;
-        private System.Windows.Forms.TabPage initializationTabPage;
-        private System.Windows.Forms.TabPage configurationTabPage;
+        private System.Windows.Forms.TabPage benchmarksTabPage;
+        private System.Windows.Forms.TabPage parametersTabPage;
         private System.Windows.Forms.TabPage executionTabPage;
         private System.Windows.Forms.TabPage resultsTabPage;
         private System.Windows.Forms.TabPage environmentTabPage;
-        private PipBenchmark.Gui.Initialization.InitializationPerspective initializationPerspective;
-        private PipBenchmark.Gui.Config.ConfigurationPerspective configurationPerspective;
+        private PipBenchmark.Gui.Benchmarks.BenchmarksPerspective benchmarksPerspective;
+        private PipBenchmark.Gui.Parameters.ParametersPerspective parametersPerspective;
         private PipBenchmark.Gui.Execution.ExecutionPerspective executionPerspective;
         private PipBenchmark.Gui.Results.ResultsPerspective resultsPerspective;
         private PipBenchmark.Gui.Environment.EnvironmentPerspective environmentPerspective;

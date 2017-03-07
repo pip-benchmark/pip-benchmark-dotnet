@@ -12,10 +12,11 @@ namespace PipBenchmark.Runner.Results
         private Measurement _performanceMeasurement;
         private Measurement _cpuLoadMeasurement;
         private Measurement _memoryUsageMeasurement;
-        private List<string> _errors = new List<string>();
+        private List<object> _errors = new List<object>();
 
-        public BenchmarkResult()
+        public BenchmarkResult(List<BenchmarkInstance> benchmarks)
         {
+            _benchmarks = benchmarks;
         }
 
         public List<BenchmarkInstance> Benchmarks
@@ -53,7 +54,7 @@ namespace PipBenchmark.Runner.Results
             set { _memoryUsageMeasurement = value; }
         }
 
-        public List<string> Errors
+        public List<object> Errors
         {
             get { return _errors; }
         }

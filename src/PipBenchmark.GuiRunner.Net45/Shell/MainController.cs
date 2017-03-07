@@ -1,10 +1,10 @@
 ﻿using PipBenchmark.Gui.About;
 using PipBenchmark.Gui.AsyncWait;
-using PipBenchmark.Gui.Config;
+using PipBenchmark.Gui.Parameters;
 using PipBenchmark.Gui.Environment;
 using PipBenchmark.Gui.Errors;
 using PipBenchmark.Gui.Execution;
-using PipBenchmark.Gui.Initialization;
+using PipBenchmark.Gui.Benchmarks;
 using PipBenchmark.Gui.Results;
 using PipBenchmark.Runner;
 using System;
@@ -17,8 +17,8 @@ namespace PipBenchmark.Gui.Shell
     {
         private IMainView _view;
         private BenchmarkRunner _model;
-        private InitializationController _initializationController;
-        private ConfigurationController _configurationController;
+        private BenchmarksController _benchmarksController;
+        private ParametersController _parametersController;
         private ExecutionController _executionController;
         private ResultsController _resultsController;
         private EnvironmentController _environmentController;
@@ -38,11 +38,11 @@ namespace PipBenchmark.Gui.Shell
 
         private void InitializeView()
         {
-            _view.LoadTestSuiteClicked += OnLoadTestSuitesClicked;
+            _view.LoadSuiteClicked += OnLoadSuitesClicked;
             _view.SaveReportClicked += OnSaveReportClicked;
             _view.PrintReportClicked += OnPrintReportClicked;
-            _view.LoadConfigurationClicked += OnLoadConfigurationClicked;
-            _view.SaveConfigurationClicked += OnSaveConfigurationClicked;
+            _view.LoadParametersClicked += OnLoadParametersClicked;
+            _view.SaveParametersClicked += OnSaveParametersClicked;
             _view.StartBenchmarkingClicked += OnStartBenchmarkingClicked;
             _view.StopBenchmarkingClicked += OnStopBenchmarkingClicked;
             _view.UpdateSystemBenchmarkClicked += OnUpdateSystemBenchmarkClicked;
@@ -50,19 +50,19 @@ namespace PipBenchmark.Gui.Shell
             _view.ExitClicked += OnExitClicked;
             _view.FormExited += OnFormExited;
 
-            _view.ConfigurationViewActivated += OnConfigurationViewActivated;
+            _view.ParametersViewActivated += OnParametersViewActivated;
         }
 
-        private void OnConfigurationViewActivated(object sender, EventArgs eventArgs)
+        private void OnParametersViewActivated(object sender, EventArgs eventArgs)
         {
-            if (_view.SelectedView.Equals("Configuration", StringComparison.InvariantCultureIgnoreCase))
-                _configurationController.UpdateView();
+            if (_view.SelectedView.Equals("Parameters", StringComparison.InvariantCultureIgnoreCase))
+                _parametersController.UpdateView();
         }
 
         private void InitializeControllers()
         {
-            _initializationController = new InitializationController(this, _view.InitializationView);
-            _configurationController = new ConfigurationController(this, _view.ConfigurationView);
+            _benchmarksController = new BenchmarksController(this, _view.BenchmarksView);
+            _parametersController = new ParametersController(this, _view.ParametersView);
             _executionController = new ExecutionController(this, _view.ExecutionView);
             _resultsController = new ResultsController(this, _view.ResultsView);
             _environmentController = new EnvironmentController(this, _view.EnvironmentView);
@@ -84,14 +84,14 @@ namespace PipBenchmark.Gui.Shell
 
         #region Child Controllers
 
-        public InitializationController InitializationController
+        public BenchmarksController BenchmarksController
         {
-            get { return _initializationController; }
+            get { return _benchmarksController; }
         }
 
-        public ConfigurationController ConfigurationController
+        public ParametersController ParametersController
         {
-            get { return _configurationController; }
+            get { return _parametersController; }
         }
 
         public ExecutionController ExecutionController
@@ -123,10 +123,10 @@ namespace PipBenchmark.Gui.Shell
 
         #region Event Handlers
 
-        private void OnLoadTestSuitesClicked(object sender, EventArgs args)
+        private void OnLoadSuitesClicked(object sender, EventArgs args)
         {
-            _view.SelectedView = "Initialization";
-            _initializationController.LoadSuitesFromAssembly();
+            _view.SelectedView = "Benchmarks";
+            _benchmarksController.LoadSuitesFromAssembly();
         }
 
         private void OnSaveReportClicked(object sender, EventArgs args)
@@ -141,16 +141,16 @@ namespace PipBenchmark.Gui.Shell
             _resultsController.PrintReport();
         }
 
-        private void OnLoadConfigurationClicked(object sender, EventArgs args)
+        private void OnLoadParametersClicked(object sender, EventArgs args)
         {
-            _view.SelectedView = "Configuration";
-            _configurationController.LoadConfiguration();
+            _view.SelectedView = "Parameters";
+            _parametersController.Load();
         }
 
-        private void OnSaveConfigurationClicked(object sender, EventArgs args)
+        private void OnSaveParametersClicked(object sender, EventArgs args)
         {
-            _view.SelectedView = "Configuration";
-            _configurationController.SaveConfiguration();
+            _view.SelectedView = "Parameters";
+            _parametersController.Save();
         }
 
         private void OnStartBenchmarkingClicked(object sender, EventArgs args)

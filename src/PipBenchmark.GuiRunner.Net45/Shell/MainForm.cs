@@ -7,8 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 
 using PipBenchmark.Gui;
-using PipBenchmark.Gui.Initialization;
-using PipBenchmark.Gui.Config;
+using PipBenchmark.Gui.Benchmarks;
+using PipBenchmark.Gui.Parameters;
 using PipBenchmark.Gui.Execution;
 using PipBenchmark.Gui.Results;
 using PipBenchmark.Gui.Environment;
@@ -37,7 +37,7 @@ namespace PipBenchmark.Gui.Shell
 
             viewTabPages = new TabPage[]
             {
-                initializationTabPage, configurationTabPage,
+                benchmarksTabPage, parametersTabPage,
                 executionTabPage, resultsTabPage,
                 environmentTabPage
             };
@@ -142,14 +142,14 @@ namespace PipBenchmark.Gui.Shell
             }
         }
 
-        public IInitializationView InitializationView 
+        public IBenchmarksView BenchmarksView 
         {
-            get { return initializationPerspective; }
+            get { return benchmarksPerspective; }
         }
 
-        public IConfigurationView ConfigurationView 
+        public IParametersView ParametersView 
         {
-            get { return configurationPerspective; }
+            get { return parametersPerspective; }
         }
 
         public IExecutionView ExecutionView 
@@ -167,22 +167,22 @@ namespace PipBenchmark.Gui.Shell
             get { return environmentPerspective; }
         }
 
-        public event EventHandler LoadTestSuiteClicked
+        public event EventHandler LoadSuiteClicked
         {
             add { loadSuiteToolStripMenuItem.Click += value; }
             remove { loadSuiteToolStripMenuItem.Click -= value; }
         }
 
-        public event EventHandler LoadConfigurationClicked
+        public event EventHandler LoadParametersClicked
         {
-            add { loadConfigurationToolStripMenuItem.Click += value; }
-            remove { loadConfigurationToolStripMenuItem.Click -= value; }
+            add { loadParametersToolStripMenuItem.Click += value; }
+            remove { loadParametersToolStripMenuItem.Click -= value; }
         }
 
-        public event EventHandler SaveConfigurationClicked
+        public event EventHandler SaveParametersClicked
         {
-            add { saveConfigurationToolStripMenuItem.Click += value; }
-            remove { saveConfigurationToolStripMenuItem.Click -= value; }
+            add { saveParametersToolStripMenuItem.Click += value; }
+            remove { saveParametersToolStripMenuItem.Click -= value; }
         }
 
         public event EventHandler PrintReportClicked
@@ -229,7 +229,7 @@ namespace PipBenchmark.Gui.Shell
 
         public event EventHandler FormExited;
 
-        public event EventHandler ConfigurationViewActivated
+        public event EventHandler ParametersViewActivated
         {
             add { contentTabControl.SelectedIndexChanged += value; }
             remove { contentTabControl.SelectedIndexChanged -= value; }

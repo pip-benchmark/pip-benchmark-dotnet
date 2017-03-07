@@ -1,14 +1,11 @@
-﻿using PipBenchmark.Runner.Parameters;
+﻿using PipBenchmark.Runner.Benchmarks;
+using PipBenchmark.Runner.Config;
 using PipBenchmark.Runner.Environment;
 using PipBenchmark.Runner.Execution;
+using PipBenchmark.Runner.Parameters;
 using PipBenchmark.Runner.Reports;
-
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using PipBenchmark.Runner.Benchmarks;
-using PipBenchmark.Runner.Config;
 using PipBenchmark.Runner.Results;
+using System.Collections.Generic;
 
 namespace PipBenchmark.Runner
 {
@@ -17,18 +14,21 @@ namespace PipBenchmark.Runner
         private ConfigurationManager _configuration;
         private BenchmarksManager _benchmarks;
         private ParametersManager _parameters;
+        private ResultsManager _results;
         private ExecutionManager _execution;
         private ReportGenerator _report;
-        private EnvironmentState _environment;
+        private EnvironmentManager _environment;
 
         public BenchmarkRunner()
         {
             _configuration = new ConfigurationManager();
             _parameters = new ParametersManager(_configuration);
+            _results = new ResultsManager();
             _benchmarks = new BenchmarksManager(_parameters);
-            _execution = new ExecutionManager(_configuration, this);
-            _environment = new EnvironmentState(this);
-            _report = new ReportGenerator(this);
+            _execution = new ExecutionManager(_configuration, _results);
+            _environment = new EnvironmentManager();
+            _report = new ReportGenerator(_configuration, _results, _parameters,
+                _benchmarks, _environment);
         }
 
         public ConfigurationManager Configuration
@@ -39,6 +39,11 @@ namespace PipBenchmark.Runner
         public ParametersManager Parameters
         {
             get { return _parameters; }
+        }
+
+        public ResultsManager Results
+        {
+            get { return _results; }
         }
 
         public ExecutionManager Execution
@@ -56,7 +61,7 @@ namespace PipBenchmark.Runner
             get { return _report; }
         }
 
-        public EnvironmentState Environment
+        public EnvironmentManager Environment
         {
             get { return _environment; }
         }
@@ -66,29 +71,6 @@ namespace PipBenchmark.Runner
             get { return Benchmarks.Suites; }
         }
 
-        public List<BenchmarkResult> Results
-        {
-            get { return Execution.Results; }
-        }
-
-        public event EventHandler<ResultEventArgs> ResultUpdated
-        {
-            add { Execution.ResultUpdated += value; }
-            remove { Execution.ResultUpdated -= value; }
-        }
-
-        public event EventHandler<MessageEventArgs> MessageSent
-        {
-            add { Execution.MessageSent += value; }
-            remove { Execution.MessageSent -= value; }
-        }
-
-        public event EventHandler<MessageEventArgs> ErrorReported
-        {
-            add { Execution.ErrorReported += value; }
-            remove { Execution.ErrorReported -= value; }
-        }
-
         public bool IsRunning
         {
             get { return Execution.IsRunning; }
@@ -96,7 +78,7 @@ namespace PipBenchmark.Runner
 
         public void Start()
         {
-            Execution.Start(Benchmarks.Suites);
+            Execution.Start(Benchmarks.Selected);
         }
 
         public void Stop()
@@ -106,44 +88,7 @@ namespace PipBenchmark.Runner
 
         public void Run()
         {
-            Start();
-
-            var duration = _configuration.Duration;
-            var lastTick = System.Environment.TickCount + duration;
-            while (IsRunning)
-            {
-                if (duration > 0 && System.Environment.TickCount >= lastTick)
-                    break;
-
-                Thread.Sleep(500);
-            }
-
-            Stop();
-        }
-
-        public IDictionary<string, string> SystemInformation
-        {
-            get { return Environment.SystemInformation; }
-        }
-
-        public double CpuBenchmark
-        {
-            get { return Environment.CpuBenchmark; }
-        }
-
-        public double VideoBenchmark
-        {
-            get { return Environment.VideoBenchmark; }
-        }
-
-        public double DiskBenchmark
-        {
-            get { return Environment.DiskBenchmark; }
-        }
-
-        public void BenchmarkEnvironment(bool cpu = true, bool disk = true, bool video = true)
-        {
-            Environment.BenchmarkEnvironment(cpu, disk, video);
+            Execution.Run(Benchmarks.Selected);
         }
 
     }

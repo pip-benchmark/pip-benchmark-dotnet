@@ -1,5 +1,4 @@
-﻿using PipBenchmark.Runner;
-using PipBenchmark.Runner.Benchmarks;
+﻿using PipBenchmark.Runner.Benchmarks;
 using PipBenchmark.Runner.Config;
 using PipBenchmark.Runner.Results;
 using System;
@@ -14,15 +13,16 @@ namespace PipBenchmark.Runner.Execution
         private bool _running = false;
         private readonly CancellationTokenSource _controlTaskCancellation = new CancellationTokenSource();
         private Task _controlTask = null;
-        private Task[] _tasks = null;
-        private BenchmarkInstance _runningBenchmark = null;
-        private double _ticksPerTransaction = 0;
-        private List<BenchmarkResult> _results = new List<BenchmarkResult>();
 
         public SequencialExecutionStrategy(ConfigurationManager configuration,
-            ExecutionManager process, List<BenchmarkInstance> benchmarks)
-            : base(configuration, process, benchmarks)
+            ResultsManager results, ExecutionManager execution,
+            List<BenchmarkInstance> benchmarks)
+            : base(configuration, results, execution, benchmarks)
+        { }
+
+        public override bool IsStopped
         {
+            get { return !_running; }
         }
 
         public override void Start()
@@ -30,173 +30,74 @@ namespace PipBenchmark.Runner.Execution
             if (_configuration.Duration <= 0)
                 throw new ArgumentException("Duration was not set");
 
-            if (_configuration.MeasurementType == MeasurementType.Peak)
-                _ticksPerTransaction = 0;
-            else
-                _ticksPerTransaction = 1000.0 / _configuration.NominalRate * _configuration.NumberOfThreads;
-
+            if (_running) return;
             _running = true;
 
             // Start control thread
             var token = _controlTaskCancellation.Token;
-            _controlTask = Task.Run(() => ControlBenchmarking(token), token);
-            //_controlTask.Wait(token);
-            //_controlTask.Name = "Benchmarking Control Thread";
-            //_tasks[index].Priority = ThreadPriority.Highest;
-            //_controlTask.Start();
-        }
-
-        public override bool IsStopped
-        {
-            get { return !_running; }
+            _controlTask = Task.Run(() => Execute(token), token);
         }
 
         public override void Stop()
         {
-            _running = false;
-
-            // Give time for threads to stop on their own
-            Thread.Sleep(3000);
-
-            // Stop control thread
-            if (_controlTask != null)
+            if (_running)
             {
-                _controlTaskCancellation.Cancel();
-                _controlTask = null;
-            }
-
-            // Stop benchmarking threads
-            StopBenchmarkingThreads();
-        }
-
-        public override List<BenchmarkResult> GetResults()
-        {
-            return _results;
-        }
-
-        private void ControlBenchmarking(CancellationToken token)
-        {
-            try
-            {
-                NotifyResultUpdate(ExecutionState.Starting);
-
-                foreach (BenchmarkInstance benchmark in Benchmarks)
+                lock (_syncRoot)
                 {
-                    if (token.IsCancellationRequested)
-                        break;
-
-                    InitializeMeasurements();
-                    CurrentResult.Benchmarks.Add(benchmark);
-
-                    benchmark.Suite.SetUp(new ExecutionContext(this, benchmark.Suite));
-                    try
+                    if (_running)
                     {
-                        if (!benchmark.Passive)
-                        {
-                            StartBenchmarkingThreads(benchmark);
-                        }
+                        _running = false;
 
-                        // Wait for set duration
-                        Thread.Sleep(_configuration.Duration);
-
-                        if (!benchmark.Passive)
+                        // Stop control thread
+                        if (_controlTask != null)
                         {
                             _controlTaskCancellation.Cancel();
-                            StopBenchmarkingThreads();
+                            _controlTask = null;
                         }
+
+                        if (_execution != null)
+                            _execution.Stop();
                     }
-                    finally
-                    {
-                        benchmark.Suite.TearDown();
-                    }
-
-                    _results.Add(CurrentResult);
-                }
-
-                _controlTask = null;
-                Process.Stop();
-            }
-            finally
-            {
-                _controlTaskCancellation.Cancel();
-
-                StopBenchmarkingThreads();
-
-                NotifyResultUpdate(ExecutionState.Completed);
-            }
-        }
-
-        private void StartBenchmarkingThreads(BenchmarkInstance benchmark)
-        {
-            lock (SyncRoot)
-            {
-                _runningBenchmark = benchmark;
-
-                _tasks = new Task[_configuration.NumberOfThreads];
-                for (int index = 0; index < _configuration.NumberOfThreads; index++)
-                {
-                    _tasks[index] = Task.Run(() => PerformBenchmarking(_controlTaskCancellation.Token));
-                    //_tasks[index].Name = string.Format("Benchmarking Thread #{0}/{1}", index, Process.NumberOfThreads);
-                    //_tasks[index].Priority = ThreadPriority.Highest;
-                    //_tasks[index].Start();
-                }
-
-                //Task.WaitAll(_tasks);
-            }
-        }
-
-        private void StopBenchmarkingThreads()
-        {
-            lock (SyncRoot)
-            {
-                _runningBenchmark = null;
-                
-                if (_tasks != null)
-                {
-                    for (int index = 0; index < _tasks.Length; index++)
-                    {
-                        //_tasks[index].Abort();
-                        _tasks[index] = null;
-                    }
-                    _tasks = null;
                 }
             }
         }
 
-        private void PerformBenchmarking(CancellationToken token)
+        private void Execute(CancellationToken token)
         {
-            BenchmarkInstance benchmark = _runningBenchmark;
-            int lastExecutedTicks = System.Environment.TickCount;
-            int endTicks = System.Environment.TickCount + _configuration.Duration;
+            ProportionalExecutionStrategy current = null;
 
             try
             {
-                int currentTicks = System.Environment.TickCount;
-
-                while (_running && benchmark == _runningBenchmark && endTicks > currentTicks)
+                foreach (var benchmark in _benchmarks)
                 {
-                    if (_configuration.MeasurementType == MeasurementType.Nominal)
-                    {
-                        double ticksToNextTransaction = _ticksPerTransaction
-                            - (currentTicks - lastExecutedTicks);
-
-                        // Wait to ensure nominal transaction rate
-                        if (ticksToNextTransaction > 0)
-                            Thread.Sleep((int)ticksToNextTransaction);
-                    }
-
-                    lastExecutedTicks = currentTicks;
-                    ExecuteBenchmark(benchmark);
-                    currentTicks = System.Environment.TickCount;
-                    IncrementCounter(1, lastExecutedTicks);
-
-                    if (token.IsCancellationRequested)
+                    // Skip if benchmarking was interrupted
+                    if (!_running || token.IsCancellationRequested)
                         break;
+
+                    // Start embedded strategy
+                    var benchmarks = new List<BenchmarkInstance>();
+                    benchmarks.Add(benchmark);
+                    current = new ProportionalExecutionStrategy(_configuration, _results, null, benchmarks);
+
+                    current.Start();
+
+                    Task.Delay(_configuration.Duration * 1000, token).Wait();
+
+                    // Stop embedded strategy
+                    current.Stop();
                 }
             }
             catch (OperationCanceledException)
             {
-                // Ignore the exception...
+                // Ignore...
+            }
+            finally
+            {
+                if (current != null) current.Stop();
+
+                _controlTask = null;
+
+                Stop();
             }
         }
     }

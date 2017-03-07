@@ -54,7 +54,7 @@ namespace PipBenchmark.Runner.Benchmarks
                 var benchmarks = new List<BenchmarkInstance>();
                 foreach (var benchmark in _benchmarks)
                 {
-                    if (benchmark.Selected)
+                    if (benchmark.IsSelected)
                         benchmarks.Add(benchmark);
                 }
                 return benchmarks;
@@ -64,7 +64,7 @@ namespace PipBenchmark.Runner.Benchmarks
         public void SelectAll()
         {
             foreach (var benchmark in _benchmarks)
-                benchmark.Selected = true;
+                benchmark.IsSelected = true;
         }
 
         public void SelectByName(string benchmarkName)
@@ -72,14 +72,14 @@ namespace PipBenchmark.Runner.Benchmarks
             foreach (var benchmark in _benchmarks)
             {
                 if (benchmark.Name == benchmarkName)
-                    benchmark.Selected = true;
+                    benchmark.IsSelected = true;
             }
         }
 
         public void UnselectAll()
         {
             foreach (var benchmark in _benchmarks)
-                benchmark.Selected = false;
+                benchmark.IsSelected = false;
         }
 
         public void UnselectByName(string benchmarkName)
@@ -87,7 +87,7 @@ namespace PipBenchmark.Runner.Benchmarks
             foreach (var benchmark in _benchmarks)
             {
                 if (benchmark.Name == benchmarkName)
-                    benchmark.Selected = false;
+                    benchmark.IsSelected = false;
             }
         }
 
@@ -98,7 +98,7 @@ namespace PipBenchmark.Runner.Benchmarks
 
             foreach (BenchmarkInstance benchmark in _benchmarks)
             {
-                if (benchmark.Selected)
+                if (benchmark.IsSelected)
                     benchmark.SetUp(context);
             }
         }
@@ -107,7 +107,7 @@ namespace PipBenchmark.Runner.Benchmarks
         {
             foreach (BenchmarkInstance benchmark in _benchmarks)
             {
-                if (benchmark.Selected)
+                if (benchmark.IsSelected)
                     benchmark.TearDown();
             }
 

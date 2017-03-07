@@ -6,11 +6,14 @@ namespace PipBenchmark.Runner.Execution
     internal class ExecutionContext : IExecutionContext
     {
         private ExecutionStrategy _strategy;
+        private ResultAggregator _aggregator;
         private BenchmarkSuiteInstance _suite;
 
-        public ExecutionContext(ExecutionStrategy strategy, BenchmarkSuiteInstance suite)
+        public ExecutionContext(BenchmarkSuiteInstance suite,
+            ResultAggregator aggregator, ExecutionStrategy strategy)
         {
             _strategy = strategy;
+            _aggregator = aggregator;
             _suite = suite;
         }
 
@@ -21,22 +24,22 @@ namespace PipBenchmark.Runner.Execution
 
         public void IncrementCounter()
         {
-            _strategy.IncrementCounter(1);
+            _aggregator.IncrementCounter(1);
         }
 
         public void IncrementCounter(int increment)
         {
-            _strategy.IncrementCounter(increment);
+            _aggregator.IncrementCounter(increment);
         }
 
         public void SendMessage(string message)
         {
-            _strategy.SendMessage(message);
+            _aggregator.SendMessage(message);
         }
 
         public void ReportError(string errorMessage)
         {
-            _strategy.ReportError(errorMessage);
+            _aggregator.ReportError(errorMessage);
         }
 
         public bool IsStopped
@@ -46,7 +49,7 @@ namespace PipBenchmark.Runner.Execution
 
         public void Stop()
         {
-            _strategy.Process.Stop();
+            _strategy.Stop();
         }
     }
 }

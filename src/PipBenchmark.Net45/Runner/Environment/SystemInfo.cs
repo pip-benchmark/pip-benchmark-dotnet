@@ -8,27 +8,17 @@ namespace PipBenchmark.Runner.Environment
     {
         public SystemInfo()
         {
-            FillSystemInformation();
-        }
-
-        private void FillSystemInformation()
-        {
 #if !CompactFramework
-            AddSystemInfo("Machine Name", System.Environment.MachineName);
+            Add("Machine Name", System.Environment.MachineName);
 #else
-            AddSystemInfo("Machine Name",
+            Add("Machine Name",
                 (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\Ident", "Name", "NAME"));
 #endif
 #if !CompactFramework
-            AddSystemInfo("User Name", System.Environment.UserName);
+            Add("User Name", System.Environment.UserName);
 #endif
-            AddSystemInfo("Operating System", System.Environment.OSVersion.ToString());
-            AddSystemInfo(".NET Framework", System.Environment.Version.ToString());
-        }
-
-        private void AddSystemInfo(string parameter, string value)
-        {
-            Add(parameter, value);
+            Add("Operating System", System.Environment.OSVersion.ToString());
+            Add(".NET Framework", System.Environment.Version.ToString());
         }
     }
 }

@@ -40,13 +40,13 @@
             get { return _benchmark.Description; }
         }
 
-        public bool Selected
+        public bool IsSelected
         {
             get { return _selected; }
             set { _selected = value; }
         }
 
-        public bool Passive
+        public bool IsPassive
         {
             get { return _benchmark is PassiveBenchmark; }
         }

@@ -16,7 +16,7 @@ namespace PipBenchmark.Runner.Execution
 
         public BenchmarkMeter()
         {
-            Reset();
+            Clear();
         }
 
         public Measurement Measurement
@@ -54,7 +54,7 @@ namespace PipBenchmark.Runner.Execution
             protected set { _averageValue = value; }
         }
 
-        public virtual void Reset()
+        public virtual void Clear()
         {
             _lastMeasuredTime = DateTime.Now;
             _currentValue = PerformMeasurement();

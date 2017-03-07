@@ -1,5 +1,4 @@
-﻿using PipBenchmark.Runner;
-using PipBenchmark.Runner.Benchmarks;
+﻿using PipBenchmark.Runner.Benchmarks;
 using PipBenchmark.Runner.Config;
 using PipBenchmark.Runner.Results;
 using System;
@@ -11,123 +10,170 @@ namespace PipBenchmark.Runner.Execution
 {
     public class ProportionalExecutionStrategy : ExecutionStrategy
     {
+        private static System.Random _random = new System.Random();
+
         private bool _running = false;
         private readonly CancellationTokenSource _controlTaskCancellation = new CancellationTokenSource();
         private Task[] _tasks = null;
+        private Task _controlTask = null;
         private double _ticksPerTransaction = 0;
+        private ResultAggregator _aggregator;
 
-        public ProportionalExecutionStrategy(ConfigurationManager configuration, 
-            ExecutionManager parentProcess, List<BenchmarkInstance> benchmarks)
-            : base(configuration, parentProcess, benchmarks)
+        public ProportionalExecutionStrategy(ConfigurationManager configuration,
+            ResultsManager results, ExecutionManager execution,
+            List<BenchmarkInstance> benchmarks)
+            : base(configuration, results, execution, benchmarks)
         {
-            CalculateExecutionTriggers();
+            _aggregator = new ResultAggregator(results, benchmarks);
         }
 
-        private void CalculateExecutionTriggers()
+        public override bool IsStopped
         {
-            double proportionSum = 0;
-            double startExecutionTrigger = 0;
-
-            foreach (BenchmarkInstance benchmark in Benchmarks)
-            {
-                if (!benchmark.Passive)
-                {
-                    double normalizedProportion = ((double)benchmark.Proportion) / proportionSum;
-                    benchmark.StartRange = startExecutionTrigger;
-                    benchmark.EndRange = startExecutionTrigger + normalizedProportion;
-                    startExecutionTrigger += normalizedProportion;
-                }
-                else
-                {
-                    benchmark.StartRange = 0;
-                    benchmark.EndRange = 0;
-                }
-            }
+            get { return !_running; }
         }
 
         public override void Start()
         {
-            InitializeMeasurements();
+            if (_running) return;
 
-            foreach (BenchmarkInstance benchmark in Benchmarks)
-                CurrentResult.Benchmarks.Add(benchmark);
+            _running = true;
+            _aggregator.Start();
 
+            CalculateProportionalRanges();
+ 
             if (_configuration.MeasurementType == MeasurementType.Peak)
                 _ticksPerTransaction = 0;
             else
                 _ticksPerTransaction = 1000.0 / _configuration.NominalRate * _configuration.NumberOfThreads;
 
-            // Initialize test suites
-            foreach (BenchmarkSuiteInstance suite in Suites)
-                suite.SetUp(new ExecutionContext(this, suite));
-
-            _running = true;
+            // Initialize and start
+            foreach (BenchmarkSuiteInstance suite in _suites)
+                suite.SetUp(new ExecutionContext(suite, _aggregator, this));
 
             // Start benchmarking threads
-            _tasks = new Task[_configuration.NumberOfThreads];
             var token = _controlTaskCancellation.Token;
+            _tasks = new Task[_configuration.NumberOfThreads];
             for (int index = 0; index < _configuration.NumberOfThreads; index++)
             {
-                _tasks[index] = Task.Run(() => PerformBenchmarking(token), token);
-                //_tasks[index].Name = string.Format("Benchmarking Thread #{0}/{1}", index, Process.NumberOfThreads);
-                //_tasks[index].Priority = ThreadPriority.Highest;
-                //_tasks[index].Start();
-                //Task.WaitAll(_tasks);
+                _tasks[index] = Task.Run(() => Execute(token), token);
             }
-        }
 
-        public override bool IsStopped
-        {
-            get { return _running; }
+            _controlTask = Task.Run(() => Control(token), token);
         }
 
         public override void Stop()
         {
-            _running = false;
-
-            // Give time for threads to stop on their own
-            Thread.Sleep(3000);
-
-            _controlTaskCancellation.Cancel();
-
-            // Stop benchmarking threads
-            if (_tasks != null)
+            if (_running)
             {
-                for (int index = 0; index < _tasks.Length; index++)
+                lock (_syncRoot)
                 {
-                    //_tasks[index].Abort();
-                    _tasks[index] = null;
+                    if (_running)
+                    {
+                        _running = false;
+                        _aggregator.Stop();
+
+                        // Give time for threads to stop on their own
+                        Thread.Sleep(100);
+
+                        if (_execution != null)
+                            _execution.Stop();
+
+                        _controlTaskCancellation.Cancel();
+
+                        // Stop benchmarking threads
+                        if (_tasks != null)
+                        {
+                            for (int index = 0; index < _tasks.Length; index++)
+                            {
+                                _tasks[index] = null;
+                            }
+                            _tasks = null;
+                        }
+
+                        foreach (BenchmarkSuiteInstance suite in _suites)
+                            suite.TearDown();
+                    }
                 }
-                _tasks = null;
+            }
+        }
+
+        private void CalculateProportionalRanges()
+        {
+            double proportionSum = 0;
+            foreach (BenchmarkInstance benchmark in _activeBenchmarks)
+            {
+                proportionSum += benchmark.Proportion;
             }
 
-            // Deinitialize test suites
-            foreach (BenchmarkSuiteInstance suite in Suites)
-                suite.TearDown();
+            double startRange = 0;
+            foreach (BenchmarkInstance benchmark in _activeBenchmarks)
+            {
+                double normalizedProportion = ((double)benchmark.Proportion) / proportionSum;
+                benchmark.StartRange = startRange;
+                benchmark.EndRange = startRange + normalizedProportion;
+                startRange += normalizedProportion;
+            }
         }
 
-        public override List<BenchmarkResult> GetResults()
+        private BenchmarkInstance ChooseBenchmarkPropostionally()
         {
-            List<BenchmarkResult> results = new List<BenchmarkResult>();
-
-            if (CurrentResult != null)
-                results.Add(CurrentResult);
-
-            return results;
+            double selector = _random.NextDouble();
+            for (int index = 0; index < _activeBenchmarks.Count; index++)
+            {
+                var benchmark = _activeBenchmarks[index];
+                if (benchmark.WithinRange(selector))
+                    return benchmark;
+            }
+            return null;
         }
 
-        private void PerformBenchmarking(CancellationToken token)
+        private void Control(CancellationToken token)
         {
-            System.Random randomGenerator = new System.Random();
+            try
+            {
+                Task.Delay(_configuration.Duration * 1000, token).Wait();
+            }
+            catch (OperationCanceledException)
+            {
+                // Ignore...
+            }
+            finally
+            {
+                _controlTask = null;
+
+                Stop();
+            }
+        }
+
+        private void ExecuteBenchmark(BenchmarkInstance benchmark)
+        {
+            try
+            {
+                benchmark.Execute();
+            }
+            catch (ThreadAbortException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                _results.NotifyError(ex);
+
+                if (!_configuration.ForceContinue)
+                    throw ex;
+            }
+        }
+
+        private void Execute(CancellationToken token)
+        {
             int lastExecutedTicks = System.Environment.TickCount;
-            int numberOfTests = Benchmarks.Count;
-            BenchmarkInstance firstBenchmark = Benchmarks.Count == 1 ? Benchmarks[0] : null;
-
-            NotifyResultUpdate(ExecutionState.Starting);
+            int benchmarkCount = _activeBenchmarks.Count;
+            BenchmarkInstance onlyBenchmark = _activeBenchmarks.Count == 1 
+                ? _activeBenchmarks[0] : null;
 
             try
             {
-                while (_running)
+                while (_running && !token.IsCancellationRequested)
                 {
                     if (_configuration.MeasurementType == MeasurementType.Nominal)
                     {
@@ -139,43 +185,24 @@ namespace PipBenchmark.Runner.Execution
                             Thread.Sleep((int)ticksToNextTransaction);
                     }
 
-                    if (numberOfTests == 1)
+                    var benchmark = onlyBenchmark != null
+                        ? onlyBenchmark : ChooseBenchmarkPropostionally();
+
+                    if (benchmark != null)
                     {
-                        ExecuteBenchmark(firstBenchmark);
+                        ExecuteBenchmark(onlyBenchmark);
                         lastExecutedTicks = System.Environment.TickCount;
-                        IncrementCounter(1, lastExecutedTicks);
-                    }
-                    else if (numberOfTests == 0)
-                    {
-                        Thread.Sleep(500);
+                        _aggregator.IncrementCounter(1, lastExecutedTicks);
                     }
                     else
                     {
-                        double selector = randomGenerator.NextDouble();
-                        for (int index = 0; index < Benchmarks.Count; index++)
-                        {
-                            var benchmark = Benchmarks[index];
-                            if (benchmark.WithinRange(selector))
-                            {
-                                lastExecutedTicks = System.Environment.TickCount;
-                                ExecuteBenchmark(benchmark);
-                                IncrementCounter(1, lastExecutedTicks);
-                                break;
-                            }
-                        }
+                        Thread.Sleep(500);
                     }
-
-                    if (token.IsCancellationRequested)
-                        break;
                 }
             }
             catch (OperationCanceledException)
             {
                 // Ignore the exception...
-            }
-            finally
-            {
-                NotifyResultUpdate(ExecutionState.Completed);
             }
         }
     }

@@ -7,22 +7,22 @@ namespace PipBenchmark.Gui.Execution
 {
     public class ExecutionResult
     {
-        private string _testName;
+        private string _benchmarkName;
         private double _performance;
         private double _cpuLoad;
         private double _memoryUsage;
 
         public ExecutionResult(BenchmarkResult result)
         {
-            _testName = result.Benchmarks.Count != 1 ? "All" : result.Benchmarks[0].FullName;
+            _benchmarkName = result.Benchmarks.Count != 1 ? "All" : result.Benchmarks[0].FullName;
             _performance = result.PerformanceMeasurement.AverageValue;
             _cpuLoad = result.CpuLoadMeasurement.AverageValue;
             _memoryUsage = result.MemoryUsageMeasurement.AverageValue;
         }
 
-        public string TestName
+        public string Benchmark
         {
-            get { return _testName; }
+            get { return _benchmarkName; }
         }
 
         public double Performance

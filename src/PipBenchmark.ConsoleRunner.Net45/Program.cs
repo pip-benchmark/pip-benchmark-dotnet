@@ -47,11 +47,11 @@ namespace PipBenchmark.Console
                 if (args.BenchmarkEnvironment)
                 {
                     System.Console.Out.WriteLine("Benchmarking Environment (wait up to 2 mins)...");
-                    runner.BenchmarkEnvironment();
+                    runner.Environment.Measure(true, true, true);
                     System.Console.Out.WriteLine("CPU: {0}, Video: {1}, Disk: {2}",
-                        runner.CpuBenchmark.ToString("0.##"), 
-                        runner.VideoBenchmark.ToString("0.##"),
-                        runner.DiskBenchmark.ToString("0.##")
+                        runner.Environment.CpuMeasurement.ToString("0.##"), 
+                        runner.Environment.VideoMeasurement.ToString("0.##"),
+                        runner.Environment.DiskMeasurement.ToString("0.##")
                     );
                 }
 
@@ -79,8 +79,8 @@ namespace PipBenchmark.Console
                     runner.Stop();
                 }
 
-                if (runner.Results.Count > 0)
-                    System.Console.Out.Write("{0}", runner.Results[0].PerformanceMeasurement.AverageValue);
+                if (runner.Results.All.Count > 0)
+                    System.Console.Out.Write("{0}", runner.Results.All[0].PerformanceMeasurement.AverageValue);
 
                 // Generate report
                 if (args.ReportFile != null)
@@ -103,7 +103,7 @@ namespace PipBenchmark.Console
         {
             System.Console.Out.WriteLine("Pip.Benchmark Console Runner. (c) Conceptual Vision Consulting LLC 2017");
             System.Console.Out.WriteLine();
-            System.Console.Out.WriteLine("Loaded Benchmarks:");
+            System.Console.Out.WriteLine("Benchmarks:");
 
             foreach (var suite in runner.Suites)
             {
@@ -118,7 +118,7 @@ namespace PipBenchmark.Console
         {
             System.Console.Out.WriteLine("Pip.Benchmark Console Runner. (c) Conceptual Vision Consulting LLC 2017");
             System.Console.Out.WriteLine();
-            System.Console.Out.WriteLine("Configuration Parameters:");
+            System.Console.Out.WriteLine("Parameters:");
 
             runner.Benchmarks.SelectAll();
             foreach (var parameter in runner.Parameters.UserDefined)

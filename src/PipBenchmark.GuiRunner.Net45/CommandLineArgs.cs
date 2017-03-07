@@ -13,7 +13,7 @@ namespace PipBenchmark.Gui
         private Dictionary<string, string> _parameters = new Dictionary<string, string>();
         private string _configurationFile;
         private string _reportFile = string.Format("BenchmarkReport.txt");
-        private TimeSpan _duration = TimeSpan.FromMinutes(0.5);
+        private int _duration = 60;
         private bool _showHelp = false;
         private bool _showBenchmarks = false;
         private bool _showParameters = false;
@@ -67,7 +67,7 @@ namespace PipBenchmark.Gui
                 }
                 else if ((arg == "-d" || arg == "--duration") && moreArgs)
                 {
-                    _duration = TimeSpan.FromSeconds(Converter.StringToDouble(args[++index], 30));
+                    _duration = Converter.StringToInteger(args[++index], 60);
                 }
                 else if ((arg == "-m" || arg == "--measure") && moreArgs)
                 {
@@ -128,7 +128,7 @@ namespace PipBenchmark.Gui
             get { return _reportFile; }
         }
 
-        public TimeSpan Duration
+        public int Duration
         {
             get { return _duration; }
         }

@@ -31,7 +31,7 @@ namespace PipBenchmark.Runner.Benchmarks
                 {
                     foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                     {
-                        if (benchmark.Selected)
+                        if (benchmark.IsSelected)
                             benchmarks.Add(benchmark);
                     }
                 }
@@ -45,7 +45,7 @@ namespace PipBenchmark.Runner.Benchmarks
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
-                    benchmark.Selected = true;
+                    benchmark.IsSelected = true;
             }
         }
 
@@ -56,7 +56,7 @@ namespace PipBenchmark.Runner.Benchmarks
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                 {
                     if (benchmarkNames.Contains(benchmark.FullName))
-                        benchmark.Selected = true;
+                        benchmark.IsSelected = true;
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace PipBenchmark.Runner.Benchmarks
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                 {
                     if (benchmarks.Contains(benchmark.Benchmark))
-                        benchmark.Selected = true;
+                        benchmark.IsSelected = true;
                 }
             }
         }
@@ -78,7 +78,7 @@ namespace PipBenchmark.Runner.Benchmarks
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
-                    benchmark.Selected = false;
+                    benchmark.IsSelected = false;
             }
         }
 
@@ -89,7 +89,7 @@ namespace PipBenchmark.Runner.Benchmarks
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                 {
                     if (benchmarkNames.Contains(benchmark.FullName))
-                        benchmark.Selected = false;
+                        benchmark.IsSelected = false;
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace PipBenchmark.Runner.Benchmarks
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                 {
                     if (benchmarks.Contains(benchmark.Benchmark))
-                        benchmark.Selected = false;
+                        benchmark.IsSelected = false;
                 }
             }
         }

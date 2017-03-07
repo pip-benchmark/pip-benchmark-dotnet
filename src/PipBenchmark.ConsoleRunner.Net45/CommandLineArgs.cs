@@ -14,7 +14,7 @@ namespace PipBenchmark.Console
         private Dictionary<string, string> _parameters = new Dictionary<string, string>();
         private string _configurationFile;
         private string _reportFile = string.Format("BenchmarkReport.txt");
-        private int _duration = Timeout.Infinite;
+        private int _duration = 60;
         private bool _showHelp = false;
         private bool _showBenchmarks = false;
         private bool _showParameters = false;
@@ -64,7 +64,7 @@ namespace PipBenchmark.Console
                 }
                 else if ((arg == "-d" || arg == "--duration") && moreArgs)
                 {
-                    _duration = (int)(Converter.StringToDouble(args[++index], 30) * 1000);
+                    _duration = Converter.StringToInteger(args[++index], 60);
                 }
                 else if ((arg == "-m" || arg == "--measure") && moreArgs)
                 {

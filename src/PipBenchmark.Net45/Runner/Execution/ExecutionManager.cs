@@ -10,130 +10,97 @@ namespace PipBenchmark.Runner.Execution
 {
     public class ExecutionManager
     {
-        protected static readonly object SyncRoot = new object();
         protected ConfigurationManager _configuration;
-        private ExecutionStrategy _strategy = null;
-        private List<BenchmarkSuiteInstance> _suites;
- 
-        private readonly List<BenchmarkResult> _results = new List<BenchmarkResult>();
+        protected ResultsManager _results;
 
-        public ExecutionManager(ConfigurationManager configuration, BenchmarkRunner runner)
+        private static readonly object SyncRoot = new object();
+        private bool _running;
+        private ExecutionStrategy _strategy = null;
+ 
+        public ExecutionManager(ConfigurationManager configuration, ResultsManager results)
         {
             _configuration = configuration;
-            Runner = runner;
+            _results = results;
         }
-
-        public BenchmarkRunner Runner { get; }
 
         public bool IsRunning
         {
-            get { return _strategy != null; }
+            get { return _running; }
         }
 
-        public List<BenchmarkResult> Results
+        public void Start(List<BenchmarkInstance> benchmarks)
         {
-            get { return _results; }
-        }
-
-        public event EventHandler<ResultEventArgs> ResultUpdated;
-        public event EventHandler<MessageEventArgs> MessageSent;
-        public event EventHandler<MessageEventArgs> ErrorReported;
-
-        public void Start(BenchmarkSuiteInstance suite)
-        {
-            Start(new BenchmarkSuiteInstance[] { suite });
-        }
-
-        public void Start(IEnumerable<BenchmarkSuiteInstance> suites)
-        {
-            if (_strategy != null)
-                Stop();
-
-            // Identify active tests
-            _suites = new List<BenchmarkSuiteInstance>(suites);
-            List<BenchmarkInstance> selectedBenchmarks = new List<BenchmarkInstance>();
-            foreach (BenchmarkSuiteInstance suite in _suites)
-            {
-                foreach (BenchmarkInstance benchmark in suite.Benchmarks)
-                {
-                    if (benchmark.Selected)
-                        selectedBenchmarks.Add(benchmark);
-                }
-            }
-
-            // Check if there is at least one test defined
-            if (selectedBenchmarks.Count == 0)
+            if (benchmarks.Count == 0)
                 throw new ArgumentException("There are no benchmarks to execute");
+
+            if (_running) Stop();
+            _running = true;
+
+            _results.Clear();
+            NotifyUpdated(ExecutionState.Running);
 
             // Create requested test strategy
             if (_configuration.ExecutionType == ExecutionType.Sequential)
-                _strategy = new SequencialExecutionStrategy(_configuration, this, selectedBenchmarks);
+                _strategy = new SequencialExecutionStrategy(_configuration, _results, this, benchmarks);
             else
-                _strategy = new ProportionalExecutionStrategy(_configuration, this, selectedBenchmarks);
+                _strategy = new ProportionalExecutionStrategy(_configuration, _results, this, benchmarks);
 
-            // Initialize parameters and start 
-            _results.Clear();
-
-            try
-            {
-                _strategy.Start();
-            }
-            catch
-            {
-                Stop();
-                throw;
-            }
+            _strategy.Start();
         }
 
         public void Stop()
         {
-            if (_strategy == null)
-                return;
-
-            lock (SyncRoot)
+            if (_running)
             {
-                if (_strategy == null)
-                    return;
+                lock (SyncRoot)
+                {
+                    if (_running)
+                    {
+                        _running = false;
 
-                // Stop strategy
-                _strategy?.Stop();
+                        // Null strategy to avoid double entry
+                        if (_strategy != null)
+                        {
+                            _strategy.Stop();
+                            _strategy = null;
+                        }
 
-                // Fill results
-                _results.Clear();
-
-                if (_strategy == null)
-                    return;
-
-                _results.AddRange(_strategy.GetResults());
-                _strategy = null;
+                        NotifyUpdated(ExecutionState.Completed);
+                    }
+                }
             }
         }
 
-        internal void NotifyResultsUpdated(ExecutionState state, BenchmarkResult result)
+        public void Run(List<BenchmarkInstance> benchmarks)
         {
-            if (ResultUpdated != null)
+            Start(benchmarks);
+            try
             {
-                ResultUpdated(this, new ResultEventArgs(state, result));
+                while (IsRunning)
+                {
+                    Thread.Sleep(500);
+                }
+            }
+            catch (ThreadInterruptedException)
+            {
+                // Ignore...
+            }
+            finally
+            {
+                Stop();
+            }
+        }
+
+        public event EventHandler<ExecutionEventArgs> Updated;
+
+        public void NotifyUpdated(ExecutionState state)
+        {
+            if (Updated != null)
+            {
+                Updated(this, new ExecutionEventArgs(state));
                 Thread.Sleep(0);
             }
         }
 
-        internal void NotifyMessageSent(string message)
-        {
-            if (MessageSent != null)
-            {
-                MessageSent(this, new MessageEventArgs(message));
-                Thread.Sleep(0);
-            }
-        }
-
-        internal void NotifyErrorReported(string errorMessage)
-        {
-            if (ErrorReported != null)
-            {
-                ErrorReported(this, new MessageEventArgs(errorMessage));
-                Thread.Sleep(0);
-            }
-        }
     }
 }

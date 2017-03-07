@@ -1,18 +1,14 @@
-﻿using System;
+﻿using PipBenchmark.Runner.Benchmarks;
+using PipBenchmark.Runner.Config;
+using PipBenchmark.Runner.Execution;
+using PipBenchmark.Runner.Results;
+using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Reflection;
-using System.IO;
-
-using PipBenchmark.Runner.Execution;
-using PipBenchmark.Runner.Parameters;
-using PipBenchmark.Runner;
-using PipBenchmark.Runner.Benchmarks;
-using PipBenchmark.Runner.Config;
 
 namespace PipBenchmark.Runner.Environment
 {
-    public class EnvironmentState : ExecutionManager
+    public class EnvironmentManager : ExecutionManager
     {
         private const int Duration = 5000;
 
@@ -20,49 +16,57 @@ namespace PipBenchmark.Runner.Environment
         private double _videoBenchmark;
         private double _diskBenchmark;
 
-        public EnvironmentState(BenchmarkRunner runner)
-            : base(new ConfigurationManager(), runner)
+        public EnvironmentManager()
+            : base(new ConfigurationManager(), new ResultsManager())
         {
             _configuration.Duration = Duration;
-            LoadSystemBenchmarks();
+
+            try
+            {
+                Load();
+            }
+            catch (Exception ex)
+            {
+                // Ignore. It shall never happen here...
+            }
         }
 
-        public IDictionary<string, string> SystemInformation
+        public IDictionary<string, string> SystemInfo
         {
             get { return new SystemInfo(); }
         }
 
-        public double CpuBenchmark
+        public double CpuMeasurement
         {
             get { return _cpuBenchmark; }
         }
 
-        public double VideoBenchmark
+        public double VideoMeasurement
         {
             get { return _videoBenchmark; }
         }
 
-        public double DiskBenchmark
+        public double DiskMeasurement
         {
             get { return _diskBenchmark; }
         }
 
-        public void BenchmarkEnvironment(bool cpu, bool disk, bool video)
+        public void Measure(bool cpu, bool disk, bool video)
         {
             try
             {
                 if (cpu)
-                    _cpuBenchmark = ComputeCpuBenchmark();
+                    _cpuBenchmark = MeasureCpu();
 
                 if (video)
-                    _videoBenchmark = ComputeVideoBenchmark();
+                    _videoBenchmark = MeasureVideo();
 
                 if (disk)
-                    _diskBenchmark = ComputeDiskBenchmark();
+                    _diskBenchmark = MeasureDisk();
 
                 try
                 {
-                    SaveSystemBenchmarks();
+                    Stop();
                 }
                 catch
                 {
@@ -71,11 +75,11 @@ namespace PipBenchmark.Runner.Environment
             }
             catch
             {
-                Stop();
+                base.Stop();
             }
         }
 
-        private void LoadSystemBenchmarks()
+        private void Load()
         {
             EnvironmentProperties properties = new EnvironmentProperties();
             properties.Load();
@@ -85,7 +89,7 @@ namespace PipBenchmark.Runner.Environment
             _diskBenchmark = properties.GetAsDouble("DiskMeasurement", 0);
         }
 
-        private void SaveSystemBenchmarks()
+        private void Stop()
         {
             EnvironmentProperties properties = new EnvironmentProperties();
 
@@ -96,46 +100,49 @@ namespace PipBenchmark.Runner.Environment
             properties.Save();
         }
 
-        private double ComputeCpuBenchmark()
+        private double MeasureCpu()
         {
             var suite = new StandardBenchmarkSuite();
             var instance = new BenchmarkSuiteInstance(suite);
+
             instance.UnselectAll();
             instance.SelectByName(suite.CpuBenchmark.Name);
 
-            base.Start(instance);
+            Start(instance.Selected);
             Thread.Sleep(Duration);
             base.Stop();
 
-            return base.Results[0].PerformanceMeasurement.AverageValue;
+            return _results.All[0].PerformanceMeasurement.AverageValue;
         }
 
-        private double ComputeVideoBenchmark()
+        private double MeasureVideo()
         {
             var suite = new StandardBenchmarkSuite();
             var instance = new BenchmarkSuiteInstance(suite);
+
             instance.UnselectAll();
             instance.SelectByName(suite.VideoBenchmark.Name);
 
-            base.Start(instance);
+            Start(instance.Selected);
             Thread.Sleep(Duration);
             base.Stop();
 
-            return base.Results[0].PerformanceMeasurement.AverageValue;
+            return _results.All[0].PerformanceMeasurement.AverageValue;
         }
 
-        private double ComputeDiskBenchmark()
+        private double MeasureDisk()
         {
             var suite = new StandardBenchmarkSuite();
             var instance = new BenchmarkSuiteInstance(suite);
+
             instance.UnselectAll();
             instance.SelectByName(suite.DiskBenchmark.Name);
 
-            base.Start(instance);
+            Start(instance.Selected);
             Thread.Sleep(Duration);
-            base.Stop();
+            Stop();
 
-            return base.Results[0].PerformanceMeasurement.AverageValue;
+            return _results.All[0].PerformanceMeasurement.AverageValue;
         }
 
     }

@@ -53,6 +53,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runner\Benchmarks\BenchmarkInstance.cs" />
     <Compile Include="Runner\Config\ConfigurationManager.cs" />
+    <Compile Include="Runner\Execution\ExecutionEventArgs.cs" />
+    <Compile Include="Runner\Execution\ResultAggregator.cs" />
     <Compile Include="Runner\Results\BenchmarkResult.cs" />
     <Compile Include="Runner\BenchmarkRunner.cs" />
     <Compile Include="Runner\Benchmarks\BenchmarkSuiteInstance.cs" />
@@ -76,7 +78,7 @@
     <Compile Include="Runner\Environment\DefaultCpuBenchmark.cs" />
     <Compile Include="Runner\Environment\DefaultDiskBenchmark.cs" />
     <Compile Include="Runner\Environment\DefaultVideoBenchmark.cs" />
-    <Compile Include="Runner\Environment\EnvironmentState.cs" />
+    <Compile Include="Runner\Environment\EnvironmentManager.cs" />
     <Compile Include="Runner\Environment\StandardBenchmarkSuite.cs" />
     <Compile Include="Runner\Environment\SystemInfo.cs" />
     <Compile Include="Runner\Execution\ExecutionState.cs" />

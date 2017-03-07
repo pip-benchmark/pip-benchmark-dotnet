@@ -2,7 +2,7 @@
 {
     public enum ExecutionState
     {
-        Starting,
+        Initial,
         Running,
         Completed
     }

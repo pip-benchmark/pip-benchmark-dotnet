@@ -39,13 +39,13 @@ namespace PipBenchmark.Gui
                 {
                     // Benchmark the environment
                     if (args.BenchmarkEnvironment)
-                        runner.BenchmarkEnvironment();
+                        runner.Environment.Measure(true, true, true);
 
                     // Configure benchmarking
                     runner.Configuration.MeasurementType = args.MeasurementType;
                     runner.Configuration.NominalRate = args.NominalRate;
                     runner.Configuration.ExecutionType = args.ExecutionType;
-                    runner.Configuration.Duration = (int)args.Duration.TotalMilliseconds;
+                    runner.Configuration.Duration = args.Duration;
 
                     // Perform benchmarking
                     runner.Start();
@@ -56,8 +56,8 @@ namespace PipBenchmark.Gui
                         runner.Stop();
                     }
 
-                    if (runner.Results.Count > 0)
-                        System.Console.Out.Write("{0}", runner.Results[0].PerformanceMeasurement.AverageValue);
+                    if (runner.Results.All.Count > 0)
+                        System.Console.Out.Write("{0}", runner.Results.All[0].PerformanceMeasurement.AverageValue);
 
                     // Generate report
                     if (args.ReportFile != null)

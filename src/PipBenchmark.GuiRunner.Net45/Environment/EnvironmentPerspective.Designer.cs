@@ -175,7 +175,7 @@
             this.updateSystemBenchmarkButton.Name = "updateSystemBenchmarkButton";
             this.updateSystemBenchmarkButton.Size = new System.Drawing.Size(252, 44);
             this.updateSystemBenchmarkButton.TabIndex = 3;
-            this.updateSystemBenchmarkButton.Text = "Update Benchmark";
+            this.updateSystemBenchmarkButton.Text = "Measure Environment";
             this.updateSystemBenchmarkButton.UseVisualStyleBackColor = true;
             // 
             // EnvironmentPerspective

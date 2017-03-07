@@ -12,15 +12,15 @@ using PipBenchmark.Runner.Benchmarks;
 using OpenFileDialog = PipBenchmark.Gui.OpenFileDialog.OpenFileDialog;
 #endif
 
-namespace PipBenchmark.Gui.Initialization
+namespace PipBenchmark.Gui.Benchmarks
 {
-    public class InitializationController : AbstractChildController
+    public class BenchmarksController : AbstractChildController
     {
-        private IInitializationView _view;
+        private IBenchmarksView _view;
         private BenchmarkRunner _model;
         private OpenFileDialog _loadSuiteDialog;
 
-        public InitializationController(MainController mainController, IInitializationView view)
+        public BenchmarksController(MainController mainController, IBenchmarksView view)
             : base(mainController)
         {
             _view = view;
@@ -139,7 +139,7 @@ namespace PipBenchmark.Gui.Initialization
         {
             foreach (BenchmarkInstance benchmark in _view.SelectedBenchmarks)
             {
-                benchmark.Selected = true;
+                benchmark.IsSelected = true;
             }
             _view.RefreshData();
         }
@@ -148,7 +148,7 @@ namespace PipBenchmark.Gui.Initialization
         {
             foreach (BenchmarkInstance benchmark in _view.AllBenchmarks)
             {
-                benchmark.Selected = true;
+                benchmark.IsSelected = true;
             }
             _view.RefreshData();
         }
@@ -157,7 +157,7 @@ namespace PipBenchmark.Gui.Initialization
         {
             foreach (BenchmarkInstance benchmark in _view.SelectedBenchmarks)
             {
-                benchmark.Selected = false;
+                benchmark.IsSelected = false;
             }
             _view.RefreshData();
         }
@@ -166,7 +166,7 @@ namespace PipBenchmark.Gui.Initialization
         {
             foreach (BenchmarkInstance benchmark in _view.AllBenchmarks)
             {
-                benchmark.Selected = false;
+                benchmark.IsSelected = false;
             }
             _view.RefreshData();
         }

@@ -6,15 +6,15 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-using PipBenchmark.Gui.Initialization;
+using PipBenchmark.Gui.Benchmarks;
 using PipBenchmark.Runner;
 using PipBenchmark.Runner.Benchmarks;
 
-namespace PipBenchmark.Gui.Initialization
+namespace PipBenchmark.Gui.Benchmarks
 {
-    public partial class InitializationPerspective : UserControl, IInitializationView
+    public partial class BenchmarksPerspective : UserControl, IBenchmarksView
     {
-        public InitializationPerspective()
+        public BenchmarksPerspective()
         {
             InitializeComponent();
         }

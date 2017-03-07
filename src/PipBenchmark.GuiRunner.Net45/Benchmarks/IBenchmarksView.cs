@@ -3,9 +3,9 @@ using PipBenchmark.Runner.Benchmarks;
 using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Gui.Initialization
+namespace PipBenchmark.Gui.Benchmarks
 {
-    public interface IInitializationView
+    public interface IBenchmarksView
     {
         List<BenchmarkSuiteInstance> AllSuites { get; set; }
         List<BenchmarkSuiteInstance> SelectedSuites { get; }

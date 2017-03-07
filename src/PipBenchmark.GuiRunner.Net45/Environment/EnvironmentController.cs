@@ -26,15 +26,15 @@ namespace PipBenchmark.Gui.Environment
         private void UpdateView()
         {
             _view.SystemInformation = GetSystemInformation();
-            _view.CpuPerformance = _model.CpuBenchmark.ToString("0.##");
-            _view.VideoPerformance = _model.VideoBenchmark.ToString("0.##");
-            _view.DiskPerformance = _model.DiskBenchmark.ToString("0.##");
+            _view.CpuPerformance = _model.Environment.CpuMeasurement.ToString("0.##");
+            _view.VideoPerformance = _model.Environment.VideoMeasurement.ToString("0.##");
+            _view.DiskPerformance = _model.Environment.DiskMeasurement.ToString("0.##");
         }
 
         private List<EnvironmentParameter> GetSystemInformation()
         {
             List<EnvironmentParameter> result = new List<EnvironmentParameter>();
-            foreach (KeyValuePair<string, string> pair in _model.SystemInformation)
+            foreach (KeyValuePair<string, string> pair in _model.Environment.SystemInfo)
             {
                 result.Add(new EnvironmentParameter(pair.Key, pair.Value));
             }
@@ -55,7 +55,7 @@ namespace PipBenchmark.Gui.Environment
 
         private void UpdateSystemBenchmarkCallback(IAsyncWaitContext context)
         {
-            _model.BenchmarkEnvironment();
+            _model.Environment.Measure(true, true, true);
 
             MainController.View.Handler.Invoke(new ThreadStart(UpdateView));
         }
