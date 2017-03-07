@@ -32,14 +32,14 @@ namespace PipBenchmark.Runner.Benchmarks
             get { return _suite.Description; }
         }
 
-        public Assembly Assembly
-        {
-            get { return _suite.GetType().Assembly; }
-        }
+        //public Assembly Assembly
+        //{
+        //    get { return _suite.GetType().Assembly; }
+        //}
 
-        public Dictionary<string, Parameter> Parameters
+        public List<Parameter> Parameters
         {
-            get { return _suite.Parameters; }
+            get { return new List<Parameter>(_suite.Parameters.Values); }
         }
 
         public List<BenchmarkInstance> Benchmarks
@@ -47,33 +47,47 @@ namespace PipBenchmark.Runner.Benchmarks
             get { return _benchmarks; }
         }
 
-        public void SelectAllBenchmarks()
+        public List<BenchmarkInstance> Selected
         {
-            foreach (var benchmark in _benchmarks)
-                benchmark.IsSelected = true;
-        }
-
-        public void SelectBenchmark(string benchmarkName)
-        {
-            foreach (var benchmark in _benchmarks)
+            get
             {
-                if (benchmark.Name == benchmarkName)
-                    benchmark.IsSelected = true;
+                var benchmarks = new List<BenchmarkInstance>();
+                foreach (var benchmark in _benchmarks)
+                {
+                    if (benchmark.Selected)
+                        benchmarks.Add(benchmark);
+                }
+                return benchmarks;
             }
         }
 
-        public void UnselectAllBenchmarks()
+        public void SelectAll()
         {
             foreach (var benchmark in _benchmarks)
-                benchmark.IsSelected = false;
+                benchmark.Selected = true;
         }
 
-        public void UnselectBenchmark(string benchmarkName)
+        public void SelectByName(string benchmarkName)
         {
             foreach (var benchmark in _benchmarks)
             {
                 if (benchmark.Name == benchmarkName)
-                    benchmark.IsSelected = false;
+                    benchmark.Selected = true;
+            }
+        }
+
+        public void UnselectAll()
+        {
+            foreach (var benchmark in _benchmarks)
+                benchmark.Selected = false;
+        }
+
+        public void UnselectByName(string benchmarkName)
+        {
+            foreach (var benchmark in _benchmarks)
+            {
+                if (benchmark.Name == benchmarkName)
+                    benchmark.Selected = false;
             }
         }
 
@@ -84,7 +98,7 @@ namespace PipBenchmark.Runner.Benchmarks
 
             foreach (BenchmarkInstance benchmark in _benchmarks)
             {
-                if (benchmark.IsSelected)
+                if (benchmark.Selected)
                     benchmark.SetUp(context);
             }
         }
@@ -93,7 +107,7 @@ namespace PipBenchmark.Runner.Benchmarks
         {
             foreach (BenchmarkInstance benchmark in _benchmarks)
             {
-                if (benchmark.IsSelected)
+                if (benchmark.Selected)
                     benchmark.TearDown();
             }
 

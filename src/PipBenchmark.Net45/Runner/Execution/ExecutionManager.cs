@@ -56,7 +56,7 @@ namespace PipBenchmark.Runner.Execution
             {
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                 {
-                    if (benchmark.IsSelected)
+                    if (benchmark.Selected)
                         selectedBenchmarks.Add(benchmark);
                 }
             }

@@ -91,7 +91,7 @@ namespace PipBenchmark.Runner.Execution
                     benchmark.Suite.SetUp(new ExecutionContext(this, benchmark.Suite));
                     try
                     {
-                        if (!benchmark.IsPassive)
+                        if (!benchmark.Passive)
                         {
                             StartBenchmarkingThreads(benchmark);
                         }
@@ -99,7 +99,7 @@ namespace PipBenchmark.Runner.Execution
                         // Wait for set duration
                         Thread.Sleep(_configuration.Duration);
 
-                        if (!benchmark.IsPassive)
+                        if (!benchmark.Passive)
                         {
                             _controlTaskCancellation.Cancel();
                             StopBenchmarkingThreads();

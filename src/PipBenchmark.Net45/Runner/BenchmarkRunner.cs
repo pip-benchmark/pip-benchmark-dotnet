@@ -25,10 +25,10 @@ namespace PipBenchmark.Runner
         {
             _configuration = new ConfigurationManager();
             _parameters = new ParametersManager(_configuration);
-            _benchmarks = new BenchmarksManager(this);
+            _benchmarks = new BenchmarksManager(_parameters);
             _execution = new ExecutionManager(_configuration, this);
-            _report = new ReportGenerator(this);
             _environment = new EnvironmentState(this);
+            _report = new ReportGenerator(this);
         }
 
         public ConfigurationManager Configuration
@@ -64,61 +64,6 @@ namespace PipBenchmark.Runner
         public List<BenchmarkSuiteInstance> Suites
         {
             get { return Benchmarks.Suites; }
-        }
-
-        public void AddSuiteFromClass(string suiteClassName)
-        {
-            Benchmarks.AddSuiteFromClass(suiteClassName);
-        }
-
-        public void AddSuite(BenchmarkSuite suite)
-        {
-            Benchmarks.AddSuite(suite);
-        }
-
-        public void AddSuite(BenchmarkSuiteInstance suite)
-        {
-            Benchmarks.AddSuite(suite);
-        }
-
-        public void LoadSuitesFromAssembly(string assemblyName)
-        {
-            Benchmarks.LoadSuitesFromAssembly(assemblyName);
-        }
-
-        public void RemoveSuite(string suiteName)
-        {
-            Benchmarks.RemoveSuite(suiteName);
-        }
-
-        public void RemoveSuite(BenchmarkSuite suite)
-        {
-            Benchmarks.RemoveSuite(suite);
-        }
-
-        public void RemoveSuite(BenchmarkSuiteInstance suite)
-        {
-            Benchmarks.RemoveSuite(suite);
-        }
-
-        public void RemoveAllSuites()
-        {
-            Benchmarks.RemoveAllSuites();
-        }
-
-        public void SelectAllBenchmarks()
-        {
-            Benchmarks.SelectAllBenchmarks();
-        }
-
-        public void SelectBenchmarks(params string[] benchmarkNames)
-        {
-            Benchmarks.SelectBenchmarks(benchmarkNames);
-        }
-
-        public void SelectBenchmarks(params Benchmark[] benchmarks)
-        {
-            Benchmarks.SelectBenchmarks(benchmarks);
         }
 
         public List<BenchmarkResult> Results
@@ -174,16 +119,6 @@ namespace PipBenchmark.Runner
             }
 
             Stop();
-        }
-
-        public string GenerateReport()
-        {
-            return Report.Generate();
-        }
-
-        public void SaveReportToFile(string fileName)
-        {
-            Report.SaveToFile(fileName);
         }
 
         public IDictionary<string, string> SystemInformation

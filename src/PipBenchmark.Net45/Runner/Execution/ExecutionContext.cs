@@ -16,7 +16,7 @@ namespace PipBenchmark.Runner.Execution
 
         public Dictionary<string, Parameter> Parameters
         {
-            get { return _suite.Parameters; }
+            get { return _suite.Suite.Parameters; }
         }
 
         public void IncrementCounter()

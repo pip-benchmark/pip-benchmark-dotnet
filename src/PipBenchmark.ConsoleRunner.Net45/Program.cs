@@ -21,7 +21,7 @@ namespace PipBenchmark.Console
 
                 // Load assemblies
                 foreach (string assemblyFile in args.Assemblies)
-                    runner.LoadSuitesFromAssembly(assemblyFile);
+                    runner.Benchmarks.AddSuitesFromAssembly(assemblyFile);
 
                 // Load configuration
                 if (args.ConfigurationFile != null)
@@ -64,11 +64,11 @@ namespace PipBenchmark.Console
 
                 // Enable benchmarks
                 if (args.Benchmarks.Count == 0)
-                    runner.SelectAllBenchmarks();
+                    runner.Benchmarks.SelectAll();
                 else
                 {
-                    foreach (var benchmarkName in args.Benchmarks)
-                        runner.SelectBenchmarks(benchmarkName);
+                    foreach (var benchmark in args.Benchmarks)
+                        runner.Benchmarks.SelectByName(new string[] { benchmark });
                 }
 
                 // Perform benchmarking
@@ -88,7 +88,7 @@ namespace PipBenchmark.Console
                     using (FileStream stream = File.OpenWrite(args.ReportFile))
                     {
                         using (StreamWriter writer = new StreamWriter(stream))
-                            writer.Write(runner.GenerateReport());
+                            writer.Write(runner.Report.Generate());
                     }
                 }
             }
@@ -120,7 +120,7 @@ namespace PipBenchmark.Console
             System.Console.Out.WriteLine();
             System.Console.Out.WriteLine("Configuration Parameters:");
 
-            runner.SelectAllBenchmarks();
+            runner.Benchmarks.SelectAll();
             foreach (var parameter in runner.Parameters.UserDefined)
             {
                 var defaultValue = string.IsNullOrEmpty(parameter.DefaultValue) ? "" : " (Default: " + parameter.DefaultValue + ")";

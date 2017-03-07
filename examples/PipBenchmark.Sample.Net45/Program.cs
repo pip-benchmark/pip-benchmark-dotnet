@@ -16,8 +16,8 @@ namespace PipBenchmark.Sample.Net45
             var runner = new BenchmarkRunner();
             ConsoleEventPrinter.Add(runner);
 
-            runner.AddSuite(new SampleBenchmarkSuite());
-            runner.SelectAllBenchmarks();
+            runner.Benchmarks.AddSuite(new SampleBenchmarkSuite());
+            runner.Benchmarks.SelectAll();
 
             runner.Configuration.Duration = 15000;
             runner.Configuration.MeasurementType = MeasurementType.Peak;
@@ -29,7 +29,7 @@ namespace PipBenchmark.Sample.Net45
 
             runner.Run();
 
-            var report = runner.GenerateReport();
+            var report = runner.Report.Generate();
             Console.Out.WriteLine();
             Console.Out.Write(report);
         }

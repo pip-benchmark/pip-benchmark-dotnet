@@ -94,7 +94,7 @@ namespace PipBenchmark.Runner.Parameters
             }
 
             // Create suite parameters
-            foreach (Parameter parameter in suite.Parameters.Values)
+            foreach (Parameter parameter in suite.Parameters)
             {
                 Parameter suiteParameter
                     = new BenchmarkSuiteParameter(suite, parameter);

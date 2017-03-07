@@ -59,7 +59,7 @@ namespace PipBenchmark.Gui.Results
 
         public void GenerateReport()
         {
-            string report = _model.GenerateReport();
+            string report = _model.Report.Generate();
             _view.ReportContent = report;
         }
 

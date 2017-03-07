@@ -100,8 +100,8 @@ namespace PipBenchmark.Runner.Environment
         {
             var suite = new StandardBenchmarkSuite();
             var instance = new BenchmarkSuiteInstance(suite);
-            instance.UnselectAllBenchmarks();
-            instance.SelectBenchmark(suite.CpuBenchmark.Name);
+            instance.UnselectAll();
+            instance.SelectByName(suite.CpuBenchmark.Name);
 
             base.Start(instance);
             Thread.Sleep(Duration);
@@ -114,8 +114,8 @@ namespace PipBenchmark.Runner.Environment
         {
             var suite = new StandardBenchmarkSuite();
             var instance = new BenchmarkSuiteInstance(suite);
-            instance.UnselectAllBenchmarks();
-            instance.SelectBenchmark(suite.VideoBenchmark.Name);
+            instance.UnselectAll();
+            instance.SelectByName(suite.VideoBenchmark.Name);
 
             base.Start(instance);
             Thread.Sleep(Duration);
@@ -128,8 +128,8 @@ namespace PipBenchmark.Runner.Environment
         {
             var suite = new StandardBenchmarkSuite();
             var instance = new BenchmarkSuiteInstance(suite);
-            instance.UnselectAllBenchmarks();
-            instance.SelectBenchmark(suite.DiskBenchmark.Name);
+            instance.UnselectAll();
+            instance.SelectByName(suite.DiskBenchmark.Name);
 
             base.Start(instance);
             Thread.Sleep(Duration);

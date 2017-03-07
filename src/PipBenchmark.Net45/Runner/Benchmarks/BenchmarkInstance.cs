@@ -6,8 +6,8 @@
         private Benchmark _benchmark;
         private bool _selected = false;
         private int _proportion = 100;
-        private double _startExecutionTrigger;
-        private double _endExecutionTrigger;
+        private double _startRange;
+        private double _endRange;
 
         public BenchmarkInstance(BenchmarkSuiteInstance suite, Benchmark benchmark)
         {
@@ -32,7 +32,7 @@
 
         public string FullName
         {
-            get { return string.Format("{0}.{1}", _suite.Name, _benchmark.Name); }
+            get { return _suite.Name + "." + _benchmark.Name; }
         }
 
         public string Description
@@ -40,13 +40,13 @@
             get { return _benchmark.Description; }
         }
 
-        public bool IsSelected
+        public bool Selected
         {
             get { return _selected; }
             set { _selected = value; }
         }
 
-        public bool IsPassive
+        public bool Passive
         {
             get { return _benchmark is PassiveBenchmark; }
         }
@@ -57,21 +57,21 @@
             set { _proportion = System.Math.Max(0, System.Math.Min(10000, value)); }
         }
 
-        public double StartExecutionTrigger
+        public double StartRange
         {
-            get { return _startExecutionTrigger; }
-            set { _startExecutionTrigger = value; }
+            get { return _startRange; }
+            set { _startRange = value; }
         }
 
-        public double EndExecutionTrigger
+        public double EndRange
         {
-            get { return _endExecutionTrigger; }
-            set { _endExecutionTrigger = value; }
+            get { return _endRange; }
+            set { _endRange = value; }
         }
 
-        public bool IsTriggered(double trigger)
+        public bool WithinRange(double proportion)
         {
-            return trigger >= _startExecutionTrigger && trigger < _endExecutionTrigger;
+            return proportion >= _startRange && proportion < _endRange;
         }
 
         public void SetUp(IExecutionContext context)

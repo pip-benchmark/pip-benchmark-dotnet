@@ -72,12 +72,11 @@ namespace PipBenchmark.Runner.Reports
             builder.Append("Executed Benchmarks:");
             builder.Append(NewLine);
             int index = 0;
-            foreach (BenchmarkInstance benchmark in Runner.Benchmarks.SelectedBenchmarks)
+            foreach (BenchmarkInstance benchmark in Runner.Benchmarks.Selected)
             {
                 index++;
-                builder.Append(string.Format("  {0}. {1}.{2} [{3}%, {4}]",
-                    index, benchmark.Suite.Name, benchmark.Name, benchmark.Proportion,
-                    benchmark.Suite.Assembly.GetName().Name + ".dll"));
+                builder.Append(string.Format("  {0}. {1}.{2} [{3}%]",
+                    index, benchmark.Suite.Name, benchmark.Name, benchmark.Proportion));
                 builder.Append(NewLine);
             }
             builder.Append(NewLine);

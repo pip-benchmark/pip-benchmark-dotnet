@@ -83,7 +83,7 @@ namespace PipBenchmark.Gui.Initialization
             if (_loadSuiteDialog.ShowDialog() == DialogResult.OK)
             {
                 int numberOfSuites = _model.Suites.Count;
-                _model.LoadSuitesFromAssembly(_loadSuiteDialog.FileName);
+                _model.Benchmarks.AddSuitesFromAssembly(_loadSuiteDialog.FileName);
                 UpdateView();
 
                 if (numberOfSuites < _model.Suites.Count)
@@ -100,7 +100,7 @@ namespace PipBenchmark.Gui.Initialization
 
         public void UnloadAllAssemblies()
         {
-            _model.RemoveAllSuites();
+            _model.Benchmarks.Clear();
             UpdateView();
 
             MainController.SetStatusMessage("Unloaded all suites");
@@ -114,9 +114,9 @@ namespace PipBenchmark.Gui.Initialization
         private void OnUnloadSuiteClicked(object sender, EventArgs args)
         {
             int numberOfSuites = _model.Suites.Count;
-            foreach (BenchmarkSuiteInstance benchmark in _view.SelectedSuites)
+            foreach (BenchmarkSuiteInstance suite in _view.SelectedSuites)
             {
-                _model.RemoveSuite(benchmark.Name);
+                _model.Benchmarks.RemoveSuiteByName(suite.Name);
             }
             UpdateView();
 
@@ -139,7 +139,7 @@ namespace PipBenchmark.Gui.Initialization
         {
             foreach (BenchmarkInstance benchmark in _view.SelectedBenchmarks)
             {
-                benchmark.IsSelected = true;
+                benchmark.Selected = true;
             }
             _view.RefreshData();
         }
@@ -148,7 +148,7 @@ namespace PipBenchmark.Gui.Initialization
         {
             foreach (BenchmarkInstance benchmark in _view.AllBenchmarks)
             {
-                benchmark.IsSelected = true;
+                benchmark.Selected = true;
             }
             _view.RefreshData();
         }
@@ -157,7 +157,7 @@ namespace PipBenchmark.Gui.Initialization
         {
             foreach (BenchmarkInstance benchmark in _view.SelectedBenchmarks)
             {
-                benchmark.IsSelected = false;
+                benchmark.Selected = false;
             }
             _view.RefreshData();
         }
@@ -166,7 +166,7 @@ namespace PipBenchmark.Gui.Initialization
         {
             foreach (BenchmarkInstance benchmark in _view.AllBenchmarks)
             {
-                benchmark.IsSelected = false;
+                benchmark.Selected = false;
             }
             _view.RefreshData();
         }

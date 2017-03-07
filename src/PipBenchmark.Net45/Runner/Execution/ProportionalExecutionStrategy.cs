@@ -30,17 +30,17 @@ namespace PipBenchmark.Runner.Execution
 
             foreach (BenchmarkInstance benchmark in Benchmarks)
             {
-                if (!benchmark.IsPassive)
+                if (!benchmark.Passive)
                 {
                     double normalizedProportion = ((double)benchmark.Proportion) / proportionSum;
-                    benchmark.StartExecutionTrigger = startExecutionTrigger;
-                    benchmark.EndExecutionTrigger = startExecutionTrigger + normalizedProportion;
+                    benchmark.StartRange = startExecutionTrigger;
+                    benchmark.EndRange = startExecutionTrigger + normalizedProportion;
                     startExecutionTrigger += normalizedProportion;
                 }
                 else
                 {
-                    benchmark.StartExecutionTrigger = 0;
-                    benchmark.EndExecutionTrigger = 0;
+                    benchmark.StartRange = 0;
+                    benchmark.EndRange = 0;
                 }
             }
         }
@@ -155,7 +155,7 @@ namespace PipBenchmark.Runner.Execution
                         for (int index = 0; index < Benchmarks.Count; index++)
                         {
                             var benchmark = Benchmarks[index];
-                            if (benchmark.IsTriggered(selector))
+                            if (benchmark.WithinRange(selector))
                             {
                                 lastExecutedTicks = System.Environment.TickCount;
                                 ExecuteBenchmark(benchmark);

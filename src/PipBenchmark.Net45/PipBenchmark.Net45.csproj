@@ -68,6 +68,7 @@
     <Compile Include="Runner\Parameters\NominalRateParameter.cs" />
     <Compile Include="Runner\Parameters\NumberOfThreadsParameter.cs" />
     <Compile Include="Runner\Results\ErrorEventArgs.cs" />
+    <Compile Include="Runner\Results\ResultsManager.cs" />
     <Compile Include="Utilities\Formatter.cs" />
     <Compile Include="Utilities\Properties.cs" />
     <Compile Include="Utilities\PropertyFileLine.cs" />

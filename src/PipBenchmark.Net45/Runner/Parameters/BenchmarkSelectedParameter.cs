@@ -19,8 +19,8 @@ namespace PipBenchmark.Runner.Parameters
 
         public override string Value
         {
-            get { return Converter.BooleanToString(_benchmark.IsSelected); }
-            set { _benchmark.IsSelected = Converter.StringToBoolean(value); }
+            get { return Converter.BooleanToString(_benchmark.Selected); }
+            set { _benchmark.Selected = Converter.StringToBoolean(value); }
         }
     }
 }

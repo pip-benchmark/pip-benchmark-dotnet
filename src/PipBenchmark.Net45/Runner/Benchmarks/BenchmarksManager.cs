@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PipBenchmark.Runner.Parameters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,18 +8,20 @@ namespace PipBenchmark.Runner.Benchmarks
 {
     public class BenchmarksManager
     {
+        private ParametersManager _parameters;
         private readonly List<BenchmarkSuiteInstance> _suites = new List<BenchmarkSuiteInstance>();
 
-        public BenchmarksManager(BenchmarkRunner runner)
+        public BenchmarksManager(ParametersManager parameters)
         {
-            Runner = runner;
+            _parameters = parameters;
         }
 
-        public BenchmarkRunner Runner { get; }
+        public List<BenchmarkSuiteInstance> Suites
+        {
+            get { return _suites; }
+        }
 
-        public List<BenchmarkSuiteInstance> Suites => _suites;
-
-        public List<BenchmarkInstance> SelectedBenchmarks
+        public List<BenchmarkInstance> Selected
         {
             get
             {
@@ -28,7 +31,7 @@ namespace PipBenchmark.Runner.Benchmarks
                 {
                     foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                     {
-                        if (benchmark.IsSelected)
+                        if (benchmark.Selected)
                             benchmarks.Add(benchmark);
                     }
                 }
@@ -37,68 +40,68 @@ namespace PipBenchmark.Runner.Benchmarks
             }
         }
 
-        public void SelectAllBenchmarks()
+        public void SelectAll()
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
-                    benchmark.IsSelected = true;
+                    benchmark.Selected = true;
             }
         }
 
-        public void SelectBenchmarks(string[] benchmarkNames)
+        public void SelectByName(string[] benchmarkNames)
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                 {
                     if (benchmarkNames.Contains(benchmark.FullName))
-                        benchmark.IsSelected = true;
+                        benchmark.Selected = true;
                 }
             }
         }
 
-        public void SelectBenchmarks(Benchmark[] benchmarks)
+        public void Select(Benchmark[] benchmarks)
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                 {
                     if (benchmarks.Contains(benchmark.Benchmark))
-                        benchmark.IsSelected = true;
+                        benchmark.Selected = true;
                 }
             }
         }
 
-        public void UnselectAllBenchmarks()
+        public void UnselectAll()
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
-                    benchmark.IsSelected = false;
+                    benchmark.Selected = false;
             }
         }
 
-        public void UnselectBenchmark(string[] benchmarkNames)
+        public void UnselectByName(string[] benchmarkNames)
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                 {
                     if (benchmarkNames.Contains(benchmark.FullName))
-                        benchmark.IsSelected = false;
+                        benchmark.Selected = false;
                 }
             }
         }
 
-        public void UnselectBenchmarks(Benchmark[] benchmarks)
+        public void Unselect(Benchmark[] benchmarks)
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
                 foreach (BenchmarkInstance benchmark in suite.Benchmarks)
                 {
                     if (benchmarks.Contains(benchmark.Benchmark))
-                        benchmark.IsSelected = false;
+                        benchmark.Selected = false;
                 }
             }
         }
@@ -130,15 +133,12 @@ namespace PipBenchmark.Runner.Benchmarks
 
         public void AddSuite(BenchmarkSuiteInstance instance)
         {
-            Runner.Execution.Stop();
             _suites.Add(instance);
-            Runner.Parameters.AddSuite(instance);
+            _parameters.AddSuite(instance);
         }
 
-        public void LoadSuitesFromAssembly(string assemblyName)
+        public void AddSuitesFromAssembly(string assemblyName)
         {
-            Runner.Execution.Stop();
-
             // Load assembly
             Assembly assembly = Assembly.LoadFrom(assemblyName);
 
@@ -150,7 +150,7 @@ namespace PipBenchmark.Runner.Benchmarks
                     BenchmarkSuite suite = Activator.CreateInstance(type) as BenchmarkSuite;
                     var instance = new BenchmarkSuiteInstance(suite);
                     _suites.Add(instance);
-                    Runner.Parameters.AddSuite(instance);
+                    _parameters.AddSuite(instance);
                 }
             }
         }
@@ -169,31 +169,25 @@ namespace PipBenchmark.Runner.Benchmarks
 
         public void RemoveSuite(BenchmarkSuiteInstance suite)
         {
-            Runner.Execution.Stop();
-
-            Runner.Parameters.RemoveForSuite(suite);
+            _parameters.RemoveForSuite(suite);
 
             _suites.Remove(suite);
         }
 
-        public void RemoveSuite(string suiteName)
+        public void RemoveSuiteByName(string suiteName)
         {
-            Runner.Execution.Stop();
-
             BenchmarkSuiteInstance suite = FindSuite(suiteName);
             if (suite != null)
             {
-                Runner.Parameters.RemoveForSuite(suite);
+                _parameters.RemoveForSuite(suite);
                 _suites.Remove(suite);
             }
         }
 
-        public void RemoveAllSuites()
+        public void Clear()
         {
-            Runner.Execution.Stop();
-
             foreach (BenchmarkSuiteInstance suite in _suites)
-                Runner.Parameters.RemoveForSuite(suite);
+                _parameters.RemoveForSuite(suite);
 
             _suites.Clear();
         }

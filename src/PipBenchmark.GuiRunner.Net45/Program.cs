@@ -25,7 +25,7 @@ namespace PipBenchmark.Gui
 
                 // Load assemblies
                 foreach (string assemblyFile in args.Assemblies)
-                    runner.LoadSuitesFromAssembly(assemblyFile);
+                    runner.Benchmarks.AddSuitesFromAssembly(assemblyFile);
 
                 // Load configuration
                 if (args.ConfigurationFile != null)
@@ -61,7 +61,7 @@ namespace PipBenchmark.Gui
 
                     // Generate report
                     if (args.ReportFile != null)
-                        File.WriteAllText(args.ReportFile, runner.GenerateReport());
+                        File.WriteAllText(args.ReportFile, runner.Report.Generate());
 
                     return true;
                 }
