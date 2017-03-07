@@ -9,9 +9,9 @@ using PipBenchmark.Runner;
 using System.Drawing.Printing;
 #endif
 
-using PipBenchmark.Runner.Gui.Shell;
+using PipBenchmark.Gui.Shell;
 
-namespace PipBenchmark.Runner.Gui.Results
+namespace PipBenchmark.Gui.Results
 {
     public class ResultsController : AbstractChildController
     {

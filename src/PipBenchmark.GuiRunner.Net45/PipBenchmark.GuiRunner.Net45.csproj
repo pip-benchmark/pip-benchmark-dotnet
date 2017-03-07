@@ -7,7 +7,7 @@
     <ProjectGuid>{D5732891-344B-498D-9222-D7A68B81AB86}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PipBenchmark.Runner.Gui</RootNamespace>
+    <RootNamespace>PipBenchmark.Gui</RootNamespace>
     <AssemblyName>PipBenchmarkGui</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

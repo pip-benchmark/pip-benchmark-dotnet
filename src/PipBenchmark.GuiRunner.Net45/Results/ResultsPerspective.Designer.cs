@@ -1,4 +1,4 @@
-﻿namespace PipBenchmark.Runner.Gui.Results
+﻿namespace PipBenchmark.Gui.Results
 {
     partial class ResultsPerspective
     {

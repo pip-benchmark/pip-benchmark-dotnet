@@ -6,9 +6,9 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-using PipBenchmark.Runner.Gui.Environment;
+using PipBenchmark.Gui.Environment;
 
-namespace PipBenchmark.Runner.Gui.Environment
+namespace PipBenchmark.Gui.Environment
 {
     public partial class EnvironmentPerspective : UserControl, IEnvironmentView
     {

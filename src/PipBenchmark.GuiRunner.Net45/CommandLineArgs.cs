@@ -1,8 +1,10 @@
 ﻿using PipBenchmark.Runner;
+using PipBenchmark.Runner.Config;
+using PipBenchmark.Utilities;
 using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Runner.Gui
+namespace PipBenchmark.Gui
 {
     public class CommandLineArgs
     {
@@ -65,7 +67,7 @@ namespace PipBenchmark.Runner.Gui
                 }
                 else if ((arg == "-d" || arg == "--duration") && moreArgs)
                 {
-                    _duration = TimeSpan.FromSeconds(SimpleTypeConverter.StringToDouble(args[++index], 30));
+                    _duration = TimeSpan.FromSeconds(Converter.StringToDouble(args[++index], 30));
                 }
                 else if ((arg == "-m" || arg == "--measure") && moreArgs)
                 {
@@ -80,7 +82,7 @@ namespace PipBenchmark.Runner.Gui
                 }
                 else if ((arg == "-n" || arg == "--nominal") && moreArgs)
                 {
-                    _nominalRate = SimpleTypeConverter.StringToDouble(args[++index], 1);
+                    _nominalRate = Converter.StringToDouble(args[++index], 1);
                 }
                 else if (arg == "-h" || arg == "--help")
                 {

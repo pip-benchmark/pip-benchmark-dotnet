@@ -1,4 +1,5 @@
 ﻿using PipBenchmark.Runner;
+using PipBenchmark.Utilities;
 
 namespace PipBenchmark.Runner.Config
 {
@@ -18,8 +19,8 @@ namespace PipBenchmark.Runner.Config
 
         public override string Value
         {
-            get { return SimpleTypeConverter.IntegerToString(_benchmark.Proportion); }
-            set { _benchmark.Proportion = SimpleTypeConverter.StringToInteger(value, 100); }
+            get { return Converter.IntegerToString(_benchmark.Proportion); }
+            set { _benchmark.Proportion = Converter.StringToInteger(value, 100); }
         }
     }
 }

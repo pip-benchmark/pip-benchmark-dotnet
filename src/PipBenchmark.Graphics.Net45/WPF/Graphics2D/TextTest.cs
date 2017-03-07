@@ -15,7 +15,7 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic2D
         private Window _window;
         private Canvas _canvas;
         private Label[] _labels;
-        private Random _random = new Random(Width);
+        private System.Random _random = new System.Random(Width);
 
         private int lastTick;
         private int frameCount;

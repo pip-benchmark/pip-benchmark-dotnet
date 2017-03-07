@@ -6,14 +6,14 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using PipBenchmark.Runner.Gui;
-using PipBenchmark.Runner.Gui.Initialization;
-using PipBenchmark.Runner.Gui.Config;
-using PipBenchmark.Runner.Gui.Execution;
-using PipBenchmark.Runner.Gui.Results;
-using PipBenchmark.Runner.Gui.Environment;
+using PipBenchmark.Gui;
+using PipBenchmark.Gui.Initialization;
+using PipBenchmark.Gui.Config;
+using PipBenchmark.Gui.Execution;
+using PipBenchmark.Gui.Results;
+using PipBenchmark.Gui.Environment;
 
-namespace PipBenchmark.Runner.Gui.Shell
+namespace PipBenchmark.Gui.Shell
 {
     public partial class MainForm : Form, IMainView
     {

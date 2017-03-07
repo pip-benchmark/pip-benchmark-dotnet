@@ -44,154 +44,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\PipBenchmark.NetStandard16\Benchmark.cs">
-      <Link>Benchmark.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\BenchmarkSuite.cs">
-      <Link>BenchmarkSuite.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\DelegatedBenchmark.cs">
-      <Link>DelegatedBenchmark.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\IExecutionContext.cs">
-      <Link>IExecutionContext.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Parameter.cs">
-      <Link>Parameter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\PassiveBenchmark.cs">
-      <Link>PassiveBenchmark.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\RandomDataGenerator.cs">
-      <Link>RandomDataGenerator.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\BenchmarkException.cs">
-      <Link>Runner\BenchmarkException.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\BenchmarkInstance.cs">
-      <Link>Runner\BenchmarkInstance.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\BenchmarkResult.cs">
-      <Link>Runner\BenchmarkResult.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\BenchmarkRunner.cs">
-      <Link>Runner\BenchmarkRunner.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\BenchmarkSuiteInstance.cs">
-      <Link>Runner\BenchmarkSuiteInstance.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\BenchmarkSuiteManager.cs">
-      <Link>Runner\BenchmarkSuiteManager.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\BenchmarkProperties.cs">
-      <Link>Runner\Config\BenchmarkProperties.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\BenchmarkProportionParameter.cs">
-      <Link>Runner\Config\BenchmarkProportionParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\BenchmarkSelectedParameter.cs">
-      <Link>Runner\Config\BenchmarkSelectedParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\ConfigurationManager.cs">
-      <Link>Runner\Config\ConfigurationManager.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\DurationParameter.cs">
-      <Link>Runner\Config\DurationParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\ExecutionTypeParameter.cs">
-      <Link>Runner\Config\ExecutionTypeParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\IndirectSuiteParameter.cs">
-      <Link>Runner\Config\IndirectSuiteParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\MeasurementTypeParameter.cs">
-      <Link>Runner\Config\MeasurementTypeParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\NominalRateParameter.cs">
-      <Link>Runner\Config\NominalRateParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\NumberOfThreadsParameter.cs">
-      <Link>Runner\Config\NumberOfThreadsParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\Properties.cs">
-      <Link>Runner\Config\Properties.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Config\PropertyFileLine.cs">
-      <Link>Runner\Config\PropertyFileLine.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Console\ConsoleEventPrinter.cs">
-      <Link>Runner\Console\ConsoleEventPrinter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Environment\DefaultCpuBenchmark.cs">
-      <Link>Runner\Environment\DefaultCpuBenchmark.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Environment\DefaultDiskBenchmark.cs">
-      <Link>Runner\Environment\DefaultDiskBenchmark.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Environment\DefaultVideoBenchmark.cs">
-      <Link>Runner\Environment\DefaultVideoBenchmark.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Environment\EnvironmentState.cs">
-      <Link>Runner\Environment\EnvironmentState.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Environment\StandardBenchmarkSuite.cs">
-      <Link>Runner\Environment\StandardBenchmarkSuite.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Environment\SystemInformation.cs">
-      <Link>Runner\Environment\SystemInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\ExecutionState.cs">
-      <Link>Runner\ExecutionState.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\ExecutionType.cs">
-      <Link>Runner\ExecutionType.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Execution\BenchmarkMeter.cs">
-      <Link>Runner\Execution\BenchmarkMeter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Execution\BenchmarkProcess.cs">
-      <Link>Runner\Execution\BenchmarkProcess.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Execution\CpuLoadMeter.cs">
-      <Link>Runner\Execution\CpuLoadMeter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Execution\ExecutionContext.cs">
-      <Link>Runner\Execution\ExecutionContext.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Execution\ExecutionStrategy.cs">
-      <Link>Runner\Execution\ExecutionStrategy.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Execution\MemoryUsageMeter.cs">
-      <Link>Runner\Execution\MemoryUsageMeter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Execution\ProportionalExecutionStrategy.cs">
-      <Link>Runner\Execution\ProportionalExecutionStrategy.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Execution\SequencialExecutionStrategy.cs">
-      <Link>Runner\Execution\SequencialExecutionStrategy.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Execution\TransactionMeter.cs">
-      <Link>Runner\Execution\TransactionMeter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Measurement.cs">
-      <Link>Runner\Measurement.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\MeasurementType.cs">
-      <Link>Runner\MeasurementType.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\MessageEventArgs.cs">
-      <Link>Runner\MessageEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\Report\ReportGenerator.cs">
-      <Link>Runner\Report\ReportGenerator.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\Runner\ResultUpdatedEventArgs.cs">
-      <Link>Runner\ResultUpdatedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard16\SimpleTypeConverter.cs">
-      <Link>SimpleTypeConverter.cs</Link>
-    </Compile>
+    <Compile Include="Benchmark.cs" />
+    <Compile Include="BenchmarkSuite.cs" />
+    <Compile Include="DelegatedBenchmark.cs" />
+    <Compile Include="IExecutionContext.cs" />
+    <Compile Include="Parameter.cs" />
+    <Compile Include="PassiveBenchmark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Runner\Benchmarks\BenchmarkInstance.cs" />
+    <Compile Include="Runner\Results\BenchmarkResult.cs" />
+    <Compile Include="Runner\BenchmarkRunner.cs" />
+    <Compile Include="Runner\Benchmarks\BenchmarkSuiteInstance.cs" />
+    <Compile Include="Runner\Benchmarks\BenchmarkSuiteManager.cs" />
+    <Compile Include="Runner\Environment\EnvironmentProperties.cs" />
+    <Compile Include="Runner\Parameters\BenchmarkProportionParameter.cs" />
+    <Compile Include="Runner\Parameters\BenchmarkSelectedParameter.cs" />
+    <Compile Include="Runner\Parameters\ParametersManager.cs" />
+    <Compile Include="Runner\Parameters\DurationParameter.cs" />
+    <Compile Include="Runner\Parameters\ExecutionTypeParameter.cs" />
+    <Compile Include="Runner\Parameters\IndirectSuiteParameter.cs" />
+    <Compile Include="Runner\Parameters\MeasurementTypeParameter.cs" />
+    <Compile Include="Runner\Parameters\NominalRateParameter.cs" />
+    <Compile Include="Runner\Parameters\NumberOfThreadsParameter.cs" />
+    <Compile Include="Runner\Results\ErrorEventArgs.cs" />
+    <Compile Include="Utilities\Formatter.cs" />
+    <Compile Include="Utilities\Properties.cs" />
+    <Compile Include="Utilities\PropertyFileLine.cs" />
+    <Compile Include="Runner\Console\ConsoleEventPrinter.cs" />
+    <Compile Include="Runner\Environment\DefaultCpuBenchmark.cs" />
+    <Compile Include="Runner\Environment\DefaultDiskBenchmark.cs" />
+    <Compile Include="Runner\Environment\DefaultVideoBenchmark.cs" />
+    <Compile Include="Runner\Environment\EnvironmentState.cs" />
+    <Compile Include="Runner\Environment\StandardBenchmarkSuite.cs" />
+    <Compile Include="Runner\Environment\SystemInfo.cs" />
+    <Compile Include="Runner\Execution\ExecutionState.cs" />
+    <Compile Include="Runner\Config\ExecutionType.cs" />
+    <Compile Include="Runner\Execution\BenchmarkMeter.cs" />
+    <Compile Include="Runner\Execution\ExecutionManager.cs" />
+    <Compile Include="Runner\Execution\CpuLoadMeter.cs" />
+    <Compile Include="Runner\Execution\ExecutionContext.cs" />
+    <Compile Include="Runner\Execution\ExecutionStrategy.cs" />
+    <Compile Include="Runner\Execution\MemoryUsageMeter.cs" />
+    <Compile Include="Runner\Execution\ProportionalExecutionStrategy.cs" />
+    <Compile Include="Runner\Execution\SequencialExecutionStrategy.cs" />
+    <Compile Include="Runner\Execution\TransactionMeter.cs" />
+    <Compile Include="Runner\Results\Measurement.cs" />
+    <Compile Include="Runner\Config\MeasurementType.cs" />
+    <Compile Include="Runner\Results\MessageEventArgs.cs" />
+    <Compile Include="Runner\Reports\ReportGenerator.cs" />
+    <Compile Include="Runner\Results\ResultEventArgs.cs" />
+    <Compile Include="Utilities\Converter.cs" />
+    <Compile Include="Utilities\Random.cs" />
     <Compile Include="UtilityBenchmarkSuite.cs" />
   </ItemGroup>
   <ItemGroup />

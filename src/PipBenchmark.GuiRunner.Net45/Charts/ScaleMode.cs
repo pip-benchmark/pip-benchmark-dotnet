@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PipBenchmark.Runner.Gui.Charts
+namespace PipBenchmark.Gui.Charts
 {
     /// <summary>
     /// Scale mode for value aspect ratio

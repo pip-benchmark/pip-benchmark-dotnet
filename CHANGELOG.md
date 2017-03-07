@@ -1,5 +1,12 @@
 # Portable Benchmarking Framework in .NET Changelog
 
+## <a name="2.0.0"></a> 2.0.0 (2017-02-06)
+
+Complete refactoring of benchmark runner
+
+### Breaking Changes
+* Runner API was completely changed
+
 ## <a name="1.0.1-1.0.10"></a> 1.0.1-1.0.10 (2017-02-02)
 
 Added ability to track errors

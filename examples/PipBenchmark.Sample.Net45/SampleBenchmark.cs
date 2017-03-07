@@ -1,10 +1,11 @@
-﻿using System.Threading;
+﻿using PipBenchmark.Utilities;
+using System.Threading;
 
 namespace PipBenchmark.Sample
 {
     public class SampleBenchmark: Benchmark
     {
-        private RandomDataGenerator _random = new RandomDataGenerator();
+        private Random _random = new Random();
         private string _greeting;
 
         public SampleBenchmark()

@@ -1,4 +1,5 @@
 ﻿using PipBenchmark.Runner;
+using PipBenchmark.Utilities;
 using System;
 using System.Collections.Generic;
 
@@ -20,8 +21,8 @@ namespace PipBenchmark.Runner.Config
 
         public override string Value
         {
-            get { return SimpleTypeConverter.BooleanToString(_benchmark.IsSelected); }
-            set { _benchmark.IsSelected = SimpleTypeConverter.StringToBoolean(value); }
+            get { return Converter.BooleanToString(_benchmark.IsSelected); }
+            set { _benchmark.IsSelected = Converter.StringToBoolean(value); }
         }
     }
 }

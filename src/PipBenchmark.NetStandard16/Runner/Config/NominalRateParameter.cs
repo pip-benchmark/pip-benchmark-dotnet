@@ -1,4 +1,5 @@
 ﻿using PipBenchmark.Runner.Execution;
+using PipBenchmark.Utilities;
 
 namespace PipBenchmark.Runner.Config
 {
@@ -18,8 +19,8 @@ namespace PipBenchmark.Runner.Config
 
         public override string Value
         {
-            get { return SimpleTypeConverter.DoubleToString(_process.NominalRate); }
-            set { _process.NominalRate = SimpleTypeConverter.StringToDouble(value, 1); }
+            get { return Converter.DoubleToString(_process.NominalRate); }
+            set { _process.NominalRate = Converter.StringToDouble(value, 1); }
         }
     }
 }

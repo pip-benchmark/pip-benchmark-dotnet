@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 
-namespace PipBenchmark.Runner.Gui.Charts
+namespace PipBenchmark.Gui.Charts
 {
 #if !CompactFramework
     [TypeConverterAttribute(typeof(ExpandableObjectConverter))]

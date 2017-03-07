@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PipBenchmark.Runner.Gui.AsyncWait
+namespace PipBenchmark.Gui.AsyncWait
 {
     public partial class AsyncWaitDialog : Form, IAsyncWaitView
     {

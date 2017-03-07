@@ -1,6 +1,6 @@
-﻿using PipBenchmark.Runner.Gui.Properties;
+﻿using PipBenchmark.Gui.Properties;
 
-namespace PipBenchmark.Runner.Gui.Errors
+namespace PipBenchmark.Gui.Errors
 {
     partial class ErrorDialog
     {
@@ -67,7 +67,7 @@ namespace PipBenchmark.Runner.Gui.Errors
             // 
             // errorIconPictureBox
             // 
-            this.errorIconPictureBox.Image = global::PipBenchmark.Runner.Gui.Properties.Resources.ErrorLarge;
+            this.errorIconPictureBox.Image = global::PipBenchmark.Gui.Properties.Resources.ErrorLarge;
             this.errorIconPictureBox.Location = new System.Drawing.Point(26, 27);
             this.errorIconPictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.errorIconPictureBox.Name = "errorIconPictureBox";
@@ -77,7 +77,7 @@ namespace PipBenchmark.Runner.Gui.Errors
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::PipBenchmark.Runner.Gui.Properties.Resources.DetailsGlyph;
+            this.pictureBox1.Image = global::PipBenchmark.Gui.Properties.Resources.DetailsGlyph;
             this.pictureBox1.Location = new System.Drawing.Point(128, 100);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox1.Name = "pictureBox1";

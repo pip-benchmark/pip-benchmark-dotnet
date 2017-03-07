@@ -1,4 +1,5 @@
 ﻿using PipBenchmark.Runner;
+using PipBenchmark.Runner.Config;
 using PipBenchmark.Runner.Console;
 using System;
 using System.Collections.Generic;

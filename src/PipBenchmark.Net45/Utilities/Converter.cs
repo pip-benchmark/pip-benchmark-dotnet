@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 
-namespace PipBenchmark
+namespace PipBenchmark.Utilities
 {
-    public class SimpleTypeConverter
+    public class Converter
     {
         public static int StringToInteger(string value, int defaultValue)
         {

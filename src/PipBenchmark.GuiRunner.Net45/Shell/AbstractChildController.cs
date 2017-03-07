@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Runner.Gui.Shell
+namespace PipBenchmark.Gui.Shell
 {
     public abstract class AbstractChildController
     {

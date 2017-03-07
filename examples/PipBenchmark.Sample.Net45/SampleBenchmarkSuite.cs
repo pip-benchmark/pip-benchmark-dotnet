@@ -8,7 +8,7 @@ namespace PipBenchmark.Sample
         public SampleBenchmarkSuite() 
             : base("Samples", "Provides sample benchmarks")
         {
-            AddParameter("Greeting", "Greeting message", "Hello world!");
+            CreateParameter("Greeting", "Greeting message", "Hello world!");
 
             AddBenchmark(new SampleBenchmark());
         }

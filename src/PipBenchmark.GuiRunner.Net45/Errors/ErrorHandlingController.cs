@@ -1,9 +1,9 @@
-﻿using PipBenchmark.Runner.Gui.Shell;
+﻿using PipBenchmark.Gui.Shell;
 using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace PipBenchmark.Runner.Gui.Errors
+namespace PipBenchmark.Gui.Errors
 {
     public class ErrorHandlingController : AbstractChildController
     {

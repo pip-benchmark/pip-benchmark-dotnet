@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 
-using PipBenchmark.Runner.Gui.Shell;
+using PipBenchmark.Gui.Shell;
 
-namespace PipBenchmark.Runner.Gui.AsyncWait
+namespace PipBenchmark.Gui.AsyncWait
 {
     public class AsyncWaitController : AbstractChildController, IAsyncWaitContext
     {

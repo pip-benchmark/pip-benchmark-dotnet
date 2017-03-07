@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PipBenchmark
+namespace PipBenchmark.Utilities
 {
-    public class RandomDataGenerator
+    public class Random
     {
         private const string AllowStringChars = "ABCDEFGHIGKLMNOPQRSTUVWXYZabcdefghigklmnopqrstuvwxyz -";
         private const int AllowStringCharsLength = 54;
 
-        private Random _random = new Random();
+        private System.Random _random = new System.Random();
         private StringBuilder _randomTextBuilder = new StringBuilder(256);
 
-        public RandomDataGenerator()
+        public Random()
         {
         }
 

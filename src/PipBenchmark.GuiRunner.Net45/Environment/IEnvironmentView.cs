@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Runner.Gui.Environment
+namespace PipBenchmark.Gui.Environment
 {
     public interface IEnvironmentView
     {

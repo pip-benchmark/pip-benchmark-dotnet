@@ -6,10 +6,11 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-using PipBenchmark.Runner.Gui.Execution;
+using PipBenchmark.Gui.Execution;
 using PipBenchmark.Runner;
+using PipBenchmark.Runner.Config;
 
-namespace PipBenchmark.Runner.Gui.Execution
+namespace PipBenchmark.Gui.Execution
 {
     public partial class ExecutionPerspective : UserControl, IExecutionView
     {

@@ -6,9 +6,9 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-using PipBenchmark.Runner.Gui.Config;
+using PipBenchmark.Gui.Config;
 
-namespace PipBenchmark.Runner.Gui.Config
+namespace PipBenchmark.Gui.Config
 {
     public partial class ConfigurationPerspective : UserControl, IConfigurationView
     {

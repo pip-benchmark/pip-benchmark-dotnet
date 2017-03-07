@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace PipBenchmark.Runner.Gui.AsyncWait
+namespace PipBenchmark.Gui.AsyncWait
 {
     public interface IAsyncWaitView
     {

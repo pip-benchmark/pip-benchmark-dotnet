@@ -6,13 +6,13 @@ namespace PipBenchmark
 {
     public class UtilityBenchmarkTestSuite : BenchmarkSuite
     {
-        private Random _randomGenerator = new Random();
+        private System.Random _randomGenerator = new System.Random();
 
         public UtilityBenchmarkTestSuite()
             : base("Utility", "Set of utility benchmark tests")
         {
-            AddBenchmark("Empty", "Does nothing", ExecuteEmpty);
-            AddBenchmark("RandomDelay", "Introduces random delay to measuring thread", ExecuteRandomDelay);
+            CreateBenchmark("Empty", "Does nothing", ExecuteEmpty);
+            CreateBenchmark("RandomDelay", "Introduces random delay to measuring thread", ExecuteRandomDelay);
         }
 
         public override void SetUp()

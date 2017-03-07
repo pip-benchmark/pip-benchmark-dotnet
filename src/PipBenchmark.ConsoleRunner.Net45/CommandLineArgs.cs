@@ -1,8 +1,11 @@
-﻿using System;
+﻿using PipBenchmark.Runner;
+using PipBenchmark.Runner.Config;
+using PipBenchmark.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace PipBenchmark.Runner.Console
+namespace PipBenchmark.Console
 {
     public class CommandLineArgs
     {
@@ -61,7 +64,7 @@ namespace PipBenchmark.Runner.Console
                 }
                 else if ((arg == "-d" || arg == "--duration") && moreArgs)
                 {
-                    _duration = (int)(SimpleTypeConverter.StringToDouble(args[++index], 30) * 1000);
+                    _duration = (int)(Converter.StringToDouble(args[++index], 30) * 1000);
                 }
                 else if ((arg == "-m" || arg == "--measure") && moreArgs)
                 {
@@ -76,7 +79,7 @@ namespace PipBenchmark.Runner.Console
                 }
                 else if ((arg == "-n" || arg == "--nominal") && moreArgs)
                 {
-                    _nominalRate = SimpleTypeConverter.StringToDouble(args[++index], 1);
+                    _nominalRate = Converter.StringToDouble(args[++index], 1);
                 }
                 else if (arg == "-f" || arg == "--force")
                 {

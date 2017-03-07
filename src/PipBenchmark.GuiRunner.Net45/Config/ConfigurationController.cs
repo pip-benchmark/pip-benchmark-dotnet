@@ -1,9 +1,9 @@
-﻿using PipBenchmark.Runner.Gui.Shell;
-using PipBenchmark.Runner.Gui.Shell;
+﻿using PipBenchmark.Gui.Shell;
+using PipBenchmark.Runner;
 using System;
 using System.Windows.Forms;
 
-namespace PipBenchmark.Runner.Gui.Config
+namespace PipBenchmark.Gui.Config
 {
     public class ConfigurationController : AbstractChildController
     {

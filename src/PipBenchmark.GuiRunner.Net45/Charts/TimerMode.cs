@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Runner.Gui.Charts
+namespace PipBenchmark.Gui.Charts
 {
     /// <summary>
     /// Chart Refresh Mode Timer Control Mode

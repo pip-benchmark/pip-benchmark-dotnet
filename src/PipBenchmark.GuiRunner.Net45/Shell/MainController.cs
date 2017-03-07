@@ -1,16 +1,17 @@
-﻿using PipBenchmark.Runner.Gui.About;
-using PipBenchmark.Runner.Gui.AsyncWait;
-using PipBenchmark.Runner.Gui.Config;
-using PipBenchmark.Runner.Gui.Environment;
-using PipBenchmark.Runner.Gui.Errors;
-using PipBenchmark.Runner.Gui.Execution;
-using PipBenchmark.Runner.Gui.Initialization;
-using PipBenchmark.Runner.Gui.Results;
+﻿using PipBenchmark.Gui.About;
+using PipBenchmark.Gui.AsyncWait;
+using PipBenchmark.Gui.Config;
+using PipBenchmark.Gui.Environment;
+using PipBenchmark.Gui.Errors;
+using PipBenchmark.Gui.Execution;
+using PipBenchmark.Gui.Initialization;
+using PipBenchmark.Gui.Results;
+using PipBenchmark.Runner;
 using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace PipBenchmark.Runner.Gui.Shell
+namespace PipBenchmark.Gui.Shell
 {
     public class MainController
     {

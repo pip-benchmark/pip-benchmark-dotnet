@@ -1,4 +1,4 @@
-﻿namespace PipBenchmark.Runner.Gui.Config
+﻿namespace PipBenchmark.Gui.Config
 {
     partial class ConfigurationPerspective
     {

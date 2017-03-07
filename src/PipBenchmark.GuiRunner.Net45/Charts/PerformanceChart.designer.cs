@@ -1,4 +1,4 @@
-﻿namespace PipBenchmark.Runner.Gui.Charts
+﻿namespace PipBenchmark.Gui.Charts
 {
     partial class PerformanceChart
     {

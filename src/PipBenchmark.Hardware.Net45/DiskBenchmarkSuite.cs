@@ -12,7 +12,7 @@ namespace PipBenchmark.Hardware
         private Parameter _chunkSize;
 
         private object _syncRoot = new object();
-        private Random _randomGenerator = new Random();
+        private System.Random _randomGenerator = new System.Random();
         private FileStream _fileStream;
         private byte[] _buffer = new byte[BufferSize];
 
@@ -25,22 +25,22 @@ namespace PipBenchmark.Hardware
 
         private void InitializeConfigurationParameters()
         {
-            _filePath = AddParameter("FilePath", "Path where test file is located on disk", "");
-            _fileSize = AddParameter("FileSize", "Size of the test file",
+            _filePath = CreateParameter("FilePath", "Path where test file is located on disk", "");
+            _fileSize = CreateParameter("FileSize", "Size of the test file",
 #if !CompactFramework 
                 "102400000"
 #else
                 "2048000"
 #endif
             );
-            _chunkSize = AddParameter("ChunkSize", "Size of a chunk that read or writter from/to test file", "1024000");
+            _chunkSize = CreateParameter("ChunkSize", "Size of a chunk that read or writter from/to test file", "1024000");
         }
 
         private void InitializeTests()
         {
-            AddBenchmark("ReadsAndWrites", "Measures read and write operations", ExecuteReadsAndWrites);
-            AddBenchmark("Reads", "Measures only read operations", ExecuteReads);
-            AddBenchmark("Writes", "Measures only write operations", ExecuteWrites);
+            CreateBenchmark("ReadsAndWrites", "Measures read and write operations", ExecuteReadsAndWrites);
+            CreateBenchmark("Reads", "Measures only read operations", ExecuteReads);
+            CreateBenchmark("Writes", "Measures only write operations", ExecuteWrites);
         }
 
         public int FileSize

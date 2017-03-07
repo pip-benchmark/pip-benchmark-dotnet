@@ -17,7 +17,7 @@ namespace PipBenchmark.Graphics
         };
 
         private object _syncRoot = new object();
-        private Random _randomGenerator = new Random();
+        private System.Random _randomGenerator = new System.Random();
         private Form _outputForm;
         private System.Drawing.Graphics _outputGraphics;
         private int _windowWidth;
@@ -31,11 +31,11 @@ namespace PipBenchmark.Graphics
 
         private void InitializeTests()
         {
-            AddBenchmark("Line", "Measures line drawings", ExecuteDrawLine);
-            AddBenchmark("Rectangle", "Measures rectangle drawings", ExecuteDrawRectangle);
-            AddBenchmark("Text", "Measures text drawings", ExecuteDrawText);
-            AddBenchmark("Bitmap", "Measures bitmap drawings", ExecuteDrawBitmap);
-            AddBenchmark("BitmapScaled", "Measures scaled bitmap drawings", ExecuteDrawBitmapScaled);
+            CreateBenchmark("Line", "Measures line drawings", ExecuteDrawLine);
+            CreateBenchmark("Rectangle", "Measures rectangle drawings", ExecuteDrawRectangle);
+            CreateBenchmark("Text", "Measures text drawings", ExecuteDrawText);
+            CreateBenchmark("Bitmap", "Measures bitmap drawings", ExecuteDrawBitmap);
+            CreateBenchmark("BitmapScaled", "Measures scaled bitmap drawings", ExecuteDrawBitmapScaled);
         }
 
         public override void SetUp()

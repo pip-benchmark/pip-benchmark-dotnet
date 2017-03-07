@@ -19,7 +19,7 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic3D
     /// </summary>
     public partial class ParticlesWindow : Window
     {
-        private Random rand;
+        private System.Random rand;
         private Point3D spawnPoint;
         private ParticleSystemManager pm;
 
@@ -35,7 +35,7 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic3D
             this.WorldModels.Children.Add(pm.CreateParticleSystem(1000, Colors.Orange));
             this.WorldModels.Children.Add(pm.CreateParticleSystem(1000, Colors.Yellow));
 
-            rand = new Random(this.GetHashCode());
+            rand = new System.Random(this.GetHashCode());
 
             this.Cursor = System.Windows.Input.Cursors.None;
         }
@@ -114,7 +114,7 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic3D
         private List<Particle> particleList;
         private GeometryModel3D particleModel;
         private int maxParticleCount;
-        private Random rand;
+        private System.Random rand;
 
         public ParticleSystem(int maxCount, Color color)
         {
@@ -150,7 +150,7 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic3D
 
             this.particleModel.Material = material;
 
-            this.rand = new Random(brush.GetHashCode());
+            this.rand = new System.Random(brush.GetHashCode());
         }
 
         public void Update(double elapsed)

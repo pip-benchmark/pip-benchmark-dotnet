@@ -1,12 +1,11 @@
-﻿using PipBenchmark.Runner.Gui.AsyncWait;
-using PipBenchmark.Runner.Gui.Shell;
-using PipBenchmark.Runner.Gui.Shell;
-
+﻿using PipBenchmark.Gui.AsyncWait;
+using PipBenchmark.Gui.Shell;
+using PipBenchmark.Runner;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace PipBenchmark.Runner.Gui.Environment
+namespace PipBenchmark.Gui.Environment
 {
     public class EnvironmentController : AbstractChildController
     {

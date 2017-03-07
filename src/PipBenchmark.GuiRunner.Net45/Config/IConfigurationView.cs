@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Runner.Gui.Config
+namespace PipBenchmark.Gui.Config
 {
     public interface IConfigurationView
     {

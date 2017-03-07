@@ -4,11 +4,12 @@ using System.Windows.Forms;
 using System.Threading;
 using System.IO;
 
-using PipBenchmark.Runner.Gui;
-using PipBenchmark.Runner.Gui.Shell;
+using PipBenchmark.Gui;
+using PipBenchmark.Gui.Shell;
 using PipBenchmark.Runner;
+using PipBenchmark.Runner.Config;
 
-namespace PipBenchmark.Runner.Gui
+namespace PipBenchmark.Gui
 {
     static class Program
     {

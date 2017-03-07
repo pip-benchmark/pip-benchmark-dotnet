@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PipBenchmark.Runner.Gui.Errors
+namespace PipBenchmark.Gui.Errors
 {
     public partial class ErrorDialog : Form
     {

@@ -1,6 +1,6 @@
-﻿using PipBenchmark.Runner.Gui.Properties;
+﻿using PipBenchmark.Gui.Properties;
 
-namespace PipBenchmark.Runner.Gui.AsyncWait
+namespace PipBenchmark.Gui.AsyncWait
 {
     partial class AsyncWaitDialog
     {
@@ -60,7 +60,7 @@ namespace PipBenchmark.Runner.Gui.AsyncWait
             // 
             // pictureBox
             // 
-            this.pictureBox.Image = global::PipBenchmark.Runner.Gui.Properties.Resources.WaitLarge;
+            this.pictureBox.Image = global::PipBenchmark.Gui.Properties.Resources.WaitLarge;
             this.pictureBox.Location = new System.Drawing.Point(26, 25);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox.Name = "pictureBox";

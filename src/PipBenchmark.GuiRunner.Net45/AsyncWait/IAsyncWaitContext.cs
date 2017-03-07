@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace PipBenchmark.Runner.Gui.AsyncWait
+namespace PipBenchmark.Gui.AsyncWait
 {
     public interface IAsyncWaitContext
     {

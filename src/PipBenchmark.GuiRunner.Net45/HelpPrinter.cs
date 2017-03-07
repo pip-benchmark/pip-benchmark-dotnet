@@ -1,4 +1,4 @@
-﻿namespace PipBenchmark.Runner.Gui
+﻿namespace PipBenchmark.Gui
 {
     public static class HelpPrinter
     {

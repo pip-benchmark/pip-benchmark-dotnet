@@ -1,4 +1,5 @@
 ﻿using PipBenchmark.Runner.Execution;
+using PipBenchmark.Utilities;
 
 namespace PipBenchmark.Runner.Config
 {
@@ -18,8 +19,8 @@ namespace PipBenchmark.Runner.Config
 
         public override string Value
         {
-            get { return SimpleTypeConverter.IntegerToString(_process.NumberOfThreads); }
-            set { _process.NumberOfThreads = SimpleTypeConverter.StringToInteger(value, 1); }
+            get { return Converter.IntegerToString(_process.NumberOfThreads); }
+            set { _process.NumberOfThreads = Converter.StringToInteger(value, 1); }
         }
     }
 }

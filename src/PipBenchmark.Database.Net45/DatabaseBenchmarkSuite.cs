@@ -23,7 +23,7 @@ namespace PipBenchmark.Database
         private Parameter _numberOfRecordsToSelect;
         private Parameter _blobFieldSize;
 
-        protected RandomDataGenerator RandomGenerator = new RandomDataGenerator();
+        protected PipBenchmark.Utilities.Random Random = new PipBenchmark.Utilities.Random();
 
         protected DatabaseBenchmarkSuite(string name, string description)
             : base(name, description)
@@ -35,25 +35,25 @@ namespace PipBenchmark.Database
 
         private void InitializeConfigurationParameters()
         {
-            _connectionString = AddParameter("ConnectionString", "Connection string to connect to the test db", "");
-            _numberOfRecordsInTable = AddParameter("NumberOfRecordsInTable", "Number of records in the test table", "10000");
-            _numberOfRecordsToSelect = AddParameter("NumberOfRecordsToSelect", "Number of records to retrieve in select query", "100");
-            _blobFieldSize = AddParameter("BlobFieldSize", "Size of blob field", "1024");
+            _connectionString = CreateParameter("ConnectionString", "Connection string to connect to the test db", "");
+            _numberOfRecordsInTable = CreateParameter("NumberOfRecordsInTable", "Number of records in the test table", "10000");
+            _numberOfRecordsToSelect = CreateParameter("NumberOfRecordsToSelect", "Number of records to retrieve in select query", "100");
+            _blobFieldSize = CreateParameter("BlobFieldSize", "Size of blob field", "1024");
         }
 
         private void InitializeBenchmarkTests()
         {
-            AddBenchmark("Insert", "Measures inserts", ExecuteInsert);
-            AddBenchmark("Update", "Measures updates", ExecuteUpdate);
-            AddBenchmark("Delete", "Measures deletes", ExecuteDelete);
-            AddBenchmark("Select", "Measures selects", ExecuteSelect);
-            AddBenchmark("SelectWhere", "Measures selects with where clause", ExecuteSelectWhere);
+            CreateBenchmark("Insert", "Measures inserts", ExecuteInsert);
+            CreateBenchmark("Update", "Measures updates", ExecuteUpdate);
+            CreateBenchmark("Delete", "Measures deletes", ExecuteDelete);
+            CreateBenchmark("Select", "Measures selects", ExecuteSelect);
+            CreateBenchmark("SelectWhere", "Measures selects with where clause", ExecuteSelectWhere);
 
-            AddBenchmark("ReadBlob", "Measures reading blobs", ExecuteReadBlob);
-            AddBenchmark("WriteBlob", "Measures writing blobs", ExecuteWriteBlob);
+            CreateBenchmark("ReadBlob", "Measures reading blobs", ExecuteReadBlob);
+            CreateBenchmark("WriteBlob", "Measures writing blobs", ExecuteWriteBlob);
 
-            AddBenchmark("Commit", "Measures commits", ExecuteCommit);
-            AddBenchmark("Rollback", "Measures rollbacks", ExecuteRollback);
+            CreateBenchmark("Commit", "Measures commits", ExecuteCommit);
+            CreateBenchmark("Rollback", "Measures rollbacks", ExecuteRollback);
         }
 
         private void InitializeFieldValues()
@@ -64,7 +64,7 @@ namespace PipBenchmark.Database
             _machineNameValue = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\Ident", "Name", "NAME");
 #endif
             _processIdValue = Guid.NewGuid();
-            _memoValues = RandomGenerator.RandomStringList(0, 100, 128);
+            _memoValues = Random.RandomStringList(0, 100, 128);
         }
 
         public string ConnectionString
@@ -105,7 +105,7 @@ namespace PipBenchmark.Database
 
         protected double GetRandomValue()
         {
-            return RandomGenerator.RandomDouble(0, 100);
+            return Random.RandomDouble(0, 100);
         }
 
         protected string GetMemoValue()
@@ -113,7 +113,7 @@ namespace PipBenchmark.Database
             StringBuilder builder = new StringBuilder();
             while (builder.Length < BlobFieldSize)
             {
-                builder.Append(_memoValues[RandomGenerator.RandomInteger(0, _memoValues.Count)]);
+                builder.Append(_memoValues[Random.RandomInteger(0, _memoValues.Count)]);
             }
             builder.Length = BlobFieldSize;
             return builder.ToString();

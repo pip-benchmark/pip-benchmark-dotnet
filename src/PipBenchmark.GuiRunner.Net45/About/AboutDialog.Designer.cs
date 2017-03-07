@@ -1,4 +1,4 @@
-﻿namespace PipBenchmark.Runner.Gui.About
+﻿namespace PipBenchmark.Gui.About
 {
     partial class AboutDialog
     {

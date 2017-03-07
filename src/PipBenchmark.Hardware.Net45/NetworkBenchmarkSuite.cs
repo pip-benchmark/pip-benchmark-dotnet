@@ -31,14 +31,14 @@ namespace PipBenchmark.Hardware
 
         private void InitializeConfigurationParameters()
         {
-            _destinationAddress = AddParameter("DestinationAddress", "Address of the remote host", "localhost");
-            _pingPacketSize = AddParameter("PingPacketSize", "Size of ping packets in bytes", "32");
-            _pingTimeout = AddParameter("PingTimeout", "Ping timeout in msecs", "3000");
+            _destinationAddress = CreateParameter("DestinationAddress", "Address of the remote host", "localhost");
+            _pingPacketSize = CreateParameter("PingPacketSize", "Size of ping packets in bytes", "32");
+            _pingTimeout = CreateParameter("PingTimeout", "Ping timeout in msecs", "3000");
         }
 
         private void InitializeTests()
         {
-            AddBenchmark("Ping", "Measures network pings", ExecutePing);
+            CreateBenchmark("Ping", "Measures network pings", ExecutePing);
         }
 
         public string DestinationAddress

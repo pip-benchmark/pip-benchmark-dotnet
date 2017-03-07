@@ -1,4 +1,4 @@
-﻿namespace PipBenchmark.Runner.Gui.Execution
+﻿namespace PipBenchmark.Gui.Execution
 {
     partial class ExecutionPerspective
     {
@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            PipBenchmark.Runner.Gui.Charts.ChartPen chartPen1 = new PipBenchmark.Runner.Gui.Charts.ChartPen();
-            PipBenchmark.Runner.Gui.Charts.ChartPen chartPen2 = new PipBenchmark.Runner.Gui.Charts.ChartPen();
-            PipBenchmark.Runner.Gui.Charts.ChartPen chartPen3 = new PipBenchmark.Runner.Gui.Charts.ChartPen();
-            PipBenchmark.Runner.Gui.Charts.ChartPen chartPen4 = new PipBenchmark.Runner.Gui.Charts.ChartPen();
+            PipBenchmark.Gui.Charts.ChartPen chartPen1 = new PipBenchmark.Gui.Charts.ChartPen();
+            PipBenchmark.Gui.Charts.ChartPen chartPen2 = new PipBenchmark.Gui.Charts.ChartPen();
+            PipBenchmark.Gui.Charts.ChartPen chartPen3 = new PipBenchmark.Gui.Charts.ChartPen();
+            PipBenchmark.Gui.Charts.ChartPen chartPen4 = new PipBenchmark.Gui.Charts.ChartPen();
             this.benchmarkingResultsGroupBox = new System.Windows.Forms.GroupBox();
             this.memoryLabel = new System.Windows.Forms.Label();
             this.maxMemoryTextBox = new System.Windows.Forms.TextBox();
@@ -71,7 +71,7 @@
             this.performanceColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cpuLoadColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.memoryUsageColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.performanceChart = new PipBenchmark.Runner.Gui.Charts.PerformanceChart();
+            this.performanceChart = new PipBenchmark.Gui.Charts.PerformanceChart();
             this.benchmarkingResultsGroupBox.SuspendLayout();
             this.benchmarkingSettingsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.durationNumericUpDown)).BeginInit();
@@ -567,11 +567,11 @@
             chartPen4.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             chartPen4.Width = 1F;
             this.performanceChart.PerfChartStyle.VerticalGridPen = chartPen4;
-            this.performanceChart.ScaleMode = PipBenchmark.Runner.Gui.Charts.ScaleMode.Relative;
+            this.performanceChart.ScaleMode = PipBenchmark.Gui.Charts.ScaleMode.Relative;
             this.performanceChart.Size = new System.Drawing.Size(1018, 212);
             this.performanceChart.TabIndex = 4;
             this.performanceChart.TimerInterval = 100;
-            this.performanceChart.TimerMode = PipBenchmark.Runner.Gui.Charts.TimerMode.Disabled;
+            this.performanceChart.TimerMode = PipBenchmark.Gui.Charts.TimerMode.Disabled;
             // 
             // ExecutionPerspective
             // 
@@ -617,7 +617,7 @@
         private System.Windows.Forms.Label minPerformanceLabel;
         private System.Windows.Forms.CheckBox performanceChartEnabledCheckBox;
         private System.Windows.Forms.Button benchmarkActionButton;
-        private PipBenchmark.Runner.Gui.Charts.PerformanceChart performanceChart;
+        private PipBenchmark.Gui.Charts.PerformanceChart performanceChart;
         private System.Windows.Forms.GroupBox benchmarkingSettingsGroupBox;
         private System.Windows.Forms.RadioButton nominalPerformanceRadioButton;
         private System.Windows.Forms.RadioButton peakPerformanceRadioButton;

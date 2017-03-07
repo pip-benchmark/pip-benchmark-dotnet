@@ -4,14 +4,15 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 
-using PipBenchmark.Runner.Gui.Shell;
+using PipBenchmark.Gui.Shell;
 using PipBenchmark.Runner;
+using PipBenchmark.Runner.Benchmarks;
 
 #if PocketPC
-using OpenFileDialog = PipBenchmark.Runner.Gui.OpenFileDialog.OpenFileDialog;
+using OpenFileDialog = PipBenchmark.Gui.OpenFileDialog.OpenFileDialog;
 #endif
 
-namespace PipBenchmark.Runner.Gui.Initialization
+namespace PipBenchmark.Gui.Initialization
 {
     public class InitializationController : AbstractChildController
     {

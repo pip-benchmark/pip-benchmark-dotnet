@@ -1,4 +1,4 @@
-﻿namespace PipBenchmark.Runner.Gui.Initialization
+﻿namespace PipBenchmark.Gui.Initialization
 {
     partial class InitializationPerspective
     {

@@ -1,8 +1,9 @@
 ﻿using PipBenchmark.Runner;
+using PipBenchmark.Runner.Benchmarks;
 using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Runner.Gui.Initialization
+namespace PipBenchmark.Gui.Initialization
 {
     public interface IInitializationView
     {

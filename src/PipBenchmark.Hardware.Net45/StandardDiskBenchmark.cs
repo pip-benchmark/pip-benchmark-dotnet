@@ -16,7 +16,7 @@ namespace PipBenchmark.Hardware
 #endif
 
         private object _syncRoot = new object();
-        private Random _randomGenerator = new Random();
+        private System.Random _randomGenerator = new System.Random();
         private FileStream _fileStream;
         private byte[] _buffer = new byte[BufferSize];
 

@@ -15,7 +15,7 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Controls
         private const int Width = 640;
         private const int Height = 480;
 
-        private Random _random = new Random(Width);
+        private System.Random _random = new System.Random(Width);
 
         private int lastTick;
         private int frameCount;

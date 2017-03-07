@@ -1,4 +1,6 @@
-﻿namespace PipBenchmark.Runner.Gui.Shell
+﻿using PipBenchmark.Runner.Config;
+
+namespace PipBenchmark.Gui.Shell
 {
     partial class MainForm
     {
@@ -56,15 +58,15 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentTabControl = new System.Windows.Forms.TabControl();
             this.initializationTabPage = new System.Windows.Forms.TabPage();
-            this.initializationPerspective = new PipBenchmark.Runner.Gui.Initialization.InitializationPerspective();
+            this.initializationPerspective = new PipBenchmark.Gui.Initialization.InitializationPerspective();
             this.configurationTabPage = new System.Windows.Forms.TabPage();
-            this.configurationPerspective = new PipBenchmark.Runner.Gui.Config.ConfigurationPerspective();
+            this.configurationPerspective = new PipBenchmark.Gui.Config.ConfigurationPerspective();
             this.executionTabPage = new System.Windows.Forms.TabPage();
-            this.executionPerspective = new PipBenchmark.Runner.Gui.Execution.ExecutionPerspective();
+            this.executionPerspective = new PipBenchmark.Gui.Execution.ExecutionPerspective();
             this.resultsTabPage = new System.Windows.Forms.TabPage();
-            this.resultsPerspective = new PipBenchmark.Runner.Gui.Results.ResultsPerspective();
+            this.resultsPerspective = new PipBenchmark.Gui.Results.ResultsPerspective();
             this.environmentTabPage = new System.Windows.Forms.TabPage();
-            this.environmentPerspective = new PipBenchmark.Runner.Gui.Environment.EnvironmentPerspective();
+            this.environmentPerspective = new PipBenchmark.Gui.Environment.EnvironmentPerspective();
             this.mainStatusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.contentTabControl.SuspendLayout();
@@ -345,10 +347,10 @@
             this.executionPerspective.BenchmarkActionButton = "Start";
             this.executionPerspective.Dock = System.Windows.Forms.DockStyle.Fill;
             this.executionPerspective.Duration = 1;
-            this.executionPerspective.ExecutionType = PipBenchmark.Runner.ExecutionType.Proportional;
+            this.executionPerspective.ExecutionType = ExecutionType.Proportional;
             this.executionPerspective.Location = new System.Drawing.Point(3, 3);
             this.executionPerspective.Margin = new System.Windows.Forms.Padding(6);
-            this.executionPerspective.MeasurementType = PipBenchmark.Runner.MeasurementType.Nominal;
+            this.executionPerspective.MeasurementType = MeasurementType.Nominal;
             this.executionPerspective.MinimumSize = new System.Drawing.Size(535, 400);
             this.executionPerspective.Name = "executionPerspective";
             this.executionPerspective.NominalRate = 1D;
@@ -465,11 +467,11 @@
         private System.Windows.Forms.TabPage executionTabPage;
         private System.Windows.Forms.TabPage resultsTabPage;
         private System.Windows.Forms.TabPage environmentTabPage;
-        private PipBenchmark.Runner.Gui.Initialization.InitializationPerspective initializationPerspective;
-        private PipBenchmark.Runner.Gui.Config.ConfigurationPerspective configurationPerspective;
-        private PipBenchmark.Runner.Gui.Execution.ExecutionPerspective executionPerspective;
-        private PipBenchmark.Runner.Gui.Results.ResultsPerspective resultsPerspective;
-        private PipBenchmark.Runner.Gui.Environment.EnvironmentPerspective environmentPerspective;
+        private PipBenchmark.Gui.Initialization.InitializationPerspective initializationPerspective;
+        private PipBenchmark.Gui.Config.ConfigurationPerspective configurationPerspective;
+        private PipBenchmark.Gui.Execution.ExecutionPerspective executionPerspective;
+        private PipBenchmark.Gui.Results.ResultsPerspective resultsPerspective;
+        private PipBenchmark.Gui.Environment.EnvironmentPerspective environmentPerspective;
     }
 }
 

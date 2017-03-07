@@ -12,7 +12,7 @@ namespace PipBenchmark.Hardware
         private const int MaxWindowHeight = 480;
 
         private object _syncRoot = new object();
-        private Random _randomGenerator = new Random();
+        private System.Random _randomGenerator = new System.Random();
         private Form _outputForm;
         private System.Drawing.Graphics _outputGraphics;
 

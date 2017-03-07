@@ -6,9 +6,9 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-using PipBenchmark.Runner.Gui.Results;
+using PipBenchmark.Gui.Results;
 
-namespace PipBenchmark.Runner.Gui.Results
+namespace PipBenchmark.Gui.Results
 {
     public partial class ResultsPerspective : UserControl, IResultsView
     {

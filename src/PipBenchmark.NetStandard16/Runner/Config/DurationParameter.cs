@@ -1,4 +1,5 @@
 ﻿using PipBenchmark.Runner.Execution;
+using PipBenchmark.Utilities;
 
 namespace PipBenchmark.Runner.Config
 {
@@ -18,8 +19,8 @@ namespace PipBenchmark.Runner.Config
 
         public override string Value
         {
-            get { return SimpleTypeConverter.IntegerToString(_process.Duration / 1000); }
-            set { _process.Duration = SimpleTypeConverter.StringToInteger(value, 60) * 1000; }
+            get { return Converter.IntegerToString(_process.Duration); }
+            set { _process.Duration = Converter.StringToInteger(value, 60); }
         }
     }
 }

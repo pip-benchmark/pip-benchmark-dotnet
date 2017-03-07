@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using PipBenchmark.Utilities;
 
 namespace PipBenchmark.Runner.Config
 {
@@ -119,84 +120,84 @@ namespace PipBenchmark.Runner.Config
         {
             if (this.ContainsKey(key))
             {
-                return SimpleTypeConverter.StringToInteger(this[key], defaultValue);
+                return Converter.StringToInteger(this[key], defaultValue);
             }
             return defaultValue;
         }
 
         public void SetAsInteger(string key, int value)
         {
-            this[key] = SimpleTypeConverter.IntegerToString(value);
+            this[key] = Converter.IntegerToString(value);
         }
 
         public long GetAsLong(string key, long defaultValue)
         {
             if (this.ContainsKey(key))
             {
-                return SimpleTypeConverter.StringToLong(this[key], defaultValue);
+                return Converter.StringToLong(this[key], defaultValue);
             }
             return defaultValue;
         }
 
         public void SetAsLong(string key, long value)
         {
-            this[key] = SimpleTypeConverter.LongToString(value);
+            this[key] = Converter.LongToString(value);
         }
 
         public double GetAsDouble(string key, double defaultValue)
         {
             if (this.ContainsKey(key))
             {
-                return SimpleTypeConverter.StringToDouble(this[key], defaultValue);
+                return Converter.StringToDouble(this[key], defaultValue);
             }
             return defaultValue;
         }
 
         public void SetAsDouble(string key, double value)
         {
-            this[key] = SimpleTypeConverter.DoubleToString(value);
+            this[key] = Converter.DoubleToString(value);
         }
 
         public bool GetAsBoolean(string key, bool defaultValue)
         {
             if (this.ContainsKey(key))
             {
-                return SimpleTypeConverter.StringToBoolean(this[key]);
+                return Converter.StringToBoolean(this[key]);
             }
             return defaultValue;
         }
 
         public void SetAsBoolean(string key, bool value)
         {
-            this[key] = SimpleTypeConverter.BooleanToString(value);
+            this[key] = Converter.BooleanToString(value);
         }
 
         public DateTime GetAsDateTime(string key, DateTime defaultValue)
         {
             if (this.ContainsKey(key))
             {
-                return SimpleTypeConverter.StringToDateTime(this[key], defaultValue);
+                return Converter.StringToDateTime(this[key], defaultValue);
             }
             return defaultValue;
         }
 
         public void SetAsDateTime(string key, DateTime value)
         {
-            this[key] = SimpleTypeConverter.DateTimeToString(value);
+            this[key] = Converter.DateTimeToString(value);
         }
 
         public TimeSpan GetAsTimeSpan(string key, TimeSpan defaultValue)
         {
             if (this.ContainsKey(key))
             {
-                return SimpleTypeConverter.StringToTimeSpan(this[key], defaultValue);
+                return Converter.StringToTimeSpan(this[key], defaultValue);
             }
             return defaultValue;
         }
 
         public void SetAsTimeSpan(string key, TimeSpan value)
         {
-            this[key] = SimpleTypeConverter.TimeSpanToString(value);
+            this[key] = Converter.TimeSpanToString(value);
         }
 
     }

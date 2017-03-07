@@ -1,4 +1,4 @@
-﻿namespace PipBenchmark.Runner.Gui.Environment
+﻿namespace PipBenchmark.Gui.Environment
 {
     partial class EnvironmentPerspective
     {

@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PipBenchmark.Runner.Gui.About
+namespace PipBenchmark.Gui.About
 {
     public partial class AboutDialog : Form
     {

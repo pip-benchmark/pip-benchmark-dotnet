@@ -6,10 +6,11 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-using PipBenchmark.Runner.Gui.Initialization;
+using PipBenchmark.Gui.Initialization;
 using PipBenchmark.Runner;
+using PipBenchmark.Runner.Benchmarks;
 
-namespace PipBenchmark.Runner.Gui.Initialization
+namespace PipBenchmark.Gui.Initialization
 {
     public partial class InitializationPerspective : UserControl, IInitializationView
     {

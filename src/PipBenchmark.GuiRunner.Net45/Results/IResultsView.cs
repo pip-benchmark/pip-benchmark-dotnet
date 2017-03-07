@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Runner.Gui.Results
+namespace PipBenchmark.Gui.Results
 {
     public interface IResultsView
     {

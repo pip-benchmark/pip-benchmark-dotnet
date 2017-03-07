@@ -1,8 +1,9 @@
 ﻿using PipBenchmark.Runner;
+using PipBenchmark.Runner.Results;
 using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Runner.Gui.Execution
+namespace PipBenchmark.Gui.Execution
 {
     public class ExecutionResult
     {

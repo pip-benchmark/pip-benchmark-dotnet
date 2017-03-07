@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PipBenchmark.Runner.Console
+namespace PipBenchmark.Console
 {
     public static class HelpPrinter
     {

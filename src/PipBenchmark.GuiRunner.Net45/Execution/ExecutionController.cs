@@ -1,8 +1,12 @@
-﻿using PipBenchmark.Runner.Gui.Shell;
+﻿using PipBenchmark.Gui.Shell;
+using PipBenchmark.Runner;
+using PipBenchmark.Runner.Config;
+using PipBenchmark.Runner.Execution;
+using PipBenchmark.Runner.Results;
 using System;
 using System.Collections.Generic;
 
-namespace PipBenchmark.Runner.Gui.Execution
+namespace PipBenchmark.Gui.Execution
 {
     public class ExecutionController : AbstractChildController
     {
@@ -126,12 +130,12 @@ namespace PipBenchmark.Runner.Gui.Execution
             MainController.SetStatusMessage(e.Message);
         }
 
-        private void OnBenchmarkUpdate(object sender, ResultUpdatedEventArgs args)
+        private void OnBenchmarkUpdate(object sender, ResultEventArgs args)
         {
             if (MainController.View.Handler.InvokeRequired)
             {
                 MainController.View.Handler.BeginInvoke(
-                    new EventHandler<ResultUpdatedEventArgs>(OnBenchmarkUpdate),
+                    new EventHandler<ResultEventArgs>(OnBenchmarkUpdate),
                     sender, args);
             }
             else

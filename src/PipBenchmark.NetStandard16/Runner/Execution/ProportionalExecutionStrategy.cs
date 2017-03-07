@@ -114,7 +114,7 @@ namespace PipBenchmark.Runner.Execution
 
         private void PerformBenchmarking(CancellationToken token)
         {
-            Random randomGenerator = new Random();
+            System.Random randomGenerator = new System.Random();
             int lastExecutedTicks = System.Environment.TickCount;
             int numberOfTests = Benchmarks.Count;
             BenchmarkInstance firstBenchmark = Benchmarks.Count == 1 ? Benchmarks[0] : null;
