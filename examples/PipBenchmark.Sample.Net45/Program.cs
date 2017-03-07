@@ -19,11 +19,11 @@ namespace PipBenchmark.Sample.Net45
             runner.AddSuite(new SampleBenchmarkSuite());
             runner.SelectAllBenchmarks();
 
-            runner.Duration = 15000;
-            runner.MeasurementType = MeasurementType.Peak;
-            runner.NumberOfThreads = 1;
-            runner.ExecutionType = ExecutionType.Proportional;
-            runner.IsForceContinue = true;
+            runner.Configuration.Duration = 15000;
+            runner.Configuration.MeasurementType = MeasurementType.Peak;
+            runner.Configuration.NumberOfThreads = 1;
+            runner.Configuration.ExecutionType = ExecutionType.Proportional;
+            runner.Configuration.ForceContinue = true;
 
             //runner.BenchmarkEnvironment(true, true, true);
 

@@ -37,11 +37,11 @@ namespace PipBenchmark.Gui.Execution
             _updatingView = true;
             try
             {
-                _view.NumberOfThreads = _model.NumberOfThreads;
-                _view.MeasurementType = _model.MeasurementType;
-                _view.NominalRate = _model.NominalRate;
-                _view.ExecutionType = _model.ExecutionType;
-                _view.Duration = _model.Duration / 1000;
+                _view.NumberOfThreads = _model.Configuration.NumberOfThreads;
+                _view.MeasurementType = _model.Configuration.MeasurementType;
+                _view.NominalRate = _model.Configuration.NominalRate;
+                _view.ExecutionType = _model.Configuration.ExecutionType;
+                _view.Duration = _model.Configuration.Duration / 1000;
             }
             finally
             {
@@ -57,18 +57,18 @@ namespace PipBenchmark.Gui.Execution
 
                 _results.Clear();
 
-                _model.NumberOfThreads = _view.NumberOfThreads;
-                _model.MeasurementType = _view.MeasurementType;
-                _model.NominalRate = _view.NominalRate;
-                _model.ExecutionType = _view.ExecutionType;
-                _model.Duration = _view.Duration * 1000;
+                _model.Configuration.NumberOfThreads = _view.NumberOfThreads;
+                _model.Configuration.MeasurementType = _view.MeasurementType;
+                _model.Configuration.NominalRate = _view.NominalRate;
+                _model.Configuration.ExecutionType = _view.ExecutionType;
+                _model.Configuration.Duration = _view.Duration * 1000;
 
                 try
                 {
                     _model.Start();
 
                     _view.BenchmarkActionButton = "Stop";
-                    _view.ShowPerformanceChart = _model.ExecutionType == ExecutionType.Proportional;
+                    _view.ShowPerformanceChart = _model.Configuration.ExecutionType == ExecutionType.Proportional;
                     _view.ExecutionResults = new List<ExecutionResult>(_results.Values);
                 }
                 catch (Exception ex)
@@ -117,11 +117,11 @@ namespace PipBenchmark.Gui.Execution
 
             if (!_updatingView)
             {
-                _model.NumberOfThreads = _view.NumberOfThreads;
-                _model.MeasurementType = _view.MeasurementType;
-                _model.NominalRate = _view.NominalRate;
-                _model.ExecutionType = _view.ExecutionType;
-                _model.Duration = _view.Duration;
+                _model.Configuration.NumberOfThreads = _view.NumberOfThreads;
+                _model.Configuration.MeasurementType = _view.MeasurementType;
+                _model.Configuration.NominalRate = _view.NominalRate;
+                _model.Configuration.ExecutionType = _view.ExecutionType;
+                _model.Configuration.Duration = _view.Duration;
             }
         }
 
@@ -169,7 +169,7 @@ namespace PipBenchmark.Gui.Execution
                     _view.ExecutionResults = new List<ExecutionResult>(_results.Values);
                 }
 
-                if (_model.MeasurementType == MeasurementType.Peak)
+                if (_model.Configuration.MeasurementType == MeasurementType.Peak)
                 {
                     _view.PerformanceChartName = "Performance Chart (tps)";
                 }
@@ -186,7 +186,7 @@ namespace PipBenchmark.Gui.Execution
                 {
                     if (args.Result != null)
                     {
-                        _view.AddCurrentPerformancePoint(_model.MeasurementType == MeasurementType.Peak
+                        _view.AddCurrentPerformancePoint(_model.Configuration.MeasurementType == MeasurementType.Peak
                             ? args.Result.PerformanceMeasurement.CurrentValue
                             : args.Result.CpuLoadMeasurement.CurrentValue);
                     }

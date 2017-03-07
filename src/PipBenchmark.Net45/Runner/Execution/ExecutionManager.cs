@@ -10,21 +10,16 @@ namespace PipBenchmark.Runner.Execution
 {
     public class ExecutionManager
     {
-        private static readonly object SyncRoot = new object();
+        protected static readonly object SyncRoot = new object();
+        protected ConfigurationManager _configuration;
         private ExecutionStrategy _strategy = null;
         private List<BenchmarkSuiteInstance> _suites;
  
-        private int _numberOfThreads = 1;
-        private MeasurementType _measurementType = MeasurementType.Peak;
-        private double _nominalRate = 1;
-        private ExecutionType _executionType = ExecutionType.Proportional;
-        private int _duration = 60000;
-        private bool _forceContinue = false;
-
         private readonly List<BenchmarkResult> _results = new List<BenchmarkResult>();
 
-        public ExecutionManager(BenchmarkRunner runner)
+        public ExecutionManager(ConfigurationManager configuration, BenchmarkRunner runner)
         {
+            _configuration = configuration;
             Runner = runner;
         }
 
@@ -33,42 +28,6 @@ namespace PipBenchmark.Runner.Execution
         public bool IsRunning
         {
             get { return _strategy != null; }
-        }
-
-        public int NumberOfThreads
-        {
-            get { return _numberOfThreads; }
-            set { _numberOfThreads = value; }
-        }
-
-        public MeasurementType MeasurementType
-        {
-            get { return _measurementType; }
-            set { _measurementType = value; }
-        }
-
-        public double NominalRate
-        {
-            get { return _nominalRate; }
-            set { _nominalRate = value; }
-        }
-
-        public ExecutionType ExecutionType
-        {
-            get { return _executionType; }
-            set { _executionType = value; }
-        }
-
-        public int Duration
-        {
-            get { return _duration; }
-            set { _duration = value; }
-        }
-
-        public bool IsForceContinue
-        {
-            get { return _forceContinue; }
-            set { _forceContinue = value; }
         }
 
         public List<BenchmarkResult> Results
@@ -107,10 +66,10 @@ namespace PipBenchmark.Runner.Execution
                 throw new ArgumentException("There are no benchmarks to execute");
 
             // Create requested test strategy
-            if (_executionType == ExecutionType.Sequential)
-                _strategy = new SequencialExecutionStrategy(this, selectedBenchmarks);
+            if (_configuration.ExecutionType == ExecutionType.Sequential)
+                _strategy = new SequencialExecutionStrategy(_configuration, this, selectedBenchmarks);
             else
-                _strategy = new ProportionalExecutionStrategy(this, selectedBenchmarks);
+                _strategy = new ProportionalExecutionStrategy(_configuration, this, selectedBenchmarks);
 
             // Initialize parameters and start 
             _results.Clear();

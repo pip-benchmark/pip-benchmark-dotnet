@@ -16,8 +16,9 @@ namespace PipBenchmark.Runner.Execution
         private Task[] _tasks = null;
         private double _ticksPerTransaction = 0;
 
-        public ProportionalExecutionStrategy(ExecutionManager parentProcess, List<BenchmarkInstance> benchmarks)
-            : base(parentProcess, benchmarks)
+        public ProportionalExecutionStrategy(ConfigurationManager configuration, 
+            ExecutionManager parentProcess, List<BenchmarkInstance> benchmarks)
+            : base(configuration, parentProcess, benchmarks)
         {
             CalculateExecutionTriggers();
         }
@@ -51,10 +52,10 @@ namespace PipBenchmark.Runner.Execution
             foreach (BenchmarkInstance benchmark in Benchmarks)
                 CurrentResult.Benchmarks.Add(benchmark);
 
-            if (Process.MeasurementType == MeasurementType.Peak)
+            if (_configuration.MeasurementType == MeasurementType.Peak)
                 _ticksPerTransaction = 0;
             else
-                _ticksPerTransaction = 1000.0 / Process.NominalRate * Process.NumberOfThreads;
+                _ticksPerTransaction = 1000.0 / _configuration.NominalRate * _configuration.NumberOfThreads;
 
             // Initialize test suites
             foreach (BenchmarkSuiteInstance suite in Suites)
@@ -63,9 +64,9 @@ namespace PipBenchmark.Runner.Execution
             _running = true;
 
             // Start benchmarking threads
-            _tasks = new Task[Process.NumberOfThreads];
+            _tasks = new Task[_configuration.NumberOfThreads];
             var token = _controlTaskCancellation.Token;
-            for (int index = 0; index < Process.NumberOfThreads; index++)
+            for (int index = 0; index < _configuration.NumberOfThreads; index++)
             {
                 _tasks[index] = Task.Run(() => PerformBenchmarking(token), token);
                 //_tasks[index].Name = string.Format("Benchmarking Thread #{0}/{1}", index, Process.NumberOfThreads);
@@ -128,7 +129,7 @@ namespace PipBenchmark.Runner.Execution
             {
                 while (_running)
                 {
-                    if (Process.MeasurementType == MeasurementType.Nominal)
+                    if (_configuration.MeasurementType == MeasurementType.Nominal)
                     {
                         double ticksToNextTransaction = _ticksPerTransaction
                             - (System.Environment.TickCount - lastExecutedTicks);

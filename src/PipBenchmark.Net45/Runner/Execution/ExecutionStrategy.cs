@@ -1,5 +1,6 @@
 ﻿using PipBenchmark.Runner;
 using PipBenchmark.Runner.Benchmarks;
+using PipBenchmark.Runner.Config;
 using PipBenchmark.Runner.Results;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,8 @@ namespace PipBenchmark.Runner.Execution
     {
         private const int MaxErrorCount = 1000;
 
-        private readonly object _syncRoot = new object();
+        protected readonly object _syncRoot = new object();
+        protected ConfigurationManager _configuration;
         private ExecutionManager _process;
         private List<BenchmarkInstance> _benchmarks;
         private List<BenchmarkSuiteInstance> _suites;
@@ -24,8 +26,10 @@ namespace PipBenchmark.Runner.Execution
         private CpuLoadMeter _cpuLoadMeter;
         private MemoryUsageMeter _memoryUsageMeter;
 
-        protected ExecutionStrategy(ExecutionManager parentProcess, List<BenchmarkInstance> benchmarks)
+        protected ExecutionStrategy(ConfigurationManager configuration,
+            ExecutionManager parentProcess, List<BenchmarkInstance> benchmarks)
         {
+            _configuration = configuration;
             _process = parentProcess;
             _benchmarks = benchmarks;
             _suites = GetAllSuitesFromBenchmarks(benchmarks);
@@ -155,7 +159,7 @@ namespace PipBenchmark.Runner.Execution
             {
                 ReportError(ex.Message);
 
-                if (!Process.IsForceContinue)
+                if (!_configuration.ForceContinue)
                     throw ex;
             }
         }

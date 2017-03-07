@@ -1,32 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-
-using PipBenchmark.Runner.Execution;
-using PipBenchmark.Runner;
-using PipBenchmark.Runner.Config;
+﻿using PipBenchmark.Runner.Config;
+using System;
 
 namespace PipBenchmark.Runner.Parameters
 {
     public class ExecutionTypeParameter : Parameter
     {
-        private ExecutionManager _process;
+        private ConfigurationManager _configuration;
 
-        public ExecutionTypeParameter(ExecutionManager process)
+        public ExecutionTypeParameter(ConfigurationManager configuration)
             : base(
                 "General.Benchmarking.ExecutionType",
                 "Execution type: proportional or sequencial",
                 "Proportional"
             )
         {
-            _process = process;
+            _configuration = configuration;
         }
 
         public override string Value
         {
-            get { return _process.ExecutionType == ExecutionType.Proportional ? "Proportional" : "Sequencial"; }
+            get { return _configuration.ExecutionType == ExecutionType.Proportional ? "Proportional" : "Sequencial"; }
             set
             {
-                _process.ExecutionType = value.StartsWith("p", StringComparison.InvariantCultureIgnoreCase)
+                _configuration.ExecutionType = value.StartsWith("p", StringComparison.InvariantCultureIgnoreCase)
                     ? ExecutionType.Proportional : ExecutionType.Sequential;
             }
         }

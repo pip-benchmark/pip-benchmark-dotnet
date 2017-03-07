@@ -14,217 +14,182 @@ namespace PipBenchmark.Runner
 {
     public class BenchmarkRunner
     {
-        private BenchmarkSuiteManager _suiteManager;
-        private ParametersManager _configurationManager;
-        private ExecutionManager _process;
-        private ReportGenerator _reportGenerator;
-        private EnvironmentState _environmentState;
+        private ConfigurationManager _configuration;
+        private BenchmarksManager _benchmarks;
+        private ParametersManager _parameters;
+        private ExecutionManager _execution;
+        private ReportGenerator _report;
+        private EnvironmentState _environment;
 
         public BenchmarkRunner()
         {
-            _suiteManager = new BenchmarkSuiteManager(this);
-            _process = new ExecutionManager(this);
-            _configurationManager = new ParametersManager(this);
-            _reportGenerator = new ReportGenerator(this);
-            _environmentState = new EnvironmentState(this);
+            _configuration = new ConfigurationManager();
+            _parameters = new ParametersManager(_configuration);
+            _benchmarks = new BenchmarksManager(this);
+            _execution = new ExecutionManager(_configuration, this);
+            _report = new ReportGenerator(this);
+            _environment = new EnvironmentState(this);
         }
 
-        public ParametersManager ConfigurationManager
+        public ConfigurationManager Configuration
         {
-            get { return _configurationManager; }
+            get { return _configuration; }
         }
 
-        public ExecutionManager Process
+        public ParametersManager Parameters
         {
-            get { return _process; }
+            get { return _parameters; }
         }
 
-        public BenchmarkSuiteManager SuiteManager
+        public ExecutionManager Execution
         {
-            get { return _suiteManager; }
+            get { return _execution; }
         }
 
-        public ReportGenerator ReportGenerator
+        public BenchmarksManager Benchmarks
         {
-            get { return _reportGenerator; }
+            get { return _benchmarks; }
         }
 
-        public EnvironmentState EnvironmentState
+        public ReportGenerator Report
         {
-            get { return _environmentState; }
+            get { return _report; }
+        }
+
+        public EnvironmentState Environment
+        {
+            get { return _environment; }
         }
 
         public List<BenchmarkSuiteInstance> Suites
         {
-            get { return SuiteManager.Suites; }
+            get { return Benchmarks.Suites; }
         }
 
         public void AddSuiteFromClass(string suiteClassName)
         {
-            SuiteManager.AddSuiteFromClass(suiteClassName);
+            Benchmarks.AddSuiteFromClass(suiteClassName);
         }
 
         public void AddSuite(BenchmarkSuite suite)
         {
-            SuiteManager.AddSuite(suite);
+            Benchmarks.AddSuite(suite);
         }
 
         public void AddSuite(BenchmarkSuiteInstance suite)
         {
-            SuiteManager.AddSuite(suite);
+            Benchmarks.AddSuite(suite);
         }
 
         public void LoadSuitesFromAssembly(string assemblyName)
         {
-            SuiteManager.LoadSuitesFromAssembly(assemblyName);
+            Benchmarks.LoadSuitesFromAssembly(assemblyName);
         }
 
         public void RemoveSuite(string suiteName)
         {
-            SuiteManager.RemoveSuite(suiteName);
+            Benchmarks.RemoveSuite(suiteName);
         }
 
         public void RemoveSuite(BenchmarkSuite suite)
         {
-            SuiteManager.RemoveSuite(suite);
+            Benchmarks.RemoveSuite(suite);
         }
 
         public void RemoveSuite(BenchmarkSuiteInstance suite)
         {
-            SuiteManager.RemoveSuite(suite);
+            Benchmarks.RemoveSuite(suite);
         }
 
         public void RemoveAllSuites()
         {
-            SuiteManager.RemoveAllSuites();
+            Benchmarks.RemoveAllSuites();
         }
 
         public void SelectAllBenchmarks()
         {
-            SuiteManager.SelectAllBenchmarks();
+            Benchmarks.SelectAllBenchmarks();
         }
 
         public void SelectBenchmarks(params string[] benchmarkNames)
         {
-            SuiteManager.SelectBenchmarks(benchmarkNames);
+            Benchmarks.SelectBenchmarks(benchmarkNames);
         }
 
         public void SelectBenchmarks(params Benchmark[] benchmarks)
         {
 
-            SuiteManager.SelectBenchmarks(benchmarks);
+            Benchmarks.SelectBenchmarks(benchmarks);
         }
 
-        public List<Parameter> Configuration
+        public List<Parameter> ConfigurationX
         {
-            get { return ConfigurationManager.FilteredParameters; }
+            get { return Parameters.FilteredParameters; }
         }
 
         public void LoadConfigurationFromFile(string fileName)
         {
-            ConfigurationManager.LoadConfigurationFromFile(fileName);
+            Parameters.LoadConfigurationFromFile(fileName);
         }
 
         public void SaveConfigurationToFile(string fileName)
         {
-            ConfigurationManager.SaveConfigurationToFile(fileName);
+            Parameters.SaveConfigurationToFile(fileName);
         }
 
         public void SetConfigurationToDefault()
         {
-            ConfigurationManager.SetConfigurationToDefault();
+            Parameters.SetConfigurationToDefault();
         }
 
         public void SetConfiguration(Dictionary<string, string> parameters)
         {
-            ConfigurationManager.SetConfiguration(parameters);
-        }
-
-        public event EventHandler ConfigurationUpdated
-        {
-            add { ConfigurationManager.ConfigurationUpdated += value; }
-            remove { ConfigurationManager.ConfigurationUpdated -= value; }
-        }
-
-        public int NumberOfThreads
-        {
-            get { return Process.NumberOfThreads; }
-            set { Process.NumberOfThreads = value; }
-        }
-
-        public MeasurementType MeasurementType
-        {
-            get { return Process.MeasurementType; }
-            set { Process.MeasurementType = value; }
-        }
-
-        public double NominalRate
-        {
-            get { return Process.NominalRate; }
-            set { Process.NominalRate = value; }
-        }
-
-        public ExecutionType ExecutionType
-        {
-            get { return Process.ExecutionType; }
-            set { Process.ExecutionType = value; }
-        }
-
-        public int Duration
-        {
-            get { return Process.Duration; }
-            set { Process.Duration = value; }
-        }
-
-        public bool IsForceContinue
-        {
-            get { return Process.IsForceContinue; }
-            set { Process.IsForceContinue = value; }
+            Parameters.SetConfiguration(parameters);
         }
 
         public List<BenchmarkResult> Results
         {
-            get { return Process.Results; }
+            get { return Execution.Results; }
         }
 
         public event EventHandler<ResultEventArgs> ResultUpdated
         {
-            add { Process.ResultUpdated += value; }
-            remove { Process.ResultUpdated -= value; }
+            add { Execution.ResultUpdated += value; }
+            remove { Execution.ResultUpdated -= value; }
         }
 
         public event EventHandler<MessageEventArgs> MessageSent
         {
-            add { Process.MessageSent += value; }
-            remove { Process.MessageSent -= value; }
+            add { Execution.MessageSent += value; }
+            remove { Execution.MessageSent -= value; }
         }
 
         public event EventHandler<MessageEventArgs> ErrorReported
         {
-            add { Process.ErrorReported += value; }
-            remove { Process.ErrorReported -= value; }
+            add { Execution.ErrorReported += value; }
+            remove { Execution.ErrorReported -= value; }
         }
 
         public bool IsRunning
         {
-            get { return Process.IsRunning; }
+            get { return Execution.IsRunning; }
         }
 
         public void Start()
         {
-            Process.Start(SuiteManager.Suites);
+            Execution.Start(Benchmarks.Suites);
         }
 
         public void Stop()
         {
-            Process.Stop();
+            Execution.Stop();
         }
 
         public void Run()
         {
             Start();
 
-            var duration = Process.Duration;
+            var duration = _configuration.Duration;
             var lastTick = System.Environment.TickCount + duration;
             while (IsRunning)
             {
@@ -239,37 +204,37 @@ namespace PipBenchmark.Runner
 
         public string GenerateReport()
         {
-            return ReportGenerator.Generate();
+            return Report.Generate();
         }
 
         public void SaveReportToFile(string fileName)
         {
-            ReportGenerator.SaveToFile(fileName);
+            Report.SaveToFile(fileName);
         }
 
         public IDictionary<string, string> SystemInformation
         {
-            get { return EnvironmentState.SystemInformation; }
+            get { return Environment.SystemInformation; }
         }
 
         public double CpuBenchmark
         {
-            get { return EnvironmentState.CpuBenchmark; }
+            get { return Environment.CpuBenchmark; }
         }
 
         public double VideoBenchmark
         {
-            get { return EnvironmentState.VideoBenchmark; }
+            get { return Environment.VideoBenchmark; }
         }
 
         public double DiskBenchmark
         {
-            get { return EnvironmentState.DiskBenchmark; }
+            get { return Environment.DiskBenchmark; }
         }
 
         public void BenchmarkEnvironment(bool cpu = true, bool disk = true, bool video = true)
         {
-            EnvironmentState.BenchmarkEnvironment(cpu, disk, video);
+            Environment.BenchmarkEnvironment(cpu, disk, video);
         }
 
     }

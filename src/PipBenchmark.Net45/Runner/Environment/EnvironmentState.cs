@@ -8,20 +8,22 @@ using PipBenchmark.Runner.Execution;
 using PipBenchmark.Runner.Parameters;
 using PipBenchmark.Runner;
 using PipBenchmark.Runner.Benchmarks;
+using PipBenchmark.Runner.Config;
 
 namespace PipBenchmark.Runner.Environment
 {
     public class EnvironmentState : ExecutionManager
     {
-        private const int WaitTimeout = 5000;
+        private const int Duration = 5000;
 
         private double _cpuBenchmark;
         private double _videoBenchmark;
         private double _diskBenchmark;
 
         public EnvironmentState(BenchmarkRunner runner)
-            : base(runner)
+            : base(new ConfigurationManager(), runner)
         {
+            _configuration.Duration = Duration;
             LoadSystemBenchmarks();
         }
 
@@ -102,7 +104,7 @@ namespace PipBenchmark.Runner.Environment
             instance.SelectBenchmark(suite.CpuBenchmark.Name);
 
             base.Start(instance);
-            Thread.Sleep(WaitTimeout);
+            Thread.Sleep(Duration);
             base.Stop();
 
             return base.Results[0].PerformanceMeasurement.AverageValue;
@@ -116,7 +118,7 @@ namespace PipBenchmark.Runner.Environment
             instance.SelectBenchmark(suite.VideoBenchmark.Name);
 
             base.Start(instance);
-            Thread.Sleep(WaitTimeout);
+            Thread.Sleep(Duration);
             base.Stop();
 
             return base.Results[0].PerformanceMeasurement.AverageValue;
@@ -130,7 +132,7 @@ namespace PipBenchmark.Runner.Environment
             instance.SelectBenchmark(suite.DiskBenchmark.Name);
 
             base.Start(instance);
-            Thread.Sleep(WaitTimeout);
+            Thread.Sleep(Duration);
             base.Stop();
 
             return base.Results[0].PerformanceMeasurement.AverageValue;

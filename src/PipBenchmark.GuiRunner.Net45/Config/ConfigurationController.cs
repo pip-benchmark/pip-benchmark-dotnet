@@ -21,7 +21,7 @@ namespace PipBenchmark.Gui.Config
             _view.SetToDefaultClicked += OnSetToDefaultClicked;
 
             _model = mainController.Model;
-            _model.ConfigurationUpdated += OnConfigurationUpdated;
+            _model.Configuration.Changed += OnConfigurationChanged;
 
             InitializeDialogs();
             UpdateView();
@@ -32,7 +32,7 @@ namespace PipBenchmark.Gui.Config
             _loadConfigurationDialog = new OpenFileDialog();
             _loadConfigurationDialog.Filter = "Property Files|*.properties|All Files|*.*";
 #if !CompactFramework
-            _loadConfigurationDialog.Title = "Load Configuration Properties";
+            _loadConfigurationDialog.Title = "Load Properties";
             _loadConfigurationDialog.Multiselect = false;
             _loadConfigurationDialog.DefaultExt = "properties";
 #endif
@@ -41,13 +41,13 @@ namespace PipBenchmark.Gui.Config
             _saveConfigurationDialog.FileName = "BenchmarkConfiguration.properties";
             _saveConfigurationDialog.Filter = "Property Files|*.properties|All Files|*.*";
 #if !CompactFramework
-            _saveConfigurationDialog.Title = "Save Configuration Properties";
+            _saveConfigurationDialog.Title = "Save Properties";
 #endif
         }
 
         public void UpdateView()
         {
-            _view.Configuration = _model.Configuration;
+            _view.Configuration = _model.ConfigurationX;
         }
 
         public void LoadConfiguration()
@@ -69,7 +69,7 @@ namespace PipBenchmark.Gui.Config
             }
         }
 
-        private void OnConfigurationUpdated(object sender, EventArgs args)
+        private void OnConfigurationChanged(object sender, EventArgs args)
         {
             UpdateView();
         }

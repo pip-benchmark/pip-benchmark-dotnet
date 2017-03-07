@@ -56,11 +56,11 @@ namespace PipBenchmark.Console
                 }
 
                 // Configure benchmarking
-                runner.IsForceContinue = args.IsForceContinue;
-                runner.MeasurementType = args.MeasurementType;
-                runner.NominalRate = args.NominalRate;
-                runner.ExecutionType = args.ExecutionType;
-                runner.Duration = args.Duration;
+                runner.Configuration.ForceContinue = args.IsForceContinue;
+                runner.Configuration.MeasurementType = args.MeasurementType;
+                runner.Configuration.NominalRate = args.NominalRate;
+                runner.Configuration.ExecutionType = args.ExecutionType;
+                runner.Configuration.Duration = args.Duration;
 
                 // Enable benchmarks
                 if (args.Benchmarks.Count == 0)
@@ -73,7 +73,7 @@ namespace PipBenchmark.Console
 
                 // Perform benchmarking
                 runner.Start();
-                if (runner.ExecutionType == ExecutionType.Proportional)
+                if (runner.Configuration.ExecutionType == ExecutionType.Proportional)
                 {
                     Thread.Sleep(args.Duration);
                     runner.Stop();
@@ -121,7 +121,7 @@ namespace PipBenchmark.Console
             System.Console.Out.WriteLine("Configuration Parameters:");
 
             runner.SelectAllBenchmarks();
-            foreach (var parameter in runner.Configuration)
+            foreach (var parameter in runner.ConfigurationX)
             {
                 var defaultValue = string.IsNullOrEmpty(parameter.DefaultValue) ? "" : " (Default: " + parameter.DefaultValue + ")";
                 System.Console.Out.WriteLine("{0} - {1}{2}", parameter.Name, parameter.Description, defaultValue);

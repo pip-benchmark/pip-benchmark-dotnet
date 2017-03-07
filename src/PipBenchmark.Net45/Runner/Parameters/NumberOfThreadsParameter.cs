@@ -1,26 +1,26 @@
-﻿using PipBenchmark.Runner.Execution;
+﻿using PipBenchmark.Runner.Config;
 using PipBenchmark.Utilities;
 
 namespace PipBenchmark.Runner.Parameters
 {
     public class NumberOfThreadsParameter : Parameter
     {
-        private ExecutionManager _process;
+        private ConfigurationManager _configuration;
 
-        public NumberOfThreadsParameter(ExecutionManager process)
+        public NumberOfThreadsParameter(ConfigurationManager configuration)
             : base(
                 "General.Benchmarking.NumberOfThreads",
                 "Number of threads for concurrent benchmarking",
                 "1"
             )
         {
-            _process = process;
+            _configuration = configuration;
         }
 
         public override string Value
         {
-            get { return Converter.IntegerToString(_process.NumberOfThreads); }
-            set { _process.NumberOfThreads = Converter.StringToInteger(value, 1); }
+            get { return Converter.IntegerToString(_configuration.NumberOfThreads); }
+            set { _configuration.NumberOfThreads = Converter.StringToInteger(value, 1); }
         }
     }
 }

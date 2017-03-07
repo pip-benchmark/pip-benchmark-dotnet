@@ -38,7 +38,7 @@ namespace PipBenchmark.Runner.Reports
             GenerateHeader(builder);
             GenerateBenchmarkList(builder);
 
-            if (Runner.Process.Results.Count > 1)
+            if (Runner.Execution.Results.Count > 1)
                 GenerateMultipleResults(builder);
             else
                 GenerateSingleResult(builder);
@@ -72,7 +72,7 @@ namespace PipBenchmark.Runner.Reports
             builder.Append("Executed Benchmarks:");
             builder.Append(NewLine);
             int index = 0;
-            foreach (BenchmarkInstance benchmark in Runner.SuiteManager.SelectedBenchmarks)
+            foreach (BenchmarkInstance benchmark in Runner.Benchmarks.SelectedBenchmarks)
             {
                 index++;
                 builder.Append(string.Format("  {0}. {1}.{2} [{3}%, {4}]",
@@ -88,7 +88,7 @@ namespace PipBenchmark.Runner.Reports
             builder.Append("Benchmarking Results:");
             builder.Append(NewLine);
 
-            List<BenchmarkResult> results = Runner.Process.Results;
+            List<BenchmarkResult> results = Runner.Execution.Results;
             string[,] resultTable = new string[results.Count + 1, 4];
 
             // Fill column headers
@@ -155,22 +155,22 @@ namespace PipBenchmark.Runner.Reports
 
         private void GenerateSingleResult(StringBuilder builder)
         {
-            if (Runner.Process.Results.Count == 0)
+            if (Runner.Execution.Results.Count == 0)
             {
                 return;
             }
-            BenchmarkResult result = Runner.Process.Results[0];
+            BenchmarkResult result = Runner.Execution.Results[0];
 
             builder.Append("Benchmarking Results:");
             builder.Append(NewLine);
-            if (Runner.Process.MeasurementType == MeasurementType.Peak)
+            if (Runner.Configuration.MeasurementType == MeasurementType.Peak)
             {
                 builder.Append("  Measurement Type: Peak performance");
             }
             else
             {
                 builder.Append(string.Format("  Measurement Type: Nominal rate at {0} tps",
-                    Runner.Process.NominalRate));
+                    Runner.Configuration.NominalRate));
             }
             builder.Append(NewLine);
 
@@ -215,7 +215,7 @@ namespace PipBenchmark.Runner.Reports
         {
             var addedErrors = false;
 
-            foreach (var result in Runner.Process.Results)
+            foreach (var result in Runner.Execution.Results)
             {
                 if (result.Errors.Count == 0)
                     continue;
@@ -243,7 +243,7 @@ namespace PipBenchmark.Runner.Reports
         {
             builder.Append("System Information:");
             builder.Append(NewLine);
-            foreach (KeyValuePair<string, string> pair in Runner.EnvironmentState.SystemInformation)
+            foreach (KeyValuePair<string, string> pair in Runner.Environment.SystemInformation)
             {
                 builder.Append(string.Format("  {0}: {1}", pair.Key, pair.Value));
                 builder.Append(NewLine);
@@ -256,13 +256,13 @@ namespace PipBenchmark.Runner.Reports
             builder.Append("System Benchmarking:");
             builder.Append(NewLine);
             builder.Append(string.Format("  CPU Performance (MFLOP/s): {0}",
-                Runner.EnvironmentState.CpuBenchmark.ToString("0.##")));
+                Runner.Environment.CpuBenchmark.ToString("0.##")));
             builder.Append(NewLine);
             builder.Append(string.Format("  Video Performance (GOP/s): {0}",
-                Runner.EnvironmentState.VideoBenchmark.ToString("0.##")));
+                Runner.Environment.VideoBenchmark.ToString("0.##")));
             builder.Append(NewLine);
             builder.Append(string.Format("  Disk Performance (MB/s):   {0}",
-                Runner.EnvironmentState.DiskBenchmark.ToString("0.##")));
+                Runner.Environment.DiskBenchmark.ToString("0.##")));
             builder.Append(NewLine);
             builder.Append(NewLine);
         }
@@ -271,7 +271,7 @@ namespace PipBenchmark.Runner.Reports
         {
             builder.Append("Parameters:");
             builder.Append(NewLine);
-            foreach (Parameter parameter in Runner.ConfigurationManager.AllParameters)
+            foreach (Parameter parameter in Runner.Parameters.AllParameters)
             {
                 builder.Append(string.Format("  {0}={1}", parameter.Name, parameter.Value));
                 builder.Append(NewLine);

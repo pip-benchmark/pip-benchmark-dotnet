@@ -19,20 +19,21 @@ namespace PipBenchmark.Runner.Execution
         private double _ticksPerTransaction = 0;
         private List<BenchmarkResult> _results = new List<BenchmarkResult>();
 
-        public SequencialExecutionStrategy(ExecutionManager process, List<BenchmarkInstance> benchmarks)
-            : base(process, benchmarks)
+        public SequencialExecutionStrategy(ConfigurationManager configuration,
+            ExecutionManager process, List<BenchmarkInstance> benchmarks)
+            : base(configuration, process, benchmarks)
         {
         }
 
         public override void Start()
         {
-            if (Process.Duration <= 0)
+            if (_configuration.Duration <= 0)
                 throw new ArgumentException("Duration was not set");
 
-            if (Process.MeasurementType == MeasurementType.Peak)
+            if (_configuration.MeasurementType == MeasurementType.Peak)
                 _ticksPerTransaction = 0;
             else
-                _ticksPerTransaction = 1000.0 / Process.NominalRate * Process.NumberOfThreads;
+                _ticksPerTransaction = 1000.0 / _configuration.NominalRate * _configuration.NumberOfThreads;
 
             _running = true;
 
@@ -96,7 +97,7 @@ namespace PipBenchmark.Runner.Execution
                         }
 
                         // Wait for set duration
-                        Thread.Sleep(Process.Duration);
+                        Thread.Sleep(_configuration.Duration);
 
                         if (!benchmark.IsPassive)
                         {
@@ -131,8 +132,8 @@ namespace PipBenchmark.Runner.Execution
             {
                 _runningBenchmark = benchmark;
 
-                _tasks = new Task[Process.NumberOfThreads];
-                for (int index = 0; index < Process.NumberOfThreads; index++)
+                _tasks = new Task[_configuration.NumberOfThreads];
+                for (int index = 0; index < _configuration.NumberOfThreads; index++)
                 {
                     _tasks[index] = Task.Run(() => PerformBenchmarking(_controlTaskCancellation.Token));
                     //_tasks[index].Name = string.Format("Benchmarking Thread #{0}/{1}", index, Process.NumberOfThreads);
@@ -166,7 +167,7 @@ namespace PipBenchmark.Runner.Execution
         {
             BenchmarkInstance benchmark = _runningBenchmark;
             int lastExecutedTicks = System.Environment.TickCount;
-            int endTicks = System.Environment.TickCount + Process.Duration;
+            int endTicks = System.Environment.TickCount + _configuration.Duration;
 
             try
             {
@@ -174,7 +175,7 @@ namespace PipBenchmark.Runner.Execution
 
                 while (_running && benchmark == _runningBenchmark && endTicks > currentTicks)
                 {
-                    if (Process.MeasurementType == MeasurementType.Nominal)
+                    if (_configuration.MeasurementType == MeasurementType.Nominal)
                     {
                         double ticksToNextTransaction = _ticksPerTransaction
                             - (currentTicks - lastExecutedTicks);

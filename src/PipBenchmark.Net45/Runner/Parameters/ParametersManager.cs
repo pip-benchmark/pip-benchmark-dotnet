@@ -1,5 +1,5 @@
-﻿using PipBenchmark.Runner;
-using PipBenchmark.Runner.Benchmarks;
+﻿using PipBenchmark.Runner.Benchmarks;
+using PipBenchmark.Runner.Config;
 using PipBenchmark.Utilities;
 using System;
 using System.Collections.Generic;
@@ -10,12 +10,13 @@ namespace PipBenchmark.Runner.Parameters
 {
     public class ParametersManager
     {
-        private readonly List<Parameter> _parameters = new List<Parameter>();
-        private readonly List<BenchmarkSuiteInstance> _suites = new List<BenchmarkSuiteInstance>();
+        private ConfigurationManager _configuration;
+        private List<Parameter> _parameters = new List<Parameter>();
+        private List<BenchmarkSuiteInstance> _suites = new List<BenchmarkSuiteInstance>();
 
-        public ParametersManager(BenchmarkRunner runner)
+        public ParametersManager(ConfigurationManager configuration)
         {
-            Runner = runner;
+            _configuration = configuration;
         }
 
         public BenchmarkRunner Runner { get; }
@@ -29,7 +30,7 @@ namespace PipBenchmark.Runner.Parameters
                 var filteredParameters = new List<Parameter>();
 
                 var selectedSuite = new HashSet<BenchmarkSuiteInstance>();
-                foreach (var benchmark in Runner.SuiteManager.SelectedBenchmarks)
+                foreach (var benchmark in Runner.Benchmarks.SelectedBenchmarks)
                 {
                     selectedSuite.Add(benchmark.Suite);
                 }
@@ -64,8 +65,6 @@ namespace PipBenchmark.Runner.Parameters
         {
             get { return _parameters; }
         }
-
-        public event EventHandler ConfigurationUpdated;
 
         public void LoadConfigurationFromFile(string fileName)
         {
@@ -102,12 +101,6 @@ namespace PipBenchmark.Runner.Parameters
             }
         }
 
-        private void NotifyConfigurationUpdated()
-        {
-            if (ConfigurationUpdated != null)
-                ConfigurationUpdated(this, EventArgs.Empty);
-        }
-
         public void AddSuite(BenchmarkSuiteInstance suite)
         {
             _suites.Add(suite);
@@ -117,11 +110,11 @@ namespace PipBenchmark.Runner.Parameters
         {
             _parameters.Clear();
 
-            _parameters.Add(new NumberOfThreadsParameter(Runner.Process));
-            _parameters.Add(new MeasurementTypeParameter(Runner.Process));
-            _parameters.Add(new NominalRateParameter(Runner.Process));
-            _parameters.Add(new ExecutionTypeParameter(Runner.Process));
-            _parameters.Add(new DurationParameter(Runner.Process));
+            _parameters.Add(new NumberOfThreadsParameter(_configuration));
+            _parameters.Add(new MeasurementTypeParameter(_configuration));
+            _parameters.Add(new NominalRateParameter(_configuration));
+            _parameters.Add(new ExecutionTypeParameter(_configuration));
+            _parameters.Add(new DurationParameter(_configuration));
 
             // Create benchmark related parameters
             foreach (BenchmarkInstance benchmark in _suites.SelectMany(x => x.Benchmarks))

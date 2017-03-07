@@ -5,11 +5,11 @@ using System.Reflection;
 
 namespace PipBenchmark.Runner.Benchmarks
 {
-    public class BenchmarkSuiteManager
+    public class BenchmarksManager
     {
         private readonly List<BenchmarkSuiteInstance> _suites = new List<BenchmarkSuiteInstance>();
 
-        public BenchmarkSuiteManager(BenchmarkRunner runner)
+        public BenchmarksManager(BenchmarkRunner runner)
         {
             Runner = runner;
         }
@@ -130,14 +130,14 @@ namespace PipBenchmark.Runner.Benchmarks
 
         public void AddSuite(BenchmarkSuiteInstance instance)
         {
-            Runner.Process.Stop();
+            Runner.Execution.Stop();
             _suites.Add(instance);
-            Runner.ConfigurationManager.AddSuite(instance);
+            Runner.Parameters.AddSuite(instance);
         }
 
         public void LoadSuitesFromAssembly(string assemblyName)
         {
-            Runner.Process.Stop();
+            Runner.Execution.Stop();
 
             // Load assembly
             Assembly assembly = Assembly.LoadFrom(assemblyName);
@@ -150,7 +150,7 @@ namespace PipBenchmark.Runner.Benchmarks
                     BenchmarkSuite suite = Activator.CreateInstance(type) as BenchmarkSuite;
                     var instance = new BenchmarkSuiteInstance(suite);
                     _suites.Add(instance);
-                    Runner.ConfigurationManager.AddSuite(instance);
+                    Runner.Parameters.AddSuite(instance);
                 }
             }
         }
@@ -169,31 +169,31 @@ namespace PipBenchmark.Runner.Benchmarks
 
         public void RemoveSuite(BenchmarkSuiteInstance suite)
         {
-            Runner.Process.Stop();
+            Runner.Execution.Stop();
 
-            Runner.ConfigurationManager.RemoveParametersForSuite(suite);
+            Runner.Parameters.RemoveParametersForSuite(suite);
 
             _suites.Remove(suite);
         }
 
         public void RemoveSuite(string suiteName)
         {
-            Runner.Process.Stop();
+            Runner.Execution.Stop();
 
             BenchmarkSuiteInstance suite = FindSuite(suiteName);
             if (suite != null)
             {
-                Runner.ConfigurationManager.RemoveParametersForSuite(suite);
+                Runner.Parameters.RemoveParametersForSuite(suite);
                 _suites.Remove(suite);
             }
         }
 
         public void RemoveAllSuites()
         {
-            Runner.Process.Stop();
+            Runner.Execution.Stop();
 
             foreach (BenchmarkSuiteInstance suite in _suites)
-                Runner.ConfigurationManager.RemoveParametersForSuite(suite);
+                Runner.Parameters.RemoveParametersForSuite(suite);
 
             _suites.Clear();
         }

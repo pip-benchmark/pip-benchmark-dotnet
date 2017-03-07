@@ -42,15 +42,15 @@ namespace PipBenchmark.Gui
                         runner.BenchmarkEnvironment();
 
                     // Configure benchmarking
-                    runner.MeasurementType = args.MeasurementType;
-                    runner.NominalRate = args.NominalRate;
-                    runner.ExecutionType = args.ExecutionType;
-                    runner.Duration = (int)args.Duration.TotalMilliseconds;
+                    runner.Configuration.MeasurementType = args.MeasurementType;
+                    runner.Configuration.NominalRate = args.NominalRate;
+                    runner.Configuration.ExecutionType = args.ExecutionType;
+                    runner.Configuration.Duration = (int)args.Duration.TotalMilliseconds;
 
                     // Perform benchmarking
                     runner.Start();
 
-                    if (runner.ExecutionType == ExecutionType.Proportional)
+                    if (runner.Configuration.ExecutionType == ExecutionType.Proportional)
                     {
                         Thread.Sleep(args.Duration);
                         runner.Stop();

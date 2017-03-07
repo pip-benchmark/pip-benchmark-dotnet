@@ -1,26 +1,26 @@
-﻿using PipBenchmark.Runner.Execution;
+﻿using PipBenchmark.Runner.Config;
 using PipBenchmark.Utilities;
 
 namespace PipBenchmark.Runner.Parameters
 {
     public class DurationParameter : Parameter
     {
-        private ExecutionManager _process;
+        private ConfigurationManager _configuration;
 
-        public DurationParameter(ExecutionManager process)
+        public DurationParameter(ConfigurationManager configuration)
             : base(
                 "General.Benchmarking.Duration",
                 "Duration of benchmark execution in seconds",
                 "60"
             )
         {
-            _process = process;
+            _configuration = configuration;
         }
 
         public override string Value
         {
-            get { return Converter.IntegerToString(_process.Duration); }
-            set { _process.Duration = Converter.StringToInteger(value, 60); }
+            get { return Converter.IntegerToString(_configuration.Duration); }
+            set { _configuration.Duration = Converter.StringToInteger(value, 60); }
         }
     }
 }

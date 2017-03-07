@@ -1,26 +1,26 @@
-﻿using PipBenchmark.Runner.Execution;
+﻿using PipBenchmark.Runner.Config;
 using PipBenchmark.Utilities;
 
 namespace PipBenchmark.Runner.Parameters
 {
     public class NominalRateParameter : Parameter
     {
-        private ExecutionManager _process;
+        private ConfigurationManager _configuration;
 
-        public NominalRateParameter(ExecutionManager process)
+        public NominalRateParameter(ConfigurationManager configuration)
             : base(
                 "General.Benchmarking.NominalRate",
                 "Rate for nominal benchmarking in TPS",
                 "1"
             )
         {
-            _process = process;
+            _configuration = configuration;
         }
 
         public override string Value
         {
-            get { return Converter.DoubleToString(_process.NominalRate); }
-            set { _process.NominalRate = Converter.StringToDouble(value, 1); }
+            get { return Converter.DoubleToString(_configuration.NominalRate); }
+            set { _configuration.NominalRate = Converter.StringToDouble(value, 1); }
         }
     }
 }

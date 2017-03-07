@@ -52,10 +52,11 @@
     <Compile Include="PassiveBenchmark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runner\Benchmarks\BenchmarkInstance.cs" />
+    <Compile Include="Runner\Config\ConfigurationManager.cs" />
     <Compile Include="Runner\Results\BenchmarkResult.cs" />
     <Compile Include="Runner\BenchmarkRunner.cs" />
     <Compile Include="Runner\Benchmarks\BenchmarkSuiteInstance.cs" />
-    <Compile Include="Runner\Benchmarks\BenchmarkSuiteManager.cs" />
+    <Compile Include="Runner\Benchmarks\BenchmarksManager.cs" />
     <Compile Include="Runner\Environment\EnvironmentProperties.cs" />
     <Compile Include="Runner\Parameters\BenchmarkProportionParameter.cs" />
     <Compile Include="Runner\Parameters\BenchmarkSelectedParameter.cs" />

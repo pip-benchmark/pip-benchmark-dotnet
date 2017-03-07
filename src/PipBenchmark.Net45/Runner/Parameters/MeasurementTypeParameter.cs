@@ -1,32 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-
-using PipBenchmark.Runner.Execution;
-using PipBenchmark.Runner;
-using PipBenchmark.Runner.Config;
+﻿using PipBenchmark.Runner.Config;
+using System;
 
 namespace PipBenchmark.Runner.Parameters
 {
     public class MeasurementTypeParameter : Parameter
     {
-        private ExecutionManager _process;
+        private ConfigurationManager _configuration;
 
-        public MeasurementTypeParameter(ExecutionManager process)
+        public MeasurementTypeParameter(ConfigurationManager configuration)
             : base(
                 "General.Benchmarking.MeasurementType",
                 "Measurement type: peak or nominal",
                 "Peak"
             )
         {
-            _process = process;
+            _configuration = configuration;
         }
 
         public override string Value
         {
-            get { return _process.MeasurementType == MeasurementType.Peak ? "Peak" : "Nominal"; }
+            get { return _configuration.MeasurementType == MeasurementType.Peak ? "Peak" : "Nominal"; }
             set 
             { 
-                _process.MeasurementType = value.StartsWith("p", StringComparison.InvariantCultureIgnoreCase)
+                _configuration.MeasurementType = value.StartsWith("p", StringComparison.InvariantCultureIgnoreCase)
                     ? MeasurementType.Peak : MeasurementType.Nominal; 
             }
         }
