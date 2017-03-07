@@ -118,33 +118,7 @@ namespace PipBenchmark.Runner
 
         public void SelectBenchmarks(params Benchmark[] benchmarks)
         {
-
             Benchmarks.SelectBenchmarks(benchmarks);
-        }
-
-        public List<Parameter> ConfigurationX
-        {
-            get { return Parameters.FilteredParameters; }
-        }
-
-        public void LoadConfigurationFromFile(string fileName)
-        {
-            Parameters.LoadConfigurationFromFile(fileName);
-        }
-
-        public void SaveConfigurationToFile(string fileName)
-        {
-            Parameters.SaveConfigurationToFile(fileName);
-        }
-
-        public void SetConfigurationToDefault()
-        {
-            Parameters.SetConfigurationToDefault();
-        }
-
-        public void SetConfiguration(Dictionary<string, string> parameters)
-        {
-            Parameters.SetConfiguration(parameters);
         }
 
         public List<BenchmarkResult> Results

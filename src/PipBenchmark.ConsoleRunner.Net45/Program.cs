@@ -25,11 +25,11 @@ namespace PipBenchmark.Console
 
                 // Load configuration
                 if (args.ConfigurationFile != null)
-                    runner.LoadConfigurationFromFile(args.ConfigurationFile);
+                    runner.Parameters.LoadFromFile(args.ConfigurationFile);
 
                 // Set parameters
                 if (args.Parameters.Count > 0)
-                    runner.SetConfiguration(args.Parameters);
+                    runner.Parameters.Set(args.Parameters);
 
                 if (args.ShowBenchmarks)
                 {
@@ -121,7 +121,7 @@ namespace PipBenchmark.Console
             System.Console.Out.WriteLine("Configuration Parameters:");
 
             runner.SelectAllBenchmarks();
-            foreach (var parameter in runner.ConfigurationX)
+            foreach (var parameter in runner.Parameters.UserDefined)
             {
                 var defaultValue = string.IsNullOrEmpty(parameter.DefaultValue) ? "" : " (Default: " + parameter.DefaultValue + ")";
                 System.Console.Out.WriteLine("{0} - {1}{2}", parameter.Name, parameter.Description, defaultValue);

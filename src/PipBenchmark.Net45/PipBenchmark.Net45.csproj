@@ -63,7 +63,7 @@
     <Compile Include="Runner\Parameters\ParametersManager.cs" />
     <Compile Include="Runner\Parameters\DurationParameter.cs" />
     <Compile Include="Runner\Parameters\ExecutionTypeParameter.cs" />
-    <Compile Include="Runner\Parameters\IndirectSuiteParameter.cs" />
+    <Compile Include="Runner\Parameters\BenchmarkSuiteParameter.cs" />
     <Compile Include="Runner\Parameters\MeasurementTypeParameter.cs" />
     <Compile Include="Runner\Parameters\NominalRateParameter.cs" />
     <Compile Include="Runner\Parameters\NumberOfThreadsParameter.cs" />

@@ -171,7 +171,7 @@ namespace PipBenchmark.Runner.Benchmarks
         {
             Runner.Execution.Stop();
 
-            Runner.Parameters.RemoveParametersForSuite(suite);
+            Runner.Parameters.RemoveForSuite(suite);
 
             _suites.Remove(suite);
         }
@@ -183,7 +183,7 @@ namespace PipBenchmark.Runner.Benchmarks
             BenchmarkSuiteInstance suite = FindSuite(suiteName);
             if (suite != null)
             {
-                Runner.Parameters.RemoveParametersForSuite(suite);
+                Runner.Parameters.RemoveForSuite(suite);
                 _suites.Remove(suite);
             }
         }
@@ -193,7 +193,7 @@ namespace PipBenchmark.Runner.Benchmarks
             Runner.Execution.Stop();
 
             foreach (BenchmarkSuiteInstance suite in _suites)
-                Runner.Parameters.RemoveParametersForSuite(suite);
+                Runner.Parameters.RemoveForSuite(suite);
 
             _suites.Clear();
         }

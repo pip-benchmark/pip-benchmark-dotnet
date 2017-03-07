@@ -1,5 +1,4 @@
-﻿using PipBenchmark.Runner;
-using PipBenchmark.Runner.Benchmarks;
+﻿using PipBenchmark.Runner.Benchmarks;
 using PipBenchmark.Utilities;
 
 namespace PipBenchmark.Runner.Parameters

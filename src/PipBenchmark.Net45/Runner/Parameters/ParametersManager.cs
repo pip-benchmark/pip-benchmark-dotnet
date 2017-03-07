@@ -1,10 +1,8 @@
 ﻿using PipBenchmark.Runner.Benchmarks;
 using PipBenchmark.Runner.Config;
 using PipBenchmark.Utilities;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace PipBenchmark.Runner.Parameters
 {
@@ -12,87 +10,67 @@ namespace PipBenchmark.Runner.Parameters
     {
         private ConfigurationManager _configuration;
         private List<Parameter> _parameters = new List<Parameter>();
-        private List<BenchmarkSuiteInstance> _suites = new List<BenchmarkSuiteInstance>();
 
         public ParametersManager(ConfigurationManager configuration)
         {
             _configuration = configuration;
+
+            _parameters.Add(new NumberOfThreadsParameter(_configuration));
+            _parameters.Add(new MeasurementTypeParameter(_configuration));
+            _parameters.Add(new NominalRateParameter(_configuration));
+            _parameters.Add(new ExecutionTypeParameter(_configuration));
+            _parameters.Add(new DurationParameter(_configuration));
         }
 
-        public BenchmarkRunner Runner { get; }
-
-        public List<Parameter> FilteredParameters
+        public List<Parameter> UserDefined
         {
             get
             {
-                CreateParametersForSuite();
+                var parameters = new List<Parameter>();
 
-                var filteredParameters = new List<Parameter>();
-
-                var selectedSuite = new HashSet<BenchmarkSuiteInstance>();
-                foreach (var benchmark in Runner.Benchmarks.SelectedBenchmarks)
+                foreach (Parameter parameter in _parameters)
                 {
-                    selectedSuite.Add(benchmark.Suite);
-                }
-
-                foreach (var suite in selectedSuite)
-                {
-                    // Create indirect test suite parameters
-                    foreach (Parameter originalParameter in suite.Parameters.Values)
+                    if (!parameter.Name.EndsWith(".Selected")
+                        && !parameter.Name.EndsWith(".Proportion")
+                        && !parameter.Name.StartsWith("General."))
                     {
-                        filteredParameters.Add(new IndirectSuiteParameter(suite, originalParameter));
+                        parameters.Add(parameter);
                     }
                 }
 
-                //if (true)
-                //{
-                //    foreach (Parameter parameter in _parameters)
-                //    {
-                //        if (!parameter.Name.EndsWith(".Selected", StringComparison.InvariantCultureIgnoreCase)
-                //            && !parameter.Name.EndsWith(".Proportion", StringComparison.InvariantCultureIgnoreCase)
-                //            && !parameter.Name.StartsWith("General.", StringComparison.InvariantCultureIgnoreCase))
-                //        {
-                //            filteredParameters.Add(parameter);
-                //        }
-                //    }
-                //}
-
-                return filteredParameters; 
+                return parameters; 
             }
         }
 
-        public List<Parameter> AllParameters
+        public List<Parameter> All
         {
             get { return _parameters; }
         }
 
-        public void LoadConfigurationFromFile(string fileName)
+        public void LoadFromFile(string path)
         {
             Properties properties = new Properties();
-            using (Stream stream = File.OpenRead(fileName))
+            using (Stream stream = File.OpenRead(path))
             {
                 properties.LoadFromStream(stream);
 
                 foreach (KeyValuePair<string, string> pair in properties)
-                    SetParameterValue(pair.Key, pair.Value);
+                {
+                    foreach (Parameter parameter in _parameters)
+                    {
+                        if (parameter.Name == pair.Key)
+                            parameter.Value = pair.Value;
+                    }
+                }
             }
 
-            //NotifyConfigurationUpdated();
+            _configuration.NotifyChanged();
         }
 
-        private void SetParameterValue(string parameterName, string value)
-        {
-            foreach (Parameter parameter in _parameters)
-            {
-                if (parameter.Name.Equals(parameterName, StringComparison.InvariantCultureIgnoreCase))
-                    parameter.Value = value;
-            }
-        }
-
-        public void SaveConfigurationToFile(string fileName)
+        public void SaveToFile(string path)
         {
             Properties properties = new Properties();
-            using (Stream stream = File.OpenWrite(fileName))
+            using (Stream stream = File.OpenWrite(path))
             {
                 foreach (Parameter parameter in _parameters)
                     properties.Add(parameter.Name, parameter.Value);
@@ -103,74 +81,63 @@ namespace PipBenchmark.Runner.Parameters
 
         public void AddSuite(BenchmarkSuiteInstance suite)
         {
-            _suites.Add(suite);
-        }
-
-        private void CreateParametersForSuite()
-        {
-            _parameters.Clear();
-
-            _parameters.Add(new NumberOfThreadsParameter(_configuration));
-            _parameters.Add(new MeasurementTypeParameter(_configuration));
-            _parameters.Add(new NominalRateParameter(_configuration));
-            _parameters.Add(new ExecutionTypeParameter(_configuration));
-            _parameters.Add(new DurationParameter(_configuration));
-
             // Create benchmark related parameters
-            foreach (BenchmarkInstance benchmark in _suites.SelectMany(x => x.Benchmarks))
+            foreach (BenchmarkInstance benchmark in suite.Benchmarks)
             {
-                Parameter selectedParameter
+                Parameter benchmarkSelectedParameter
                     = new BenchmarkSelectedParameter(benchmark);
-                _parameters.Add(selectedParameter);
+                _parameters.Add(benchmarkSelectedParameter);
 
-                Parameter proportionParameter
+                Parameter benchmarkProportionParameter
                     = new BenchmarkProportionParameter(benchmark);
-                _parameters.Add(proportionParameter);
+                _parameters.Add(benchmarkProportionParameter);
             }
 
-            foreach (var suite in _suites)
+            // Create suite parameters
+            foreach (Parameter parameter in suite.Parameters.Values)
             {
-                // Create indirect test suite parameters
-                foreach (Parameter originalParameter in suite.Parameters.Values)
-                {
-                    Parameter indirectParameter
-                        = new IndirectSuiteParameter(suite, originalParameter);
-                    _parameters.Add(indirectParameter);
-                }
+                Parameter suiteParameter
+                    = new BenchmarkSuiteParameter(suite, parameter);
+                _parameters.Add(suiteParameter);
             }
         }
 
-        public void RemoveParametersForSuite(BenchmarkSuiteInstance suite)
+        public void RemoveForSuite(BenchmarkSuiteInstance suite)
         {
             string parameterNamePrefix = suite.Name + ".";
+
             for (int index = _parameters.Count - 1; index >= 0; index--)
             {
                 Parameter parameter = _parameters[index];
                 // Remove parameter from the list
-                if (parameter.Name.StartsWith(parameterNamePrefix, StringComparison.InvariantCultureIgnoreCase))
+                if (parameter.Name.StartsWith(parameterNamePrefix))
                     _parameters.RemoveAt(index);
             }
 
-            //NotifyConfigurationUpdated();
+            _configuration.NotifyChanged();
         }
 
-        public void SetConfigurationToDefault()
+        public void SetToDefault()
         {
             foreach (Parameter parameter in _parameters)
             {
-                IndirectSuiteParameter indirectParameter = parameter as IndirectSuiteParameter;
-                if (indirectParameter != null)
-                    indirectParameter.Value = indirectParameter.DefaultValue;
+                BenchmarkSuiteParameter suiteParameter = parameter as BenchmarkSuiteParameter;
+                if (suiteParameter != null)
+                    suiteParameter.Value = suiteParameter.DefaultValue;
             }
+
+            _configuration.NotifyChanged();
         }
 
-        public void SetConfiguration(Dictionary<string, string> parameters)
+        public void Set(Dictionary<string, string> parameters)
         {
             foreach (Parameter parameter in _parameters)
             {
                 if (parameters.ContainsKey(parameter.Name))
-                    parameter.AsString = parameters[parameter.Name];
+                    parameter.Value = parameters[parameter.Name];
             }
+
+            _configuration.NotifyChanged();
         }
 
     }

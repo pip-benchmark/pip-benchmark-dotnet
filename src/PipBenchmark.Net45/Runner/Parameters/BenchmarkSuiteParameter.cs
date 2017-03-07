@@ -1,14 +1,13 @@
-﻿using PipBenchmark.Runner;
-using PipBenchmark.Runner.Benchmarks;
+﻿using PipBenchmark.Runner.Benchmarks;
 
 namespace PipBenchmark.Runner.Parameters
 {
-    public class IndirectSuiteParameter : Parameter
+    public class BenchmarkSuiteParameter : Parameter
     {
         private BenchmarkSuiteInstance _suite;
         private Parameter _originalParameter;
 
-        public IndirectSuiteParameter(BenchmarkSuiteInstance suite,
+        public BenchmarkSuiteParameter(BenchmarkSuiteInstance suite,
             Parameter originalParameter)
             : base(string.Format("{0}.{1}", suite.Name, originalParameter.Name),
             originalParameter.Description, originalParameter.DefaultValue)

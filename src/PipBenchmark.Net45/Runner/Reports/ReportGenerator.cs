@@ -271,7 +271,7 @@ namespace PipBenchmark.Runner.Reports
         {
             builder.Append("Parameters:");
             builder.Append(NewLine);
-            foreach (Parameter parameter in Runner.Parameters.AllParameters)
+            foreach (Parameter parameter in Runner.Parameters.All)
             {
                 builder.Append(string.Format("  {0}={1}", parameter.Name, parameter.Value));
                 builder.Append(NewLine);

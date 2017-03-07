@@ -47,14 +47,14 @@ namespace PipBenchmark.Gui.Config
 
         public void UpdateView()
         {
-            _view.Configuration = _model.ConfigurationX;
+            _view.Configuration = _model.Parameters.UserDefined;
         }
 
         public void LoadConfiguration()
         {
             if (_loadConfigurationDialog.ShowDialog() == DialogResult.OK)
             {
-                _model.LoadConfigurationFromFile(_loadConfigurationDialog.FileName);
+                _model.Parameters.LoadFromFile(_loadConfigurationDialog.FileName);
                 UpdateView();
                 MainController.ExecutionController.UpdateView();
                 MainController.InitializationController.UpdateView();
@@ -65,7 +65,7 @@ namespace PipBenchmark.Gui.Config
         {
             if (_saveConfigurationDialog.ShowDialog() == DialogResult.OK)
             {
-                _model.SaveConfigurationToFile(_saveConfigurationDialog.FileName);
+                _model.Parameters.SaveToFile(_saveConfigurationDialog.FileName);
             }
         }
 
@@ -86,7 +86,7 @@ namespace PipBenchmark.Gui.Config
 
         private void OnSetToDefaultClicked(object sender, EventArgs args)
         {
-            _model.SetConfigurationToDefault();
+            _model.Parameters.SetToDefault();
             _view.RefreshData();
         }
     }

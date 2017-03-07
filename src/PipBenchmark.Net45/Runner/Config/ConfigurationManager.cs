@@ -51,7 +51,7 @@ namespace PipBenchmark.Runner.Config
 
         public event EventHandler Changed;
 
-        private void NotifyChanged()
+        public void NotifyChanged()
         {
             if (Changed != null)
                 Changed(this, EventArgs.Empty);
