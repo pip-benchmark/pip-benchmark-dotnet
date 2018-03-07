@@ -12,7 +12,7 @@ namespace PipBenchmark.NetStandard20Test
 
         public override void SetUp()
         {
-            // Some setups
+            // Set up suite
         }
 
         public override void TearDown()

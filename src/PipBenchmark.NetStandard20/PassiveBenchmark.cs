@@ -2,7 +2,7 @@
 
 namespace PipBenchmark
 {
-    public abstract class PassiveBenchmark : Benchmark
+    public abstract class PassiveBenchmark: Benchmark
     {
         public PassiveBenchmark(string name, string description)
             : base(name, description)

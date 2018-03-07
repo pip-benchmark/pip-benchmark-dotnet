@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\PipBenchmark.NetStandard20\PipBenchmark.NetStandard20.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -4,7 +4,7 @@
     {
         private DefaultCpuBenchmark _cpuBenchmark;
         private DefaultDiskBenchmark _diskBenchmark;
-        //private DefaultVideoBenchmark _videoBenchmark;
+       // private DefaultVideoBenchmark _videoBenchmark;
 
         public StandardBenchmarkSuite()
             : base("System", "Measures overall system performance")

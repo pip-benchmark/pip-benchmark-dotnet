@@ -1,4 +1,6 @@
-﻿using PipBenchmark.Runner;
+﻿using PipBenchmark.Runner.Benchmarks;
+using PipBenchmark.Runner.Config;
+using PipBenchmark.Runner.Results;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -7,35 +9,41 @@ namespace PipBenchmark.Runner.Execution
 {
     public abstract class ExecutionStrategy
     {
-        private const int MaxErrorCount = 1000;
+        protected ConfigurationManager _configuration;
+        protected ResultsManager _results;
+        protected ExecutionManager _execution;
+        protected readonly object _syncRoot = new object();
+        protected List<BenchmarkInstance> _benchmarks;
+        protected List<BenchmarkInstance> _activeBenchmarks;
+        protected List<BenchmarkSuiteInstance> _suites;
 
-        private readonly object _syncRoot = new object();
-        private BenchmarkProcess _process;
-        private List<BenchmarkInstance> _benchmarks;
-        private List<BenchmarkSuiteInstance> _suites;
-
-        private double _transactionCounter = 0;
-
-        private BenchmarkResult _currentResult = null;
-
-        private TransactionMeter _transactionMeter;
-        private CpuLoadMeter _cpuLoadMeter;
-        private MemoryUsageMeter _memoryUsageMeter;
-
-        protected ExecutionStrategy(BenchmarkProcess parentProcess, List<BenchmarkInstance> benchmarks)
+        protected ExecutionStrategy(ConfigurationManager configuration, 
+            ResultsManager results, ExecutionManager execution, 
+            List<BenchmarkInstance> benchmarks)
         {
-            _process = parentProcess;
-            _benchmarks = benchmarks;
-            _suites = GetAllSuitesFromBenchmarks(benchmarks);
+            _configuration = configuration;
+            _results = results;
+            _execution = execution;
 
-            _cpuLoadMeter = new CpuLoadMeter();
-            _transactionMeter = new TransactionMeter();
-            _memoryUsageMeter = new MemoryUsageMeter();
+            _benchmarks = benchmarks;
+            _activeBenchmarks = GetActiveBenchmark(benchmarks);
+            _suites = GetBenchmarkSuites(benchmarks);
         }
 
-        private List<BenchmarkSuiteInstance> GetAllSuitesFromBenchmarks(List<BenchmarkInstance> benchmarks)
+        private List<BenchmarkInstance> GetActiveBenchmark(List<BenchmarkInstance> benchmarks)
         {
-            List<BenchmarkSuiteInstance> suites = new List<BenchmarkSuiteInstance>();
+            var activeBenchmarks = new List<BenchmarkInstance>();
+            foreach (BenchmarkInstance benchmark in benchmarks)
+            {
+                if (!benchmark.IsPassive)
+                    activeBenchmarks.Add(benchmark);
+            }
+            return activeBenchmarks;
+        }
+
+        private List<BenchmarkSuiteInstance> GetBenchmarkSuites(List<BenchmarkInstance> benchmarks)
+        {
+            var suites = new List<BenchmarkSuiteInstance>();
             foreach (BenchmarkInstance benchmark in benchmarks)
             {
                 BenchmarkSuiteInstance suite = benchmark.Suite;
@@ -45,122 +53,8 @@ namespace PipBenchmark.Runner.Execution
             return suites;
         }
 
-        protected object SyncRoot
-        {
-            get { return _syncRoot; }
-        }
-
-        public BenchmarkProcess Process
-        {
-            get { return _process; }
-        }
-
-        public List<BenchmarkInstance> Benchmarks
-        {
-            get { return _benchmarks; }
-        }
-
-        public List<BenchmarkSuiteInstance> Suites
-        {
-            get { return _suites; }
-        }
-
-        protected BenchmarkResult CurrentResult
-        {
-            get { return _currentResult; }
-        }
-
         public abstract void Start();
         public abstract bool IsStopped { get; }
         public abstract void Stop();
-        public abstract List<BenchmarkResult> GetResults();
-
-        public void SendMessage(string message)
-        {
-            _process.NotifyMessageSent(message);
-        }
-
-        protected void InitializeMeasurements()
-        {
-            _currentResult = new BenchmarkResult();
-            _currentResult.StartTime = DateTime.Now;
-
-            _transactionCounter = 0;
-            _transactionMeter.Reset();
-            _cpuLoadMeter.Reset();
-            _memoryUsageMeter.Reset();
-        }
-
-        public void IncrementCounter(int increment)
-        {
-            IncrementCounter(increment, System.Environment.TickCount);
-        }
-
-        protected void IncrementCounter(int increment, int currentTicks)
-        {
-            _transactionCounter += increment;
-
-            // If it's less then a second then wait
-            int measureInterval = currentTicks - _transactionMeter.LastMeasuredTicks;
-            if (measureInterval >= 1000 && _currentResult != null)
-            {
-                lock (_syncRoot)
-                {
-                    measureInterval = currentTicks - _transactionMeter.LastMeasuredTicks;
-                    if (measureInterval >= 1000)
-                    {
-                        // Perform measurements
-                        _transactionMeter.SetCounter(_transactionCounter);
-                        _transactionCounter = 0;
-                        _transactionMeter.Measure();
-                        _cpuLoadMeter.Measure();
-                        _memoryUsageMeter.Measure();
-
-                        // Store measurement results
-                        _currentResult.ElapsedTime = DateTime.Now - _currentResult.StartTime;
-                        _currentResult.PerformanceMeasurement = _transactionMeter.Measurement;
-                        _currentResult.CpuLoadMeasurement = _cpuLoadMeter.Measurement;
-                        _currentResult.MemoryUsageMeasurement = _memoryUsageMeter.Measurement;
-
-                        NotifyResultUpdate(ExecutionState.Running);
-                    }
-                }
-            }
-        }
-
-        public void ReportError(string errorMessage)
-        {
-            lock (_syncRoot)
-            {
-                if (_currentResult.Errors.Count < MaxErrorCount)
-                    _currentResult.Errors.Add(errorMessage);
-            }
-
-            Process.NotifyErrorReported(errorMessage);
-        }
-
-        protected void ExecuteBenchmark(BenchmarkInstance benchmark)
-        {
-            try
-            {
-                benchmark.Execute();
-            }
-            catch (ThreadAbortException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                ReportError(ex.Message);
-
-                if (!Process.IsForceContinue)
-                    throw ex;
-            }
-        }
-
-        protected void NotifyResultUpdate(ExecutionState status)
-        {
-            Process.NotifyResultsUpdated(status, _currentResult);
-        }
     }
 }
