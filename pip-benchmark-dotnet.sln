@@ -32,6 +32,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipBenchmark.Hardware.Net45
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipBenchmark.NetStandard20", "src\PipBenchmark.NetStandard20\PipBenchmark.NetStandard20.csproj", "{2CC7A355-97CD-497A-BC13-68134E0BAAAC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PipBenchmark.NetStandard20", "PipBenchmark.NetStandard20", "{F4F3D62C-1ABE-4F14-87DE-4DAFA3DB5061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipBenchmark.NetStandard20Test", "test\PipBenchmark.NetStandard20Test\PipBenchmark.NetStandard20Test.csproj", "{6D181AFF-126F-4042-8E46-1D7E23898320}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +74,10 @@ Global
 		{2CC7A355-97CD-497A-BC13-68134E0BAAAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CC7A355-97CD-497A-BC13-68134E0BAAAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC7A355-97CD-497A-BC13-68134E0BAAAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D181AFF-126F-4042-8E46-1D7E23898320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D181AFF-126F-4042-8E46-1D7E23898320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D181AFF-126F-4042-8E46-1D7E23898320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D181AFF-126F-4042-8E46-1D7E23898320}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,8 @@ Global
 		{F5F2A826-4A14-4303-A7E0-C7AC56C798F3} = {5B56EFFF-C7C8-48DA-AC4D-7CA27A928D1F}
 		{859D7EBF-8CCE-46D0-8E33-B50F5EEF9E17} = {5B56EFFF-C7C8-48DA-AC4D-7CA27A928D1F}
 		{2CC7A355-97CD-497A-BC13-68134E0BAAAC} = {5B56EFFF-C7C8-48DA-AC4D-7CA27A928D1F}
+		{F4F3D62C-1ABE-4F14-87DE-4DAFA3DB5061} = {FBC4A4C1-2181-4FAC-9413-C60C31DF9359}
+		{6D181AFF-126F-4042-8E46-1D7E23898320} = {F4F3D62C-1ABE-4F14-87DE-4DAFA3DB5061}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D578E113-D6AA-444E-B7F3-4A8A861347A7}
