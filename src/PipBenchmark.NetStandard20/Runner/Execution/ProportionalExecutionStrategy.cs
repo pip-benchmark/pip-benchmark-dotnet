@@ -115,7 +115,7 @@ namespace PipBenchmark.Runner.Execution
             }
         }
 
-        private BenchmarkInstance ChooseBenchmarkPropostionally()
+        private BenchmarkInstance ChooseBenchmarkProportionally()
         {
             double selector = _random.NextDouble();
             for (int index = 0; index < _activeBenchmarks.Count; index++)
@@ -186,11 +186,11 @@ namespace PipBenchmark.Runner.Execution
                     }
 
                     var benchmark = onlyBenchmark != null
-                        ? onlyBenchmark : ChooseBenchmarkPropostionally();
+                        ? onlyBenchmark : ChooseBenchmarkProportionally();
 
                     if (benchmark != null)
                     {
-                        ExecuteBenchmark(onlyBenchmark);
+                        ExecuteBenchmark(benchmark);
                         lastExecutedTicks = System.Environment.TickCount;
                         _aggregator.IncrementCounter(1, lastExecutedTicks);
                     }
