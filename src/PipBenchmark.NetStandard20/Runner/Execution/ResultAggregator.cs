@@ -15,7 +15,7 @@ namespace PipBenchmark.Runner.Execution
         private double _transactionCounter = 0;
         private BenchmarkResult _result = null;
         private TransactionMeter _transactionMeter;
-        //private CpuLoadMeter _cpuLoadMeter;
+        private CpuLoadMeter _cpuLoadMeter;
         private MemoryUsageMeter _memoryUsageMeter;
 
         public ResultAggregator(ResultsManager results, List<BenchmarkInstance> benchmarks)
@@ -23,7 +23,7 @@ namespace PipBenchmark.Runner.Execution
             _results = results;
             _benchmarks = benchmarks;
 
-            //_cpuLoadMeter = new CpuLoadMeter();
+            _cpuLoadMeter = new CpuLoadMeter();
             _transactionMeter = new TransactionMeter();
             _memoryUsageMeter = new MemoryUsageMeter();
 
@@ -42,7 +42,7 @@ namespace PipBenchmark.Runner.Execution
 
             _transactionCounter = 0;
             _transactionMeter.Clear();
-            //_cpuLoadMeter.Clear();
+            _cpuLoadMeter.Clear();
             _memoryUsageMeter.Clear();
         }
 
@@ -68,13 +68,13 @@ namespace PipBenchmark.Runner.Execution
                         _transactionMeter.SetTransactionCounter(_transactionCounter);
                         _transactionCounter = 0;
                         _transactionMeter.Measure();
-                    //    _cpuLoadMeter.Measure();
+                        _cpuLoadMeter.Measure();
                         _memoryUsageMeter.Measure();
 
                         // Store measurement results
                         _result.ElapsedTime = DateTime.Now - _result.StartTime;
                         _result.PerformanceMeasurement = _transactionMeter.Measurement;
-                     //   _result.CpuLoadMeasurement = _cpuLoadMeter.Measurement;
+                        _result.CpuLoadMeasurement = _cpuLoadMeter.Measurement;
                         _result.MemoryUsageMeasurement = _memoryUsageMeter.Measurement;
 
                         _results.NotifyUpdated(_result);

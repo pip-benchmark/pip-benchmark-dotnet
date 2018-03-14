@@ -10,7 +10,7 @@ namespace PipBenchmark.Runner.Environment
 {
     public class EnvironmentManager : ExecutionManager
     {
-        private const int Duration = 5000;
+        private const int Duration = 5;
 
         private double _cpuBenchmark;
         private double _videoBenchmark;
@@ -25,7 +25,7 @@ namespace PipBenchmark.Runner.Environment
             {
                 Load();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Ignore. It shall never happen here...
             }
@@ -58,15 +58,17 @@ namespace PipBenchmark.Runner.Environment
                 if (cpu)
                     _cpuBenchmark = MeasureCpu();
 
-                //if (video)
-                //    _videoBenchmark = MeasureVideo();
+#if !NETSTANDARD2_0
+                if (video)
+                    _videoBenchmark = MeasureVideo();
+#endif
 
                 if (disk)
                     _diskBenchmark = MeasureDisk();
 
                 try
                 {
-                    Stop();
+                    StopMeasure();
                 }
                 catch
                 {
@@ -89,14 +91,14 @@ namespace PipBenchmark.Runner.Environment
             _diskBenchmark = properties.GetAsDouble("DiskMeasurement", 0);
         }
 
-        private void Stop()
+        private void StopMeasure()
         {
             EnvironmentProperties properties = new EnvironmentProperties();
 
             properties.SetAsDouble("CpuMeasurement", _cpuBenchmark);
             properties.SetAsDouble("VideoMeasurement", _videoBenchmark);
             properties.SetAsDouble("DiskMeasurement", _diskBenchmark);
-        
+
             properties.Save();
         }
 
@@ -109,26 +111,28 @@ namespace PipBenchmark.Runner.Environment
             instance.SelectByName(suite.CpuBenchmark.Name);
 
             Start(instance.Selected);
-            Thread.Sleep(Duration);
+            Thread.Sleep(Duration * 1000);
             base.Stop();
 
             return _results.All[0].PerformanceMeasurement.AverageValue;
         }
 
-        //private double MeasureVideo()
-        //{
-        //    var suite = new StandardBenchmarkSuite();
-        //    var instance = new BenchmarkSuiteInstance(suite);
+#if !NETSTANDARD2_0
+        private double MeasureVideo()
+        {
+            var suite = new StandardBenchmarkSuite();
+            var instance = new BenchmarkSuiteInstance(suite);
 
-        //    instance.UnselectAll();
-        //    instance.SelectByName(suite.VideoBenchmark.Name);
+            instance.UnselectAll();
+            instance.SelectByName(suite.VideoBenchmark.Name);
 
-        //    Start(instance.Selected);
-        //    Thread.Sleep(Duration);
-        //    base.Stop();
+            Start(instance.Selected);
+            Thread.Sleep(Duration * 1000);
+            base.Stop();
 
-        //    return _results.All[0].PerformanceMeasurement.AverageValue;
-        //}
+            return _results.All[0].PerformanceMeasurement.AverageValue;
+        }
+#endif
 
         private double MeasureDisk()
         {
@@ -139,7 +143,7 @@ namespace PipBenchmark.Runner.Environment
             instance.SelectByName(suite.DiskBenchmark.Name);
 
             Start(instance.Selected);
-            Thread.Sleep(Duration);
+            Thread.Sleep(Duration * 1000);
             Stop();
 
             return _results.All[0].PerformanceMeasurement.AverageValue;

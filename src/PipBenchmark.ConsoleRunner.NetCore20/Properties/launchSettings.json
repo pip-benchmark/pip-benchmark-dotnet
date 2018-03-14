@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PipBenchmark.ConsoleRunner.NetCore20": {
+      "commandName": "Project",
+      "commandLineArgs": "-a bin/Debug/netcoreapp2.0/PipBenchmark.Hardware.dll -b StandardBenchmark.CPU"
+    }
+  }
+}

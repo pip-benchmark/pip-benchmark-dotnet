@@ -4,7 +4,9 @@
     {
         private DefaultCpuBenchmark _cpuBenchmark;
         private DefaultDiskBenchmark _diskBenchmark;
-       // private DefaultVideoBenchmark _videoBenchmark;
+#if !NETSTANDARD2_0
+        private DefaultVideoBenchmark _videoBenchmark;
+#endif
 
         public StandardBenchmarkSuite()
             : base("System", "Measures overall system performance")
@@ -15,8 +17,10 @@
             _diskBenchmark = new DefaultDiskBenchmark();
             AddBenchmark(_diskBenchmark);
 
-            //_videoBenchmark = new DefaultVideoBenchmark();
-            //AddBenchmark(_videoBenchmark);
+#if !NETSTANDARD2_0
+            _videoBenchmark = new DefaultVideoBenchmark();
+            AddBenchmark(_videoBenchmark);
+#endif
 
             CreateParameter("FilePath", "Path where test file is located on disk", "");
             CreateParameter("FileSize", "Size of the test file",
@@ -40,9 +44,11 @@
             get { return _diskBenchmark; }
         }
 
-        //public DefaultVideoBenchmark VideoBenchmark
-        //{
-        //    get { return _videoBenchmark; }
-        //}
+#if !NETSTANDARD2_0
+        public DefaultVideoBenchmark VideoBenchmark
+        {
+            get { return _videoBenchmark; }
+        }
+#endif
     }
 }

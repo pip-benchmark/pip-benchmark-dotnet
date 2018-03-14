@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Provides standard benchmarks to measure CPU, disk, video, database</Description>
+    <AssemblyName>PipBenchmark.Hardware</AssemblyName>
+    <RootNamespace>PipBenchmark.Hardware</RootNamespace>
+    <Copyright>Copyright © Conceptual Vision Consulting LLC 2017 - 2018</Copyright>
+    <Product>Pip.Benchmark</Product>
+    <Company>Conceptual Vision Consulting LLC</Company>
+    <Authors>Sergey Seroukhov</Authors>
+    <PackageId>PipBenchmark.Hardware</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PipBenchmark.NetStandard20\PipBenchmark.NetStandard20.csproj" />
+  </ItemGroup>
+
+</Project>

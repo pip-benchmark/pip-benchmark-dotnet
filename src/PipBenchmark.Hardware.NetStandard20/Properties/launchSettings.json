@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PipBenchmark.Hardware.NetCore20": {
+      "commandName": "Project",
+      "commandLineArgs": "-a PipBenchmark.Hardware.dll -B"
+    }
+  }
+}

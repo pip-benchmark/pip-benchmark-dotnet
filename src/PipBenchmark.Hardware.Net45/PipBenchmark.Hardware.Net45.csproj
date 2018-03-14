@@ -42,12 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DiskBenchmarkSuite.cs" />
-    <Compile Include="NetworkBenchmarkSuite.cs" />
+    <Compile Include="..\PipBenchmark.Hardware.NetStandard20\DiskBenchmarkSuite.cs">
+      <Link>DiskBenchmarkSuite.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.Hardware.NetStandard20\NetworkBenchmarkSuite.cs">
+      <Link>NetworkBenchmarkSuite.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.Hardware.NetStandard20\StandardCpuBenchmark.cs">
+      <Link>StandardCpuBenchmark.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.Hardware.NetStandard20\StandardDiskBenchmark.cs">
+      <Link>StandardDiskBenchmark.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.Hardware.NetStandard20\StandardHardwareBenchmarkSuite.cs">
+      <Link>StandardHardwareBenchmarkSuite.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StandardCpuBenchmark.cs" />
-    <Compile Include="StandardDiskBenchmark.cs" />
-    <Compile Include="StandardHardwareBenchmarkSuite.cs" />
     <Compile Include="StandardVideoBenchmark.cs" />
   </ItemGroup>
   <ItemGroup>
