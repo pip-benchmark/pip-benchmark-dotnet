@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Threading;
+
+#if !NETSTANDARD2_0
 using System.Diagnostics;
+#endif
 
 namespace PipBenchmark.Runner.Execution
 {
     public class CpuLoadMeter : BenchmarkMeter, IDisposable
     {
+#if !NETSTANDARD2_0
         private PerformanceCounter _processorLoadCounter;
+#endif
 
         public CpuLoadMeter()
             : base()
@@ -27,10 +32,15 @@ namespace PipBenchmark.Runner.Execution
 
         protected override double PerformMeasurement()
         {
+#if !NETSTANDARD2_0
             PerformanceCounter counter = GetCounter();
             return counter != null ? counter.NextValue() : 0;
+#else   
+            return 0;
+#endif
         }
 
+#if !NETSTANDARD2_0
         private PerformanceCounter GetCounter()
         {
             if (_processorLoadCounter == null)
@@ -49,23 +59,23 @@ namespace PipBenchmark.Runner.Execution
             }
             return _processorLoadCounter;
         }
+#endif
 
         private void DisposeCounter()
         {
+#if !NETSTANDARD2_0
             if (_processorLoadCounter != null)
             {
                 _processorLoadCounter.Dispose();
                 _processorLoadCounter = null;
             }
+#endif
         }
-
-        #region IDisposable Members
 
         public void Dispose()
         {
             DisposeCounter();
         }
 
-        #endregion
     }
 }
