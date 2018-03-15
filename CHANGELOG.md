@@ -1,5 +1,16 @@
 # Portable Benchmarking Framework in .NET Changelog
 
+## <a name="2.1.0"></a> 2.1.0 (2018-03-15)
+
+Added support for .NET Core
+
+### Features
+* Added support for .NET Core 2.0
+* Added -t command line parameter to set number of threads
+
+### Breaking Changes
+* Runner API was completely changed
+
 ## <a name="2.0.0"></a> 2.0.0 (2017-02-06)
 
 Complete refactoring of benchmark runner

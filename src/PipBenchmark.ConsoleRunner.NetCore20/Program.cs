@@ -61,6 +61,7 @@ namespace PipBenchmark.Console
                 runner.Configuration.NominalRate = args.NominalRate;
                 runner.Configuration.ExecutionType = args.ExecutionType;
                 runner.Configuration.Duration = args.Duration;
+                runner.Configuration.NumberOfThreads = args.NumberOfThreads;
 
                 // Enable benchmarks
                 if (args.Benchmarks.Count == 0)

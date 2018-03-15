@@ -15,6 +15,7 @@ namespace PipBenchmark.Console
         private string _configurationFile;
         private string _reportFile = string.Format("BenchmarkReport.txt");
         private int _duration = 60;
+        private int _numberOfThreads = 1;
         private bool _showHelp = false;
         private bool _showBenchmarks = false;
         private bool _showParameters = false;
@@ -65,6 +66,10 @@ namespace PipBenchmark.Console
                 else if ((arg == "-d" || arg == "--duration") && moreArgs)
                 {
                     _duration = Converter.StringToInteger(args[++index], 60);
+                }
+                else if ((arg == "-t" || arg == "--threads") && moreArgs)
+                {
+                    _numberOfThreads = Converter.StringToInteger(args[++index], 1);
                 }
                 else if ((arg == "-m" || arg == "--measure") && moreArgs)
                 {
@@ -132,6 +137,11 @@ namespace PipBenchmark.Console
         public int Duration
         {
             get { return _duration; }
+        }
+
+        public int NumberOfThreads
+        {
+            get { return _numberOfThreads; }
         }
 
         public bool IsForceContinue
