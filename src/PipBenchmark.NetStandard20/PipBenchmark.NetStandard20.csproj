@@ -10,6 +10,9 @@
     <Copyright>Copyright © Conceptual Vision Consulting LLC 2017-2018</Copyright>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Database\**" />
     <Compile Remove="Graphics\**" />

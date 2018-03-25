@@ -26,11 +26,8 @@ namespace PipBenchmark.Runner.Execution
             return GetUsedMemory();
         }
 
-#if !CORE_NET
+#if !NETSTANDARD2_0
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-#else
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-#endif
         private class MEMORYSTATUSEX
         {
             public uint dwLength;
@@ -49,11 +46,7 @@ namespace PipBenchmark.Runner.Execution
         }
 
         [return: MarshalAs(UnmanagedType.Bool)]
-#if !CORE_NET
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-#else
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-#endif
         static extern bool GlobalMemoryStatusEx([In, Out] MEMORYSTATUSEX lpBuffer);
 
         private double GetUsedMemory()
@@ -65,6 +58,11 @@ namespace PipBenchmark.Runner.Execution
             }
             return 0;
         }
-
+#else
+        private double GetUsedMemory()
+        {
+            return 0;
+        }
+#endif
     }
 }
