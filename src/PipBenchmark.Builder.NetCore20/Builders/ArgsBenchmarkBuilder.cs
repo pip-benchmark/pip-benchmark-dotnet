@@ -14,14 +14,14 @@ namespace PipBenchmark.Builder.Builders
             _runner.Results.Updated -= ConsoleEventPrinter.OnResultUpdated;
         }
 
-        public void WithArgs(string[] args)
+        public ArgsBenchmarkBuilder WithArgs(string[] args)
         {
             CommandLineArgs processedArgs = new CommandLineArgs(args);
             
                 if (processedArgs.ShowHelp)
                 {
                     HelpPrinter.Print();
-                    return;
+                    return this;
                 }
 
                 // Load assemblies
@@ -42,6 +42,8 @@ namespace PipBenchmark.Builder.Builders
                 _runner.Configuration.MeasurementType = processedArgs.MeasurementType;
                 _runner.Configuration.NominalRate = processedArgs.NominalRate;
                 _runner.Configuration.ExecutionType = processedArgs.ExecutionType;
+                
+                return this;
         }
     }
 }
