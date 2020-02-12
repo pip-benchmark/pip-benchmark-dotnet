@@ -5,13 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using PipBenchmark.Utilities.Random;
 
 namespace PipBenchmark.Runner.Execution
 {
     public class ProportionalExecutionStrategy : ExecutionStrategy
     {
-        private static System.Random _random = new System.Random();
-
         private bool _running = false;
         private readonly CancellationTokenSource _controlTaskCancellation = new CancellationTokenSource();
         private Task[] _tasks = null;
@@ -117,7 +116,7 @@ namespace PipBenchmark.Runner.Execution
 
         private BenchmarkInstance ChooseBenchmarkProportionally()
         {
-            double selector = _random.NextDouble();
+            double selector = RandomDouble.NextDouble(1.0);
             for (int index = 0; index < _activeBenchmarks.Count; index++)
             {
                 var benchmark = _activeBenchmarks[index];

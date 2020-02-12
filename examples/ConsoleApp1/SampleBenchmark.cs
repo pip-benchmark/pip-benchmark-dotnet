@@ -1,10 +1,12 @@
-﻿using PipBenchmark.Utilities;
-using PipBenchmark.Utilities.Random;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading;
+using PipBenchmark.Utilities.Random;
 
-namespace PipBenchmark.Sample
+namespace PipBenchmark.Sample.NetCore20
 {
-    public class SampleBenchmark: Benchmark
+    public class SampleBenchmark : Benchmark
     {
         private string _greeting;
 
@@ -21,7 +23,6 @@ namespace PipBenchmark.Sample
         public override void Execute()
         {
             // Randomly generate message or errors
-            
             if (RandomBoolean.Chance(1, 10))
                 Context.SendMessage(_greeting);
             else if (RandomBoolean.Chance(1, 10))

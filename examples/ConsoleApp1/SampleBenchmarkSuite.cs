@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+
+namespace PipBenchmark.Sample.NetCore20
+{
+    public class SampleBenchmarkSuite : BenchmarkSuite
+    {
+        public SampleBenchmarkSuite()
+            : base("Samples", "Provides sample benchmarks")
+        {
+            CreateParameter("Greeting", "Greeting message", "Hello world!");
+
+            AddBenchmark(new SampleBenchmark());
+        }
+
+        public override void SetUp()
+        {
+            for (int index = 0; index < 3; index++)
+            {
+                Context.SendMessage("Initializing Sample suite " + index + "...");
+                Thread.Sleep(1000);
+            }
+        }
+
+        public override void TearDown()
+        {
+            for (int index = 0; index < 3; index++)
+            {
+                Context.SendMessage("Initializing Sample suite " + index + "...");
+                Thread.Sleep(1000);
+            }
+        }
+    }
+}

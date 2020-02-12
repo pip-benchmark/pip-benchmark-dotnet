@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PipBenchmark.Utilities.Random;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -49,18 +50,18 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic2D
 
             for (int index = 0; index < _rectangles.Length; index++)
             {
-                Color color = Color.FromArgb((byte)_random.Next(255),
-                    (byte)_random.Next(255), (byte)_random.Next(255), (byte)_random.Next(255));
+                Color color = Color.FromArgb((byte)RandomInteger.NextInteger(255),
+                    (byte)RandomInteger.NextInteger(255), (byte)RandomInteger.NextInteger(255), (byte)RandomInteger.NextInteger(255));
 
                 _rectangles[index] = new Rectangle();
-                _rectangles[index].Width = _random.Next(Width / 2);
-                _rectangles[index].Height = _random.Next(Height / 2);
+                _rectangles[index].Width = RandomInteger.NextInteger(Width / 2);
+                _rectangles[index].Height = RandomInteger.NextInteger(Height / 2);
                 _rectangles[index].Stroke = new SolidColorBrush(color);
                 _rectangles[index].Fill = new SolidColorBrush(color);
                 _rectangles[index].StrokeThickness = 2;
                 _canvas.Children.Add(_rectangles[index]);
-                Canvas.SetLeft(_rectangles[index], _random.Next(Width / 2));
-                Canvas.SetTop(_rectangles[index], _random.Next(Height / 2));
+                Canvas.SetLeft(_rectangles[index], RandomInteger.NextInteger(Width / 2));
+                Canvas.SetTop(_rectangles[index], RandomInteger.NextInteger(Height / 2));
             }
 
             lastTick = System.Environment.TickCount;
@@ -98,11 +99,11 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic2D
 
             for (int index = 0; index < _rectangles.Length; index++)
             {
-                _rectangles[index].Width = _random.Next(Width / 2);
-                _rectangles[index].Height = _random.Next(Width / 2);
+                _rectangles[index].Width = RandomInteger.NextInteger(Width / 2);
+                _rectangles[index].Height = RandomInteger.NextInteger(Width / 2);
 
-                Canvas.SetLeft(_rectangles[index], _random.Next(Width / 2));
-                Canvas.SetTop(_rectangles[index], _random.Next(Height / 2));
+                Canvas.SetLeft(_rectangles[index], RandomInteger.NextInteger(Width / 2));
+                Canvas.SetTop(_rectangles[index], RandomInteger.NextInteger(Height / 2));
             }
         }
     }

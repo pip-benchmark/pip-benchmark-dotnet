@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\PipBenchmark.Builder.NetCore20\PipBenchmark.Builder.NetCore20.csproj" />
+    <ProjectReference Include="..\..\src\PipBenchmark.NetStandard20\PipBenchmark.NetStandard20.csproj" />
+  </ItemGroup>
+
+</Project>

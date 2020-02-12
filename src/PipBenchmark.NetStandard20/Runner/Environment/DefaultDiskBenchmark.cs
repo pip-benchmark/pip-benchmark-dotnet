@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PipBenchmark.Utilities.Random;
+using System;
 using System.IO;
 
 namespace PipBenchmark.Runner.Environment
@@ -8,7 +9,7 @@ namespace PipBenchmark.Runner.Environment
         private const int BufferSize = 512;
 
         private object _syncRoot = new object();
-        private System.Random _randomGenerator = new System.Random();
+        
         private string _fileName;
         private FileStream _fileStream;
         private int _fileSize;
@@ -73,14 +74,14 @@ namespace PipBenchmark.Runner.Environment
 
             lock (_syncRoot)
             {
-                if (_fileStream.Length == 0 || (_testWrites && (!_testReads || _randomGenerator.Next(2) == 0)))
+                if (_fileStream.Length == 0 || (_testWrites && (!_testReads || RandomInteger.NextInteger(2) == 0)))
                 {
                     int position;
 
                     if (_fileStream.Length < _fileSize)
                         position = Math.Min(_fileSize - _chunkSize, (int)_fileStream.Length);
                     else
-                        position = _randomGenerator.Next(_fileSize - _chunkSize);
+                        position = RandomInteger.NextInteger(_fileSize - _chunkSize);
 
                     _fileStream.Seek(position, SeekOrigin.Begin);
                     int sizeToWrite = _chunkSize;
@@ -93,7 +94,7 @@ namespace PipBenchmark.Runner.Environment
                 }
                 else
                 {
-                    int position = _randomGenerator.Next((int)_fileStream.Length - _chunkSize);
+                    int position = RandomInteger.NextInteger((int)_fileStream.Length - _chunkSize);
                     _fileStream.Seek(position, SeekOrigin.Begin);
 
                     int sizeToRead = _chunkSize;

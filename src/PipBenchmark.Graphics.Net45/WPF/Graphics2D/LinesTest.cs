@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PipBenchmark.Utilities.Random;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -49,14 +50,14 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic2D
 
             for (int index = 0; index < _lines.Length; index++)
             {
-                Color color = Color.FromArgb((byte)_random.Next(255),
-                    (byte)_random.Next(255), (byte)_random.Next(255), (byte)_random.Next(255));
+                Color color = Color.FromArgb((byte)RandomInteger.NextInteger(255),
+                    (byte)RandomInteger.NextInteger(255), (byte)RandomInteger.NextInteger(255), (byte)RandomInteger.NextInteger(255));
 
                 _lines[index] = new Line();
-                _lines[index].X1 = _random.Next(Width);
-                _lines[index].X2 = _random.Next(Width);
-                _lines[index].Y1 = _random.Next(Height);
-                _lines[index].Y2 = _random.Next(Height);
+                _lines[index].X1 = RandomInteger.NextInteger(Width);
+                _lines[index].X2 = RandomInteger.NextInteger(Width);
+                _lines[index].Y1 = RandomInteger.NextInteger(Height);
+                _lines[index].Y2 = RandomInteger.NextInteger(Height);
                 _lines[index].Stroke = new SolidColorBrush(color);
                 _lines[index].StrokeThickness = 2;
                 _canvas.Children.Add(_lines[index]);
@@ -97,10 +98,10 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic2D
 
             for (int index = 0; index < _lines.Length; index++)
             {
-                _lines[index].X1 = _random.Next(Width);
-                _lines[index].X2 = _random.Next(Width);
-                _lines[index].Y1 = _random.Next(Height);
-                _lines[index].Y2 = _random.Next(Height);
+                _lines[index].X1 = RandomInteger.NextInteger(Width);
+                _lines[index].X2 = RandomInteger.NextInteger(Width);
+                _lines[index].Y1 = RandomInteger.NextInteger(Height);
+                _lines[index].Y2 = RandomInteger.NextInteger(Height);
             }
         }
     }

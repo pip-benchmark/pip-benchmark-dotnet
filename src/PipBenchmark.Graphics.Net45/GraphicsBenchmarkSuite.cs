@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using PipBenchmark.Graphics.Properties;
+using PipBenchmark.Utilities.Random;
 
 namespace PipBenchmark.Graphics
 {
@@ -17,7 +18,6 @@ namespace PipBenchmark.Graphics
         };
 
         private object _syncRoot = new object();
-        private System.Random _randomGenerator = new System.Random();
         private Form _outputForm;
         private System.Drawing.Graphics _outputGraphics;
         private int _windowWidth;
@@ -104,20 +104,20 @@ namespace PipBenchmark.Graphics
         
         private Color GetRandomColor()
         {
-            return Color.FromArgb(_randomGenerator.Next(256),
-                _randomGenerator.Next(256), _randomGenerator.Next(256));
+            return Color.FromArgb(RandomInteger.NextInteger(256),
+                RandomInteger.NextInteger(256), RandomInteger.NextInteger(256));
         }
 
         public void ExecuteDrawLine()
         {
             lock (_syncRoot)
             {
-                int xStart = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-                int yStart = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
-                int xEnd = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-                int yEnd = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
+                int xStart = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+                int yStart = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
+                int xEnd = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+                int yEnd = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
 
-                using (Pen pen = new Pen(GetRandomColor(), 1 + _randomGenerator.Next(5)))
+                using (Pen pen = new Pen(GetRandomColor(), 1 + RandomInteger.NextInteger(5)))
                 {
                     _outputGraphics.DrawLine(pen, xStart, yStart, xEnd, yEnd);
                 }
@@ -128,10 +128,10 @@ namespace PipBenchmark.Graphics
         {
             lock (_syncRoot)
             {
-                int xStart = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-                int yStart = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
-                int xEnd = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-                int yEnd = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
+                int xStart = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+                int yStart = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
+                int xEnd = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+                int yEnd = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
 
                 using (Brush brush = new SolidBrush(GetRandomColor()))
                 {
@@ -145,8 +145,8 @@ namespace PipBenchmark.Graphics
         {
             lock (_syncRoot)
             {
-                int x = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-                int y = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
+                int x = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+                int y = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
 
                 using (Brush brush = new SolidBrush(GetRandomColor()))
                 {
@@ -155,10 +155,10 @@ namespace PipBenchmark.Graphics
                     do
                     {
                         fontFamily = FontFamily.Families[
-                        _randomGenerator.Next(0, FontFamily.Families.Length)];
+                        RandomInteger.NextInteger(0, FontFamily.Families.Length)];
                     } while (!fontFamily.IsStyleAvailable(FontStyle.Regular));
 #else
-                    switch (_randomGenerator.Next(3))
+                    switch (RandomInteger.NextInteger(3))
                     {
                         case 0:
                             fontFamily = FontFamily.GenericSansSerif;
@@ -173,7 +173,7 @@ namespace PipBenchmark.Graphics
 #endif
 
                     using (Font font = new Font(fontFamily,
-                        _randomGenerator.Next(6, 32), FontStyle.Regular))
+                        RandomInteger.NextInteger(6, 32), FontStyle.Regular))
                     {
                         _outputGraphics.DrawString("Draw Text", font, brush, x, y);
                     }
@@ -185,13 +185,13 @@ namespace PipBenchmark.Graphics
         {
             lock (_syncRoot)
             {
-                int x = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-                int y = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
+                int x = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+                int y = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
 
 #if !CompactFramework
-                _outputGraphics.DrawImageUnscaled(Images[_randomGenerator.Next(0, Images.Length)], x, y);
+                _outputGraphics.DrawImageUnscaled(Images[RandomInteger.NextInteger(0, Images.Length)], x, y);
 #else
-                _outputGraphics.DrawImage(Images[_randomGenerator.Next(0, Images.Length)], x, y);
+                _outputGraphics.DrawImage(Images[RandomInteger.NextInteger(0, Images.Length)], x, y);
 #endif
             }
         }
@@ -200,10 +200,10 @@ namespace PipBenchmark.Graphics
         {
             lock (_syncRoot)
             {
-                int x = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-                int y = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
+                int x = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+                int y = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
 
-                _outputGraphics.DrawImage(Images[_randomGenerator.Next(0, Images.Length)], x, y);
+                _outputGraphics.DrawImage(Images[RandomInteger.NextInteger(0, Images.Length)], x, y);
             }
         }
 
@@ -211,11 +211,11 @@ namespace PipBenchmark.Graphics
         {
             lock (_syncRoot)
             {
-                Image image = Images[_randomGenerator.Next(0, Images.Length)];
-                int x = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-                int y = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
-                int width = _randomGenerator.Next(10, image.Width);
-                int height = _randomGenerator.Next(10, image.Height);
+                Image image = Images[RandomInteger.NextInteger(0, Images.Length)];
+                int x = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+                int y = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
+                int width = RandomInteger.NextInteger(10, image.Width);
+                int height = RandomInteger.NextInteger(10, image.Height);
 
 #if !CompactFramework
                 _outputGraphics.DrawImage(image, x, y, width, height);

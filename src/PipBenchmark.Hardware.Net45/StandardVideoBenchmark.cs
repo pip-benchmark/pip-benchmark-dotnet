@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PipBenchmark.Utilities.Random;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,7 +13,6 @@ namespace PipBenchmark.Hardware
         private const int MaxWindowHeight = 480;
 
         private object _syncRoot = new object();
-        private System.Random _randomGenerator = new System.Random();
         private Form _outputForm;
         private System.Drawing.Graphics _outputGraphics;
 
@@ -70,16 +70,16 @@ namespace PipBenchmark.Hardware
             int windowHeight = Screen.PrimaryScreen.Bounds.Height;
 #endif
 
-            int xStart = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-            int yStart = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
-            int xEnd = -MaxLength / 2 + _randomGenerator.Next(MaxWindowWidth + MaxLength);
-            int yEnd = -MaxLength / 2 + _randomGenerator.Next(MaxWindowHeight + MaxLength);
+            int xStart = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+            int yStart = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
+            int xEnd = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowWidth + MaxLength);
+            int yEnd = -MaxLength / 2 + RandomInteger.NextInteger(MaxWindowHeight + MaxLength);
 
-            if (_randomGenerator.Next(2) == 0)
+            if (RandomInteger.NextInteger(2) == 0)
             {
                 lock (_syncRoot)
                 {
-                    using (Pen pen = new Pen(GetRandomColor(), 1 + _randomGenerator.Next(5)))
+                    using (Pen pen = new Pen(GetRandomColor(), 1 + RandomInteger.NextInteger(5)))
                     {
                         _outputGraphics.DrawLine(pen, xStart, yStart, xEnd, yEnd);
                     }
@@ -100,8 +100,8 @@ namespace PipBenchmark.Hardware
 
         private Color GetRandomColor()
         {
-            return Color.FromArgb(_randomGenerator.Next(256),
-                _randomGenerator.Next(256), _randomGenerator.Next(256));
+            return Color.FromArgb(RandomInteger.NextInteger(256),
+                RandomInteger.NextInteger(256), RandomInteger.NextInteger(256));
         }
 
         public override void TearDown()

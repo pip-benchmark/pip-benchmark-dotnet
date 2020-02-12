@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PipBenchmark.Utilities.Random;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 
@@ -98,11 +99,11 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Controls
             {
                 for (int index = 0; index < ItemsCount; index++)
                 {
-                    _dataItems[index].Age = _random.Next(100);
-                    _dataItems[index].Name = "Name #" + index + " - " + _random.Next(1000);
-                    _dataItems[index].RandomNumber = _random.NextDouble() * 1000;
+                    _dataItems[index].Age = RandomInteger.NextInteger(100);
+                    _dataItems[index].Name = "Name #" + index + " - " + RandomInteger.NextInteger(1000);
+                    _dataItems[index].RandomNumber = RandomDouble.NextDouble(1.0) * 1000;
                 }
-                _window.ScrollTo(_random.Next(ItemsCount - 1));
+                _window.ScrollTo(RandomInteger.NextInteger(ItemsCount - 1));
             }
         }
 
@@ -112,9 +113,9 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Controls
             {
                 _dataItems.Add(new DataItem()
                 {
-                    Age = _random.Next(100),
+                    Age = RandomInteger.NextInteger(100),
                     Name = "Name #" + _dataItems.Count,
-                    RandomNumber = _random.NextDouble() * 1000
+                    RandomNumber = RandomDouble.NextDouble(1.0) * 1000
                 });
             }
         }

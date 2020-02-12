@@ -200,8 +200,38 @@
     <Compile Include="..\PipBenchmark.NetStandard20\Utilities\PropertyFileLine.cs">
       <Link>Utilities\PropertyFileLine.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random.cs">
-      <Link>Utilities\Random.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\IdGenerator.cs">
+      <Link>Utilities\Random\IdGenerator.cs</Link>
+    </Compile>    
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomArray.cs">
+      <Link>Utilities\Random\RandomArray.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomBoolean.cs">
+      <Link>Utilities\Random\RandomBoolean.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomDateTime.cs">
+      <Link>Utilities\Random\RandomDateTime.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomDouble.cs">
+      <Link>Utilities\Random\RandomDouble.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomEnum.cs">
+      <Link>Utilities\Random\RandomEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomFloat.cs">
+      <Link>Utilities\Random\RandomFloat.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomInteger.cs">
+      <Link>Utilities\Random\RandomInteger.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomLong.cs">
+      <Link>Utilities\Random\RandomLong.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomString.cs">
+      <Link>Utilities\Random\RandomString.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomText.cs">
+      <Link>Utilities\Random\RandomText.cs</Link>
     </Compile>
     <Compile Include="..\PipBenchmark.NetStandard20\UtilityBenchmarkSuite.cs">
       <Link>UtilityBenchmarkSuite.cs</Link>

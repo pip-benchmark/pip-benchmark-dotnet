@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PipBenchmark.Utilities.Random;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -79,16 +80,16 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic2D
                 }
                 else
                 {
-                    _images[index].Width = _random.Next(200);
-                    _images[index].Height = _random.Next(200);
+                    _images[index].Width = RandomInteger.NextInteger(200);
+                    _images[index].Height = RandomInteger.NextInteger(200);
                 }
                 _images[index].Stretch = Stretch.Fill;
                 _images[index].StretchDirection = StretchDirection.Both;
                 _images[index].Visibility = Visibility.Visible;
                 _canvas.Children.Add(_images[index]);
 
-                Canvas.SetLeft(_images[index], _random.Next(Width / 2));
-                Canvas.SetTop(_images[index], _random.Next(Height / 2));
+                Canvas.SetLeft(_images[index], RandomInteger.NextInteger(Width / 2));
+                Canvas.SetTop(_images[index], RandomInteger.NextInteger(Height / 2));
 
                 bitmapIndex++;
                 if (bitmapIndex > 3)
@@ -134,12 +135,12 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic2D
             {
                 if (!DefaultSize)
                 {
-                    _images[index].Width = _random.Next(200);
-                    _images[index].Height = _random.Next(200);
+                    _images[index].Width = RandomInteger.NextInteger(200);
+                    _images[index].Height = RandomInteger.NextInteger(200);
                 }
 
-                Canvas.SetLeft(_images[index], _random.Next(Width / 2));
-                Canvas.SetTop(_images[index], _random.Next(Height / 2));
+                Canvas.SetLeft(_images[index], RandomInteger.NextInteger(Width / 2));
+                Canvas.SetTop(_images[index], RandomInteger.NextInteger(Height / 2));
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PipBenchmark.Utilities.Random;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -45,14 +46,14 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic2D
 
             for (int index = 0; index < _labels.Length; index++)
             {
-                Color color = Color.FromArgb((byte)_random.Next(255),
-                    (byte)_random.Next(255), (byte)_random.Next(255), (byte)_random.Next(255));
+                Color color = Color.FromArgb((byte)RandomInteger.NextInteger(255),
+                    (byte)RandomInteger.NextInteger(255), (byte)RandomInteger.NextInteger(255), (byte)RandomInteger.NextInteger(255));
 
                 _labels[index] = new Label();
                 _canvas.Children.Add(_labels[index]);
-                _labels[index].Content = _random.NextDouble().ToString();
-                Canvas.SetLeft(_labels[index], _random.Next(Width));
-                Canvas.SetTop(_labels[index], _random.Next(Height));
+                _labels[index].Content = RandomDouble.NextDouble(1.0).ToString();
+                Canvas.SetLeft(_labels[index], RandomInteger.NextInteger(Width));
+                Canvas.SetTop(_labels[index], RandomInteger.NextInteger(Height));
             }
 
             lastTick = System.Environment.TickCount;
@@ -90,9 +91,9 @@ namespace PipBenchmark.StandardBenchmarks.WPF.Graphic2D
 
             for (int index = 0; index < _labels.Length; index++)
             {
-                _labels[index].Content = _random.NextDouble().ToString();
-                Canvas.SetLeft(_labels[index], _random.Next(Width));
-                Canvas.SetTop(_labels[index], _random.Next(Height));
+                _labels[index].Content = RandomDouble.NextDouble(1.0).ToString();
+                Canvas.SetLeft(_labels[index], RandomInteger.NextInteger(Width));
+                Canvas.SetTop(_labels[index], RandomInteger.NextInteger(Height));
             }
         }
     }

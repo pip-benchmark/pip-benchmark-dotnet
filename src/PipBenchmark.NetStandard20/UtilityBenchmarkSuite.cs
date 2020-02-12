@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PipBenchmark.Utilities.Random;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -6,8 +7,6 @@ namespace PipBenchmark
 {
     public class UtilityBenchmarkTestSuite : BenchmarkSuite
     {
-        private System.Random _randomGenerator = new System.Random();
-
         public UtilityBenchmarkTestSuite()
             : base("Utility", "Set of utility benchmark tests")
         {
@@ -29,7 +28,7 @@ namespace PipBenchmark
 
         public void ExecuteRandomDelay()
         {
-            Thread.Sleep(_randomGenerator.Next(0, 1000));
+            Thread.Sleep(RandomInteger.NextInteger(0, 1000));
         }
     }
 }

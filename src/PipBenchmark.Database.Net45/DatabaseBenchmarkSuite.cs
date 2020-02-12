@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using PipBenchmark;
 using System.Threading;
 using System.Threading.Tasks;
+using PipBenchmark.Utilities.Random;
 
 namespace PipBenchmark.Database
 {
@@ -22,8 +23,6 @@ namespace PipBenchmark.Database
         private Parameter _numberOfRecordsInTable;
         private Parameter _numberOfRecordsToSelect;
         private Parameter _blobFieldSize;
-
-        protected PipBenchmark.Utilities.Random Random = new PipBenchmark.Utilities.Random();
 
         protected DatabaseBenchmarkSuite(string name, string description)
             : base(name, description)
@@ -64,7 +63,19 @@ namespace PipBenchmark.Database
             _machineNameValue = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\Ident", "Name", "NAME");
 #endif
             _processIdValue = Guid.NewGuid();
-            _memoValues = Random.RandomStringList(0, 100, 128);
+            _memoValues = RandomStringList(0, 100, 128);
+        }
+
+        private static List<string> RandomStringList(int minCount, int maxCount, int itemSize)
+        {
+            int count = Math.Max(0, minCount + RandomInteger.NextInteger(maxCount - minCount));
+            var result = new List<string>(count);
+            for (int index = 0; index < count; index++)
+            {
+                result.Add(RandomString.NextString(itemSize, itemSize));
+            }
+
+            return result;
         }
 
         public string ConnectionString
@@ -105,7 +116,7 @@ namespace PipBenchmark.Database
 
         protected double GetRandomValue()
         {
-            return Random.RandomDouble(0, 100);
+            return RandomDouble.NextDouble(0, 100);
         }
 
         protected string GetMemoValue()
@@ -113,7 +124,7 @@ namespace PipBenchmark.Database
             StringBuilder builder = new StringBuilder();
             while (builder.Length < BlobFieldSize)
             {
-                builder.Append(_memoValues[Random.RandomInteger(0, _memoValues.Count)]);
+                builder.Append(_memoValues[RandomInteger.NextInteger(0, _memoValues.Count)]);
             }
             builder.Length = BlobFieldSize;
             return builder.ToString();
