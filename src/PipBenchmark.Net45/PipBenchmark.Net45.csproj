@@ -202,7 +202,7 @@
     </Compile>
     <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\IdGenerator.cs">
       <Link>Utilities\Random\IdGenerator.cs</Link>
-    </Compile>    
+    </Compile>
     <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomArray.cs">
       <Link>Utilities\Random\RandomArray.cs</Link>
     </Compile>
@@ -233,13 +233,28 @@
     <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomText.cs">
       <Link>Utilities\Random\RandomText.cs</Link>
     </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Config\ConfigParams.cs">
+      <Link>Utilities\Config\ConfigParams.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Data\MapConverter.cs">
+      <Link>Utilities\Data\MapConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Data\RecursiveMapConverter.cs">
+      <Link>Utilities\Data\RecursiveMapConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Data\StringConverter.cs">
+      <Link>Utilities\Data\StringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Data\StringValueMap.cs">
+      <Link>Utilities\Data\StringValueMap.cs</Link>
+    </Compile>
     <Compile Include="..\PipBenchmark.NetStandard20\UtilityBenchmarkSuite.cs">
       <Link>UtilityBenchmarkSuite.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runner\Environment\DefaultVideoBenchmark.cs" />
   </ItemGroup>
-  <ItemGroup />
+<ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

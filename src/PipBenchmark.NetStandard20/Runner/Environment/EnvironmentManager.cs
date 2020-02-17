@@ -2,6 +2,7 @@
 using PipBenchmark.Runner.Config;
 using PipBenchmark.Runner.Execution;
 using PipBenchmark.Runner.Results;
+using PipBenchmark.Utilities.Config;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -31,7 +32,7 @@ namespace PipBenchmark.Runner.Environment
             }
         }
 
-        public IDictionary<string, string> SystemInfo
+        public ConfigParams SystemInfo
         {
             get { return new SystemInfo(); }
         }

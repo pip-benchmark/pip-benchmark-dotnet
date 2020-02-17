@@ -1,6 +1,7 @@
 ﻿using PipBenchmark.Runner;
 using PipBenchmark.Runner.Config;
 using PipBenchmark.Utilities;
+using PipBenchmark.Utilities.Config;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -11,7 +12,7 @@ namespace PipBenchmark.Console
     {
         private List<string> _assemblies = new List<string>();
         private List<string> _benchmarks = new List<string>();
-        private Dictionary<string, string> _parameters = new Dictionary<string, string>();
+        private ConfigParams _parameters = new ConfigParams();
         private string _configurationFile;
         private string _reportFile = string.Format("BenchmarkReport.txt");
         private int _duration = 60;
@@ -114,7 +115,7 @@ namespace PipBenchmark.Console
             get { return _benchmarks; }
         }
 
-        public Dictionary<string, string> Parameters
+        public ConfigParams Parameters
         {
             get { return _parameters; }
         }
