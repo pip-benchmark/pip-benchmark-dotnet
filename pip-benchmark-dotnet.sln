@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipBenchmark.Hardware.NetSt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipBenchmark.Builder.NetCore20", "src\PipBenchmark.Builder.NetCore20\PipBenchmark.Builder.NetCore20.csproj", "{0288155E-B914-4354-A0E5-C03362327634}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipBenchmark.Sample.NetCore20", "examples\ConsoleApp1\PipBenchmark.Sample.NetCore20.csproj", "{B47E8BBB-4B79-467E-BB0D-A5CD8565B9E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipBenchmark.Sample.NetCore20", "examples\PipBenchmark.Sample.NetCore20\PipBenchmark.Sample.NetCore20.csproj", "{B47E8BBB-4B79-467E-BB0D-A5CD8565B9E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
