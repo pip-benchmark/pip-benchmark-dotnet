@@ -1,7 +1,6 @@
 ﻿using PipBenchmark.Runner.Benchmarks;
 using PipBenchmark.Runner.Config;
 using PipBenchmark.Utilities;
-using PipBenchmark.Utilities.Config;
 using System.Collections.Generic;
 using System.IO;
 
@@ -130,7 +129,7 @@ namespace PipBenchmark.Runner.Parameters
             _configuration.NotifyChanged();
         }
 
-        public void Set(ConfigParams parameters)
+        public void Set(Dictionary<string, string> parameters)
         {
             foreach (Parameter parameter in _parameters)
             {

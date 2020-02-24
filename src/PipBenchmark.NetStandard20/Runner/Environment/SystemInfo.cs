@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Win32;
-using PipBenchmark.Utilities.Config;
 
 namespace PipBenchmark.Runner.Environment
 {
-    public class SystemInfo : ConfigParams
+    public class SystemInfo : Dictionary<string, string>
     {
         public SystemInfo()
         {

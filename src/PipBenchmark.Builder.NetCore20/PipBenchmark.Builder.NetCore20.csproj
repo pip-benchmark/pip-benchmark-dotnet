@@ -16,4 +16,8 @@
     <ProjectReference Include="..\PipBenchmark.NetStandard20\PipBenchmark.NetStandard20.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Builders\" />
+  </ItemGroup>
+
 </Project>

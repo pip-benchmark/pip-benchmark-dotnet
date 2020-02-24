@@ -200,53 +200,38 @@
     <Compile Include="..\PipBenchmark.NetStandard20\Utilities\PropertyFileLine.cs">
       <Link>Utilities\PropertyFileLine.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\IdGenerator.cs">
-      <Link>Utilities\Random\IdGenerator.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\IdGenerator.cs">
+      <Link>Random\IdGenerator.cs</Link>
+    </Compile>    
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomArray.cs">
+      <Link>Random\RandomArray.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomArray.cs">
-      <Link>Utilities\Random\RandomArray.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomBoolean.cs">
+      <Link>Random\RandomBoolean.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomBoolean.cs">
-      <Link>Utilities\Random\RandomBoolean.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomDateTime.cs">
+      <Link>Random\RandomDateTime.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomDateTime.cs">
-      <Link>Utilities\Random\RandomDateTime.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomDouble.cs">
+      <Link>Random\RandomDouble.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomDouble.cs">
-      <Link>Utilities\Random\RandomDouble.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomEnum.cs">
+      <Link>Random\RandomEnum.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomEnum.cs">
-      <Link>Utilities\Random\RandomEnum.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomFloat.cs">
+      <Link>Random\RandomFloat.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomFloat.cs">
-      <Link>Utilities\Random\RandomFloat.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomInteger.cs">
+      <Link>Random\RandomInteger.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomInteger.cs">
-      <Link>Utilities\Random\RandomInteger.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomLong.cs">
+      <Link>Random\RandomLong.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomLong.cs">
-      <Link>Utilities\Random\RandomLong.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomString.cs">
+      <Link>Random\RandomString.cs</Link>
     </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomString.cs">
-      <Link>Utilities\Random\RandomString.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Random\RandomText.cs">
-      <Link>Utilities\Random\RandomText.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Config\ConfigParams.cs">
-      <Link>Utilities\Config\ConfigParams.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Data\MapConverter.cs">
-      <Link>Utilities\Data\MapConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Data\RecursiveMapConverter.cs">
-      <Link>Utilities\Data\RecursiveMapConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Data\StringConverter.cs">
-      <Link>Utilities\Data\StringConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\PipBenchmark.NetStandard20\Utilities\Data\StringValueMap.cs">
-      <Link>Utilities\Data\StringValueMap.cs</Link>
+    <Compile Include="..\PipBenchmark.NetStandard20\Random\RandomText.cs">
+      <Link>Random\RandomText.cs</Link>
     </Compile>
     <Compile Include="..\PipBenchmark.NetStandard20\UtilityBenchmarkSuite.cs">
       <Link>UtilityBenchmarkSuite.cs</Link>
@@ -254,7 +239,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runner\Environment\DefaultVideoBenchmark.cs" />
   </ItemGroup>
-<ItemGroup />
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

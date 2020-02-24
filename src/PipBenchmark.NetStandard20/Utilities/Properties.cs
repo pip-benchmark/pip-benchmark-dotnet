@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using PipBenchmark.Utilities.Config;
 
 namespace PipBenchmark.Utilities
 {
-    public class Properties : ConfigParams
+    public class Properties : Dictionary<string, string>
     {
         List<PropertyFileLine> _lines = new List<PropertyFileLine>();
 
