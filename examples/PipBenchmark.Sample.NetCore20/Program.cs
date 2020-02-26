@@ -14,9 +14,9 @@ namespace ConsoleApp1
             var benchmark = new ConsoleBenchmarkBuilder()
                 .AddSuite(new SampleBenchmarkSuite())
                 .InThreads(1)
-                .DurationOf(15)
-                .WithParams(isForceContinue:true)
-                .SelectTest()
+                .ForDuration(15)
+                .ForceContinue(true)
+                .WithAllBenchmarks()
                 .Create();
 
             benchmark.Run();

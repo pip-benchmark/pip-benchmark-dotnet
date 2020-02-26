@@ -10,6 +10,7 @@ namespace PipBenchmark.Console
     public class CommandLineArgs
     {
         private List<string> _assemblies = new List<string>();
+        private List<string> _classes = new List<string>();
         private List<string> _benchmarks = new List<string>();
         private Dictionary<string, string> _parameters = new Dictionary<string, string>();
         private string _configurationFile;
@@ -112,6 +113,11 @@ namespace PipBenchmark.Console
         public List<string> Assemblies
         {
             get { return _assemblies; }
+        }
+
+        public List<string> Classes
+        {
+            get { return _classes; }
         }
 
         public List<string> Benchmarks
