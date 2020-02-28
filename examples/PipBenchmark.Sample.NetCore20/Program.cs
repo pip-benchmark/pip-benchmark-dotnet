@@ -4,6 +4,7 @@ using PipBenchmark.Runner.Config;
 using PipBenchmark.Runner.Console;
 using PipBenchmark.Sample.NetCore20;
 using System;
+using PipBenchmark.Utilities;
 
 namespace ConsoleApp1
 {

@@ -15,58 +15,40 @@
             _benchmark = benchmark;
         }
 
-        public BenchmarkSuiteInstance Suite
-        {
-            get { return _suite; }
-        }
+        public BenchmarkSuiteInstance Suite => _suite;
 
-        public Benchmark Benchmark
-        {
-            get { return _benchmark; }
-        }
+        public Benchmark Benchmark => _benchmark;
 
-        public string Name
-        {
-            get { return _benchmark.Name; }
-        }
+        public string Name => _benchmark.Name;
 
-        public string FullName
-        {
-            get { return _suite.Name + "." + _benchmark.Name; }
-        }
+        public string FullName => _suite.Name + "." + _benchmark.Name;
 
-        public string Description
-        {
-            get { return _benchmark.Description; }
-        }
+        public string Description => _benchmark.Description;
 
         public bool IsSelected
         {
-            get { return _selected; }
-            set { _selected = value; }
+            get => _selected;
+            set => _selected = value;
         }
 
-        public bool IsPassive
-        {
-            get { return _benchmark is PassiveBenchmark; }
-        }
+        public bool IsPassive => _benchmark is PassiveBenchmark;
 
         public int Proportion
         {
-            get { return _proportion; }
-            set { _proportion = System.Math.Max(0, System.Math.Min(10000, value)); }
+            get => _proportion;
+            set => _proportion = System.Math.Max(0, System.Math.Min(10000, value));
         }
 
         public double StartRange
         {
-            get { return _startRange; }
-            set { _startRange = value; }
+            get => _startRange;
+            set => _startRange = value;
         }
 
         public double EndRange
         {
-            get { return _endRange; }
-            set { _endRange = value; }
+            get => _endRange;
+            set => _endRange = value;
         }
 
         public bool WithinRange(double proportion)

@@ -5,15 +5,7 @@
         private double _counter;
         private int _lastMeasuredTicks = 0;
 
-        public TransactionMeter()
-            : base()
-        {
-        }
-
-        public int LastMeasuredTicks
-        {
-            get { return _lastMeasuredTicks; }
-        }
+        public int LastMeasuredTicks => _lastMeasuredTicks;
 
         public void IncrementCounter()
         {

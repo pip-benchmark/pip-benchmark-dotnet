@@ -9,15 +9,6 @@ namespace PipBenchmark.Utilities
     {
         List<PropertyFileLine> _lines = new List<PropertyFileLine>();
 
-        public Properties()
-        {
-        }
-
-        public List<PropertyFileLine> Lines
-        {
-            get { return _lines; }
-        }
-
         public void LoadFromStream(Stream stream)
         {
             _lines.Clear();
@@ -103,11 +94,7 @@ namespace PipBenchmark.Utilities
 
         public string GetAsString(string key, string defaultValue)
         {
-            if (this.ContainsKey(key))
-            {
-                return this[key];
-            }
-            return defaultValue;
+            return this.ContainsKey(key) ? this[key] : defaultValue;
         }
 
         public void SetAsString(string key, string value)
@@ -117,11 +104,7 @@ namespace PipBenchmark.Utilities
 
         public int GetAsInteger(string key, int defaultValue)
         {
-            if (this.ContainsKey(key))
-            {
-                return Converter.StringToInteger(this[key], defaultValue);
-            }
-            return defaultValue;
+            return this.ContainsKey(key) ? Converter.StringToInteger(this[key], defaultValue) : defaultValue;
         }
 
         public void SetAsInteger(string key, int value)
@@ -131,11 +114,7 @@ namespace PipBenchmark.Utilities
 
         public long GetAsLong(string key, long defaultValue)
         {
-            if (this.ContainsKey(key))
-            {
-                return Converter.StringToLong(this[key], defaultValue);
-            }
-            return defaultValue;
+            return this.ContainsKey(key) ? Converter.StringToLong(this[key], defaultValue) : defaultValue;
         }
 
         public void SetAsLong(string key, long value)
@@ -145,11 +124,7 @@ namespace PipBenchmark.Utilities
 
         public double GetAsDouble(string key, double defaultValue)
         {
-            if (this.ContainsKey(key))
-            {
-                return Converter.StringToDouble(this[key], defaultValue);
-            }
-            return defaultValue;
+            return this.ContainsKey(key) ? Converter.StringToDouble(this[key], defaultValue) : defaultValue;
         }
 
         public void SetAsDouble(string key, double value)
@@ -159,11 +134,7 @@ namespace PipBenchmark.Utilities
 
         public bool GetAsBoolean(string key, bool defaultValue)
         {
-            if (this.ContainsKey(key))
-            {
-                return Converter.StringToBoolean(this[key]);
-            }
-            return defaultValue;
+            return this.ContainsKey(key) ? Converter.StringToBoolean(this[key], defaultValue) : defaultValue;
         }
 
         public void SetAsBoolean(string key, bool value)
@@ -173,11 +144,7 @@ namespace PipBenchmark.Utilities
 
         public DateTime GetAsDateTime(string key, DateTime defaultValue)
         {
-            if (this.ContainsKey(key))
-            {
-                return Converter.StringToDateTime(this[key], defaultValue);
-            }
-            return defaultValue;
+            return this.ContainsKey(key) ? Converter.StringToDateTime(this[key], defaultValue) : defaultValue;
         }
 
         public void SetAsDateTime(string key, DateTime value)
@@ -187,11 +154,7 @@ namespace PipBenchmark.Utilities
 
         public TimeSpan GetAsTimeSpan(string key, TimeSpan defaultValue)
         {
-            if (this.ContainsKey(key))
-            {
-                return Converter.StringToTimeSpan(this[key], defaultValue);
-            }
-            return defaultValue;
+            return this.ContainsKey(key) ? Converter.StringToTimeSpan(this[key], defaultValue) : defaultValue;
         }
 
         public void SetAsTimeSpan(string key, TimeSpan value)

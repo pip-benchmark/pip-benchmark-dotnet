@@ -14,47 +14,44 @@ namespace PipBenchmark.Runner.Execution
         private double _sumOfValues;
         private double _numberOfMeasurements;
 
-        public BenchmarkMeter()
+        protected BenchmarkMeter()
         {
             Clear();
         }
 
-        public Measurement Measurement
-        {
-            get { return new Measurement(CurrentValue, MinValue, AverageValue, MaxValue); }
-        }
+        public Measurement Measurement => new Measurement(CurrentValue, MinValue, AverageValue, MaxValue);
 
         public DateTime LastMeasuredTime
         {
-            get { return _lastMeasuredTime; }
-            protected set { _lastMeasuredTime = value; }
+            get => _lastMeasuredTime;
+            protected set => _lastMeasuredTime = value;
         }
 
         public double CurrentValue
         {
-            get { return _currentValue; }
-            protected set { _currentValue = value; }
+            get => _currentValue;
+            protected set => _currentValue = value;
         }
 
         public double MinValue
         {
-            get { return _minValue < Double.MaxValue ? _minValue : 0; }
-            protected set { _minValue = value; }
+            get => _minValue < Double.MaxValue ? _minValue : 0;
+            protected set => _minValue = value;
         }
 
         public double MaxValue
         {
-            get { return _maxValue > Double.MinValue ? _maxValue : 0; }
-            protected set { _minValue = value; }
+            get => _maxValue > Double.MinValue ? _maxValue : 0;
+            protected set => _minValue = value;
         }
 
         public double AverageValue
         {
-            get { return _averageValue; }
-            protected set { _averageValue = value; }
+            get => _averageValue;
+            protected set => _averageValue = value;
         }
 
-        public virtual void Clear()
+        public void Clear()
         {
             _lastMeasuredTime = DateTime.Now;
             _currentValue = PerformMeasurement();

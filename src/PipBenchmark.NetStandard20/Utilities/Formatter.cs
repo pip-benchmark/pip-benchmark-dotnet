@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace PipBenchmark.Utilities
 {
@@ -32,6 +33,32 @@ namespace PipBenchmark.Utilities
             }
 
             return builder.ToString();
+        }
+
+        public static string FormatNumber(decimal value, int decimals = 2)
+        {
+            if (decimals > 99) decimals = 99;
+            if (decimals < 0) decimals = 0;
+            
+            string format = "{0:N" + decimals + "}";
+            return String.Format(format, value);
+        }
+
+        public static string FormatDate(DateTime date)
+        {
+            string value = date.ToShortDateString();
+            return value;
+        }
+
+        public static string FormatTime(DateTime date)
+        {
+            return date.ToShortTimeString();
+        }
+
+        public static string FormatTimeSpan(long ticks)
+        {
+            TimeSpan timeSpan = new TimeSpan(ticks);
+            return $"{timeSpan:G}";
         }
     }
 }

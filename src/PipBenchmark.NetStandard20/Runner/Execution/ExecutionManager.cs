@@ -23,10 +23,7 @@ namespace PipBenchmark.Runner.Execution
             _results = results;
         }
 
-        public bool IsRunning
-        {
-            get { return _running; }
-        }
+        public bool IsRunning => _running;
 
         public void Start(List<BenchmarkInstance> benchmarks)
         {

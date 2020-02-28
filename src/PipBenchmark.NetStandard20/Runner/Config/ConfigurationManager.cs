@@ -4,12 +4,12 @@ namespace PipBenchmark.Runner.Config
 {
     public class ConfigurationManager
     {
-        private int _numberOfThreads = 1;
         private MeasurementType _measurementType = MeasurementType.Peak;
         private double _nominalRate = 1;
         private ExecutionType _executionType = ExecutionType.Proportional;
         private int _duration = 60;
         private bool _forceContinue = false;
+        private int _numberOfThreads = 1;
 
         public ConfigurationManager() { }
 
@@ -53,8 +53,7 @@ namespace PipBenchmark.Runner.Config
 
         public void NotifyChanged()
         {
-            if (Changed != null)
-                Changed(this, EventArgs.Empty);
+            Changed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -20,10 +20,7 @@ namespace PipBenchmark.Runner.Execution
             : base(configuration, results, execution, benchmarks)
         { }
 
-        public override bool IsStopped
-        {
-            get { return !_running; }
-        }
+        public override bool IsStopped => !_running;
 
         public override void Start()
         {
@@ -55,8 +52,7 @@ namespace PipBenchmark.Runner.Execution
                             _controlTask = null;
                         }
 
-                        if (_execution != null)
-                            _execution.Stop();
+                        _execution?.Stop();
                     }
                 }
             }
@@ -75,13 +71,12 @@ namespace PipBenchmark.Runner.Execution
                         break;
 
                     // Start embedded strategy
-                    var benchmarks = new List<BenchmarkInstance>();
-                    benchmarks.Add(benchmark);
+                    var benchmarks = new List<BenchmarkInstance> {benchmark};
                     current = new ProportionalExecutionStrategy(_configuration, _results, null, benchmarks);
 
                     current.Start();
 
-                    Task.Delay(_configuration.Duration * 1000, token).Wait();
+                    Task.Delay(_configuration.Duration * 1000, token).Wait(token);
 
                     // Stop embedded strategy
                     current.Stop();
@@ -93,7 +88,7 @@ namespace PipBenchmark.Runner.Execution
             }
             finally
             {
-                if (current != null) current.Stop();
+                current?.Stop();
 
                 _controlTask = null;
 

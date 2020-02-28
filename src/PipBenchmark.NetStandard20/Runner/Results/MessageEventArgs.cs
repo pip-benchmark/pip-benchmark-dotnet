@@ -4,16 +4,10 @@ namespace PipBenchmark.Runner.Results
 {
     public class MessageEventArgs : EventArgs
     {
-        private string _message;
-
+        public string Message { get; }
         public MessageEventArgs(string message)
         {
-            _message = message;
-        }
-
-        public string Message
-        {
-            get { return _message; }
+            Message = message;
         }
     }
 }

@@ -17,10 +17,7 @@ namespace PipBenchmark.Runner.Execution
             _suite = suite;
         }
 
-        public Dictionary<string, Parameter> Parameters
-        {
-            get { return _suite.Suite.Parameters; }
-        }
+        public Dictionary<string, Parameter> Parameters => _suite.Suite.Parameters;
 
         public void IncrementCounter()
         {
@@ -42,10 +39,7 @@ namespace PipBenchmark.Runner.Execution
             _aggregator.ReportError(errorMessage);
         }
 
-        public bool IsStopped
-        {
-            get { return _strategy.IsStopped; }
-        }
+        public bool IsStopped => _strategy.IsStopped;
 
         public void Stop()
         {

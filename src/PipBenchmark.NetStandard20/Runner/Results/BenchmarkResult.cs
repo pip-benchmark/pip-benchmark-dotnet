@@ -6,57 +6,16 @@ namespace PipBenchmark.Runner.Results
 {
     public class BenchmarkResult
     {
-        private List<BenchmarkInstance> _benchmarks = new List<BenchmarkInstance>();
-        private DateTime _startTime = DateTime.Now;
-        private TimeSpan _elapsedTime;
-        private Measurement _performanceMeasurement;
-        private Measurement _cpuLoadMeasurement;
-        private Measurement _memoryUsageMeasurement;
-        private List<object> _errors = new List<object>();
-
+        public List<BenchmarkInstance> Benchmarks { get; }
+        public DateTime StartTime { get; set; } = DateTime.Now;
+        public TimeSpan ElapsedTime { get; set; } = TimeSpan.Zero;
+        public Measurement PerformanceMeasurement { get; set; } = new Measurement(0,0,0,0);
+        public Measurement CpuLoadMeasurement { get; set; } = new Measurement(0,0,0,0);
+        public List<object> Errors { get; } = new List<object>();
+        public Measurement MemoryUsageMeasurement { get; set; } = new Measurement(0,0,0,0);
         public BenchmarkResult(List<BenchmarkInstance> benchmarks)
         {
-            _benchmarks = benchmarks;
-        }
-
-        public List<BenchmarkInstance> Benchmarks
-        {
-            get { return _benchmarks; }
-        }
-
-        public DateTime StartTime
-        {
-            get { return _startTime; }
-            set { _startTime = value; }
-        }
-
-        public TimeSpan ElapsedTime
-        {
-            get { return _elapsedTime; }
-            set { _elapsedTime = value; }
-        }
-
-        public Measurement PerformanceMeasurement
-        {
-            get { return _performanceMeasurement; }
-            set { _performanceMeasurement = value; }
-        }
-
-        public Measurement CpuLoadMeasurement
-        {
-            get { return _cpuLoadMeasurement; }
-            set { _cpuLoadMeasurement = value; }
-        }
-
-        public Measurement MemoryUsageMeasurement
-        {
-            get { return _memoryUsageMeasurement; }
-            set { _memoryUsageMeasurement = value; }
-        }
-
-        public List<object> Errors
-        {
-            get { return _errors; }
+            Benchmarks = benchmarks;
         }
     }
 }

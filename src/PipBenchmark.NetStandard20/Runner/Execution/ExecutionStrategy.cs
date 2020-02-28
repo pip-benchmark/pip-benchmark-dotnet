@@ -12,10 +12,12 @@ namespace PipBenchmark.Runner.Execution
         protected ConfigurationManager _configuration;
         protected ResultsManager _results;
         protected ExecutionManager _execution;
-        protected readonly object _syncRoot = new object();
+        
         protected List<BenchmarkInstance> _benchmarks;
         protected List<BenchmarkInstance> _activeBenchmarks;
         protected List<BenchmarkSuiteInstance> _suites;
+        
+        protected readonly object _syncRoot = new object();
 
         protected ExecutionStrategy(ConfigurationManager configuration, 
             ResultsManager results, ExecutionManager execution, 

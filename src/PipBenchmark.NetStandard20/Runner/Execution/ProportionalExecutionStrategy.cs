@@ -3,6 +3,7 @@ using PipBenchmark.Runner.Config;
 using PipBenchmark.Runner.Results;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using PipBenchmark.Utilities.Random;
@@ -12,11 +13,10 @@ namespace PipBenchmark.Runner.Execution
     public class ProportionalExecutionStrategy : ExecutionStrategy
     {
         private bool _running = false;
-        private readonly CancellationTokenSource _controlTaskCancellation = new CancellationTokenSource();
-        private Task[] _tasks = null;
-        private Task _controlTask = null;
-        private double _ticksPerTransaction = 0;
         private ResultAggregator _aggregator;
+        private double _ticksPerTransaction = 0;
+        private readonly CancellationTokenSource _controlTaskCancellation = new CancellationTokenSource();
+        private Task[] _tasks;
 
         public ProportionalExecutionStrategy(ConfigurationManager configuration,
             ResultsManager results, ExecutionManager execution,
@@ -26,10 +26,7 @@ namespace PipBenchmark.Runner.Execution
             _aggregator = new ResultAggregator(results, benchmarks);
         }
 
-        public override bool IsStopped
-        {
-            get { return !_running; }
-        }
+        public override bool IsStopped => !_running;
 
         public override void Start()
         {
@@ -57,7 +54,7 @@ namespace PipBenchmark.Runner.Execution
                 _tasks[index] = Task.Run(() => Execute(token), token);
             }
 
-            _controlTask = Task.Run(() => Control(token), token);
+            Task.Run(() => Control(token), token);
         }
 
         public override void Stop()
@@ -74,8 +71,7 @@ namespace PipBenchmark.Runner.Execution
                         // Give time for threads to stop on their own
                         Thread.Sleep(100);
 
-                        if (_execution != null)
-                            _execution.Stop();
+                        _execution?.Stop();
 
                         _controlTaskCancellation.Cancel();
 
@@ -117,20 +113,14 @@ namespace PipBenchmark.Runner.Execution
         private BenchmarkInstance ChooseBenchmarkProportionally()
         {
             double selector = RandomDouble.NextDouble(1.0);
-            for (int index = 0; index < _activeBenchmarks.Count; index++)
-            {
-                var benchmark = _activeBenchmarks[index];
-                if (benchmark.WithinRange(selector))
-                    return benchmark;
-            }
-            return null;
+            return _activeBenchmarks.FirstOrDefault(benchmark => benchmark.WithinRange(selector));
         }
 
         private void Control(CancellationToken token)
         {
             try
             {
-                Task.Delay(_configuration.Duration * 1000, token).Wait();
+                Task.Delay(_configuration.Duration * 1000, token).Wait(token);
             }
             catch (OperationCanceledException)
             {
@@ -138,8 +128,6 @@ namespace PipBenchmark.Runner.Execution
             }
             finally
             {
-                _controlTask = null;
-
                 Stop();
             }
         }
@@ -159,7 +147,7 @@ namespace PipBenchmark.Runner.Execution
                 _results.NotifyError(ex);
 
                 if (!_configuration.ForceContinue)
-                    throw ex;
+                    throw;
             }
         }
 
@@ -167,8 +155,9 @@ namespace PipBenchmark.Runner.Execution
         {
             int lastExecutedTicks = System.Environment.TickCount;
             int benchmarkCount = _activeBenchmarks.Count;
-            BenchmarkInstance onlyBenchmark = _activeBenchmarks.Count == 1 
-                ? _activeBenchmarks[0] : null;
+            BenchmarkInstance onlyBenchmark = benchmarkCount == 1
+                ? _activeBenchmarks[0]
+                : null;
 
             try
             {
@@ -184,8 +173,7 @@ namespace PipBenchmark.Runner.Execution
                             Thread.Sleep((int)ticksToNextTransaction);
                     }
 
-                    var benchmark = onlyBenchmark != null
-                        ? onlyBenchmark : ChooseBenchmarkProportionally();
+                    var benchmark = onlyBenchmark ?? ChooseBenchmarkProportionally();
 
                     if (benchmark != null)
                     {

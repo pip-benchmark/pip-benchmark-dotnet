@@ -22,29 +22,32 @@ namespace PipBenchmark.Runner.Console
 
         public static void OnExecutionUpdated(object sender, ExecutionEventArgs args)
         {
-            if (args.State == ExecutionState.Running)
+            switch (args.State)
             {
-                System.Console.Out.WriteLine("Benchmarking...");
-            }
-            else if (args.State == ExecutionState.Completed)
-            {
-                System.Console.Out.WriteLine("Completed benchmarking.");
+                case ExecutionState.Running:
+                    System.Console.Out.WriteLine("Benchmarking...");
+                    break;
+                case ExecutionState.Completed:
+                    System.Console.Out.WriteLine("Completed benchmarking.");
+                    break;
+                case ExecutionState.Initial:
+                    System.Console.Out.WriteLine("Init benchmarking.");
+                    break;
+                default:
+                    System.Console.Out.WriteLine("Unknown.");
+                    break;
             }
         }
 
         public static void OnResultUpdated(object sender, ResultEventArgs args)
         {
-            System.Console.Out.WriteLine("{0} Performance: {1} {2}>{3}>{4} CPU Load: {5} {6}>{7}>{8} Errors: {9}",
-                DateTime.Now.ToLongTimeString(),
-                args.Result.PerformanceMeasurement.CurrentValue.ToString("0.##"),
-                args.Result.PerformanceMeasurement.MinValue.ToString("0.##"),
-                args.Result.PerformanceMeasurement.AverageValue.ToString("0.##"),
-                args.Result.PerformanceMeasurement.MaxValue.ToString("0.##"),
-                args.Result.CpuLoadMeasurement.CurrentValue.ToString("0.##"),
-                args.Result.CpuLoadMeasurement.MinValue.ToString("0.##"),
-                args.Result.CpuLoadMeasurement.AverageValue.ToString("0.##"),
-                args.Result.CpuLoadMeasurement.MaxValue.ToString("0.##"),
-                args.Result.Errors.Count.ToString("0.##"));
+            System.Console.Out.WriteLine(
+                "{0} Performance: {1:0.##} {2:0.##}>{3:0.##}>{4:0.##} CPU Load: {5:0.##} {6:0.##}>{7:0.##}>{8:0.##} Errors: {9:0.##}",
+                DateTime.Now.ToLongTimeString(), args.Result.PerformanceMeasurement.CurrentValue,
+                args.Result.PerformanceMeasurement.MinValue, args.Result.PerformanceMeasurement.AverageValue,
+                args.Result.PerformanceMeasurement.MaxValue, args.Result.CpuLoadMeasurement.CurrentValue,
+                args.Result.CpuLoadMeasurement.MinValue, args.Result.CpuLoadMeasurement.AverageValue,
+                args.Result.CpuLoadMeasurement.MaxValue, args.Result.Errors.Count);
         }
 
         public static void OnMessageSent(object sender, MessageEventArgs args)

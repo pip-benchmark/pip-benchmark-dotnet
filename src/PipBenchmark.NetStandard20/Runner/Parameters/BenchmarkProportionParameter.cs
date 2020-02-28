@@ -9,8 +9,8 @@ namespace PipBenchmark.Runner.Parameters
 
         public BenchmarkProportionParameter(BenchmarkInstance benchmark)
             : base(
-                string.Format("{0}.{1}.Proportion", benchmark.Suite.Name, benchmark.Name),
-                string.Format("Sets execution proportion for benchmark {0} in suite {1}", benchmark.Name, benchmark.Suite.Name),
+                $"{benchmark.Suite.Name}.{benchmark.Name}.Proportion",
+                $"Sets execution proportion for benchmark {benchmark.Name} in suite {benchmark.Suite.Name}",
                 "100"
             )
         {
@@ -19,8 +19,8 @@ namespace PipBenchmark.Runner.Parameters
 
         public override string Value
         {
-            get { return Converter.IntegerToString(_benchmark.Proportion); }
-            set { _benchmark.Proportion = Converter.StringToInteger(value, 100); }
+            get => Converter.IntegerToString(_benchmark.Proportion);
+            set => _benchmark.Proportion = Converter.StringToInteger(value, 100);
         }
     }
 }

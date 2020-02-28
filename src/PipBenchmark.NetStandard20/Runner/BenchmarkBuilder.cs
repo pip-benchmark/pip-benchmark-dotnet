@@ -40,14 +40,13 @@ namespace PipBenchmark.Builder
 
         public BenchmarkBuilder AddSuite(BenchmarkSuite suite)
         {
-            _runner.Benchmarks.AddSuite(suite);
+            this._runner.Benchmarks.AddSuite(suite);
             return this;
         }
 
         public BenchmarkBuilder WithParameter(string name, string value)
         {
-            var parameters = new Dictionary<string, string>();
-            parameters[name] = value;
+            var parameters = new Dictionary<string, string> {[name] = value};
             this._runner.Parameters.Set(parameters);
             return this;
         }

@@ -20,7 +20,7 @@ namespace PipBenchmark.Console
         private bool _showHelp = false;
         private bool _showBenchmarks = false;
         private bool _showParameters = false;
-        private bool _benchmarkEnvironment = false;
+        private bool _measureEnvironment = false;
         private MeasurementType _measurementType = MeasurementType.Peak;
         private ExecutionType _executionType = ExecutionType.Proportional;
         private bool _forceContinue = false;
@@ -105,89 +105,41 @@ namespace PipBenchmark.Console
                 }
                 else if (arg == "-e" || arg == "--environment")
                 {
-                    _benchmarkEnvironment = true;
+                    _measureEnvironment = true;
                 }
             }
         }
 
-        public List<string> Assemblies
-        {
-            get { return _assemblies; }
-        }
+        public List<string> Assemblies => _assemblies;
 
-        public List<string> Classes
-        {
-            get { return _classes; }
-        }
+        public List<string> Classes => _classes;
 
-        public List<string> Benchmarks
-        {
-            get { return _benchmarks; }
-        }
+        public List<string> Benchmarks => _benchmarks;
 
-        public Dictionary<string, string> Parameters
-        {
-            get { return _parameters; }
-        }
+        public Dictionary<string, string> Parameters => _parameters;
 
-        public string ConfigurationFile
-        {
-            get { return _configurationFile; }
-        }
+        public string ConfigurationFile => _configurationFile;
 
-        public string ReportFile
-        {
-            get { return _reportFile; }
-        }
+        public string ReportFile => _reportFile;
 
-        public int Duration
-        {
-            get { return _duration; }
-        }
+        public int Duration => _duration;
 
-        public int NumberOfThreads
-        {
-            get { return _numberOfThreads; }
-        }
+        public int NumberOfThreads => _numberOfThreads;
 
-        public bool IsForceContinue
-        {
-            get { return _forceContinue; }
-        }
+        public bool IsForceContinue => _forceContinue;
 
-        public bool ShowHelp
-        {
-            get { return _showHelp; }
-        }
+        public bool ShowHelp => _showHelp;
 
-        public bool ShowBenchmarks
-        {
-            get { return _showBenchmarks; }
-        }
+        public bool ShowBenchmarks => _showBenchmarks;
 
-        public bool ShowParameters
-        {
-            get { return _showParameters; }
-        }
+        public bool ShowParameters => _showParameters;
 
-        public bool BenchmarkEnvironment
-        {
-            get { return _benchmarkEnvironment; }
-        }
+        public bool MeasureEnvironment => _measureEnvironment;
 
-        public MeasurementType MeasurementType
-        {
-            get { return _measurementType; }
-        }
+        public MeasurementType MeasurementType => _measurementType;
 
-        public double NominalRate
-        {
-            get { return _nominalRate; }
-        }
+        public double NominalRate => _nominalRate;
 
-        public ExecutionType ExecutionType
-        {
-            get { return _executionType; }
-        }
+        public ExecutionType ExecutionType => _executionType;
     }
 }

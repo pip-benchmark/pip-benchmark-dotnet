@@ -9,7 +9,7 @@ namespace PipBenchmark.Runner.Parameters
 
         public BenchmarkSuiteParameter(BenchmarkSuiteInstance suite,
             Parameter originalParameter)
-            : base(string.Format("{0}.{1}", suite.Name, originalParameter.Name),
+            : base($"{suite.Name}.{originalParameter.Name}",
             originalParameter.Description, originalParameter.DefaultValue)
         {
             _suite = suite;

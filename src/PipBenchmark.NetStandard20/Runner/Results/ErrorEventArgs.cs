@@ -4,16 +4,11 @@ namespace PipBenchmark.Runner.Results
 {
     public class ErrorEventArgs : EventArgs
     {
-        private object _error;
-
+        public object Error { get; }
+        
         public ErrorEventArgs(object error)
         {
-            _error = error;
-        }
-
-        public object Error
-        {
-            get { return _error; }
+            Error = error;
         }
     }
 }

@@ -44,15 +44,13 @@ namespace PipBenchmark.Console
                 }
 
                 // Benchmark the environment
-                if (args.BenchmarkEnvironment)
+                if (args.MeasureEnvironment)
                 {
                     System.Console.Out.WriteLine("Benchmarking Environment (wait up to 2 mins)...");
                     runner.Environment.Measure(true, true, true);
-                    System.Console.Out.WriteLine("CPU: {0}, Video: {1}, Disk: {2}",
-                        runner.Environment.CpuMeasurement.ToString("0.##"),
-                        runner.Environment.VideoMeasurement.ToString("0.##"),
-                        runner.Environment.DiskMeasurement.ToString("0.##")
-                    );
+                    System.Console.Out.WriteLine("CPU: {0:0.##}, Video: {1:0.##}, Disk: {2:0.##}",
+                        runner.Environment.CpuMeasurement, runner.Environment.VideoMeasurement,
+                        runner.Environment.DiskMeasurement);
                 }
 
                 // Configure benchmarking

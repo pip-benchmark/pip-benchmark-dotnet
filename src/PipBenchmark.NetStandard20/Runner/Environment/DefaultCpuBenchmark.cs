@@ -81,9 +81,9 @@ namespace PipBenchmark.Runner.Environment
                 Math.Log(result4);
 
                 // #10
-                //result1 = value + value;
-                //result2 = result1 - value;
-                //result3 = result1 * result2;
+                result1 = value + value;
+                result2 = result1 - value;
+                result3 = result1 * result2;
                 result4 = result2 / result3;
                 Math.Log(result4);
             }

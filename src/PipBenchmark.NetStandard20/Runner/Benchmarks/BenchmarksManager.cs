@@ -16,10 +16,7 @@ namespace PipBenchmark.Runner.Benchmarks
             _parameters = parameters;
         }
 
-        public List<BenchmarkSuiteInstance> Suites
-        {
-            get { return _suites; }
-        }
+        public List<BenchmarkSuiteInstance> Suites => _suites;
 
         public List<BenchmarkInstance> Selected
         {
@@ -29,11 +26,7 @@ namespace PipBenchmark.Runner.Benchmarks
 
                 foreach (BenchmarkSuiteInstance suite in _suites)
                 {
-                    foreach (BenchmarkInstance benchmark in suite.Benchmarks)
-                    {
-                        if (benchmark.IsSelected)
-                            benchmarks.Add(benchmark);
-                    }
+                    benchmarks.AddRange(suite.Benchmarks.Where(benchmark => benchmark.IsSelected));
                 }
 
                 return benchmarks;
@@ -53,10 +46,9 @@ namespace PipBenchmark.Runner.Benchmarks
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
-                foreach (BenchmarkInstance benchmark in suite.Benchmarks)
+                foreach (var benchmark in suite.Benchmarks.Where(benchmark => benchmarkNames.Contains(benchmark.FullName)))
                 {
-                    if (benchmarkNames.Contains(benchmark.FullName))
-                        benchmark.IsSelected = true;
+                    benchmark.IsSelected = true;
                 }
             }
         }
@@ -65,10 +57,9 @@ namespace PipBenchmark.Runner.Benchmarks
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
-                foreach (BenchmarkInstance benchmark in suite.Benchmarks)
+                foreach (var benchmark in suite.Benchmarks.Where(benchmark => benchmarks.Contains(benchmark.Benchmark)))
                 {
-                    if (benchmarks.Contains(benchmark.Benchmark))
-                        benchmark.IsSelected = true;
+                    benchmark.IsSelected = true;
                 }
             }
         }
@@ -86,10 +77,9 @@ namespace PipBenchmark.Runner.Benchmarks
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
-                foreach (BenchmarkInstance benchmark in suite.Benchmarks)
+                foreach (var benchmark in suite.Benchmarks.Where(benchmark => benchmarkNames.Contains(benchmark.FullName)))
                 {
-                    if (benchmarkNames.Contains(benchmark.FullName))
-                        benchmark.IsSelected = false;
+                    benchmark.IsSelected = false;
                 }
             }
         }
@@ -98,10 +88,9 @@ namespace PipBenchmark.Runner.Benchmarks
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
             {
-                foreach (BenchmarkInstance benchmark in suite.Benchmarks)
+                foreach (var benchmark in suite.Benchmarks.Where(benchmark => benchmarks.Contains(benchmark.Benchmark)))
                 {
-                    if (benchmarks.Contains(benchmark.Benchmark))
-                        benchmark.IsSelected = false;
+                    benchmark.IsSelected = false;
                 }
             }
         }
@@ -157,19 +146,16 @@ namespace PipBenchmark.Runner.Benchmarks
 
         public void RemoveSuite(BenchmarkSuite suite)
         {
-            foreach (var instance in _suites)
+            foreach (var instance in _suites.Where(instance => instance.Suite == suite))
             {
-                if (instance.Suite == suite)
-                {
-                    RemoveSuite(instance);
-                    return;
-                }
+                RemoveSuite(instance);
+                return;
             }
         }
 
         public void RemoveSuite(BenchmarkSuiteInstance suite)
         {
-            _parameters.RemoveForSuite(suite);
+            _parameters.RemoveSuite(suite);
 
             _suites.Remove(suite);
         }
@@ -179,7 +165,7 @@ namespace PipBenchmark.Runner.Benchmarks
             BenchmarkSuiteInstance suite = FindSuite(suiteName);
             if (suite != null)
             {
-                _parameters.RemoveForSuite(suite);
+                _parameters.RemoveSuite(suite);
                 _suites.Remove(suite);
             }
         }
@@ -187,7 +173,7 @@ namespace PipBenchmark.Runner.Benchmarks
         public void Clear()
         {
             foreach (BenchmarkSuiteInstance suite in _suites)
-                _parameters.RemoveForSuite(suite);
+                _parameters.RemoveSuite(suite);
 
             _suites.Clear();
         }

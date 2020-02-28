@@ -102,7 +102,7 @@ namespace PipBenchmark.Runner.Parameters
             }
         }
 
-        public void RemoveForSuite(BenchmarkSuiteInstance suite)
+        public void RemoveSuite(BenchmarkSuiteInstance suite)
         {
             string parameterNamePrefix = suite.Name + ".";
 
@@ -121,8 +121,7 @@ namespace PipBenchmark.Runner.Parameters
         {
             foreach (Parameter parameter in _parameters)
             {
-                BenchmarkSuiteParameter suiteParameter = parameter as BenchmarkSuiteParameter;
-                if (suiteParameter != null)
+                if (parameter is BenchmarkSuiteParameter suiteParameter)
                     suiteParameter.Value = suiteParameter.DefaultValue;
             }
 

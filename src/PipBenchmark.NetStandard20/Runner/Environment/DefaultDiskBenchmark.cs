@@ -7,6 +7,8 @@ namespace PipBenchmark.Runner.Environment
     public class DefaultDiskBenchmark : Benchmark
     {
         private const int BufferSize = 512;
+        private const int ChunkSize = 1024000;
+        private const int FileSize = 102400000;
 
         private object _syncRoot = new object();
         
@@ -24,27 +26,40 @@ namespace PipBenchmark.Runner.Environment
 
         public override void SetUp()
         {
-            _fileSize = Math.Max(Context.Parameters["FileSize"].AsInteger, 1024);
-            _chunkSize = Math.Max(Context.Parameters["ChunkSize"].AsInteger, 128);
+            _fileSize = Math.Max(Context.Parameters["FileSize"].AsInteger, FileSize);
+            _chunkSize = Math.Max(Context.Parameters["ChunkSize"].AsInteger, ChunkSize);
             _chunkSize = Math.Min(_chunkSize, _fileSize);
 
             _testReads = !Context.Parameters["OperationTypes"].Value.Equals("Write", StringComparison.InvariantCultureIgnoreCase);
             _testWrites = !Context.Parameters["OperationTypes"].Value.Equals("Read", StringComparison.InvariantCultureIgnoreCase);
 
             _fileName = GetFileName();
-            _fileStream = new FileStream(_fileName, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None, 1);
+            lock (_fileStream)
+            {
+                _fileStream = new FileStream(_fileName, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None, 1);
+            }
 
             // If we test only reads then file shall be prepared in advance
             if (!_testWrites)
             {
-                _fileStream.Seek(0, SeekOrigin.Begin);
+                lock (_fileStream)
+                {
+                    _fileStream.Seek(0, SeekOrigin.Begin);
+                }
                 int sizeToWrite = _fileSize;
                 while (sizeToWrite > 0)
                 {
-                    _fileStream.Write(_buffer, 0, Math.Min(BufferSize, sizeToWrite));
+                    lock (_fileStream)
+                    {
+                        _fileStream.Write(_buffer, 0, Math.Min(BufferSize, sizeToWrite));
+                    }
+
                     sizeToWrite -= BufferSize;
                 }
-                _fileStream.Flush();
+                lock (_fileStream)
+                {
+                    _fileStream.Flush();
+                }
             }
         }
 
@@ -62,7 +77,7 @@ namespace PipBenchmark.Runner.Environment
 #endif
             }
 
-            return directoryPath + string.Format("\\DiskBenchmark-{0}.dat", Guid.NewGuid().ToString("N"));
+            return directoryPath + $"\\DiskBenchmark-{Guid.NewGuid():N}.dat";
         }
 
         public override void Execute()
@@ -76,12 +91,9 @@ namespace PipBenchmark.Runner.Environment
             {
                 if (_fileStream.Length == 0 || (_testWrites && (!_testReads || RandomInteger.NextInteger(2) == 0)))
                 {
-                    int position;
-
-                    if (_fileStream.Length < _fileSize)
-                        position = Math.Min(_fileSize - _chunkSize, (int)_fileStream.Length);
-                    else
-                        position = RandomInteger.NextInteger(_fileSize - _chunkSize);
+                    var position = _fileStream.Length < _fileSize
+                        ? Math.Min(_fileSize - _chunkSize, (int) _fileStream.Length)
+                        : RandomInteger.NextInteger(_fileSize - _chunkSize);
 
                     _fileStream.Seek(position, SeekOrigin.Begin);
                     int sizeToWrite = _chunkSize;

@@ -12,9 +12,9 @@ namespace PipBenchmark.Runner
     public class BenchmarkRunner
     {
         private ConfigurationManager _configuration;
-        private BenchmarksManager _benchmarks;
-        private ParametersManager _parameters;
         private ResultsManager _results;
+        private ParametersManager _parameters;
+        private BenchmarksManager _benchmarks;
         private ExecutionManager _execution;
         private ReportGenerator _report;
         private EnvironmentManager _environment;

@@ -9,8 +9,8 @@ namespace PipBenchmark.Runner.Parameters
 
         public BenchmarkSelectedParameter(BenchmarkInstance benchmark)
             : base(
-                string.Format("{0}.{1}.Selected", benchmark.Suite.Name, benchmark.Name),
-                string.Format("Selecting benchmark {0} in suite {1}", benchmark.Name, benchmark.Suite.Name),
+                $"{benchmark.Suite.Name}.{benchmark.Name}.Selected",
+                $"Selecting benchmark {benchmark.Name} in suite {benchmark.Suite.Name}",
                 "true"
             )
         {
@@ -19,8 +19,8 @@ namespace PipBenchmark.Runner.Parameters
 
         public override string Value
         {
-            get { return Converter.BooleanToString(_benchmark.IsSelected); }
-            set { _benchmark.IsSelected = Converter.StringToBoolean(value); }
+            get => Converter.BooleanToString(_benchmark.IsSelected);
+            set => _benchmark.IsSelected = Converter.StringToBoolean(value, false);
         }
     }
 }

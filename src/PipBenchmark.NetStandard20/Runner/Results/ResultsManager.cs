@@ -29,11 +29,9 @@ namespace PipBenchmark.Runner.Results
 
         public void NotifyUpdated(BenchmarkResult result)
         {
-            if (Updated != null)
-            {
-                Updated(this, new ResultEventArgs(result));
-                Thread.Sleep(0);
-            }
+            if (Updated == null) return;
+            Updated(this, new ResultEventArgs(result));
+            Thread.Sleep(0);
         }
 
         public event EventHandler<MessageEventArgs> Message;
