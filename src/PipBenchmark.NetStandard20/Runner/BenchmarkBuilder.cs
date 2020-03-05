@@ -1,12 +1,11 @@
-﻿using PipBenchmark.Runner;
+﻿using System.Collections.Generic;
 using PipBenchmark.Runner.Config;
-using System.Collections.Generic;
 
-namespace PipBenchmark.Builder
+namespace PipBenchmark.Runner
 {
     public abstract class BenchmarkBuilder
     {
-        protected readonly BenchmarkRunner _runner = new BenchmarkRunner();
+        protected BenchmarkRunner _runner = new BenchmarkRunner();
 
         public BenchmarkBuilder ForceContinue(bool isForceContinue = false)
         {
@@ -73,7 +72,9 @@ namespace PipBenchmark.Builder
 
         public BenchmarkRunner Create()
         {
-            return _runner;
+            var result = this._runner;
+            this._runner = new BenchmarkRunner();
+            return result;
         }
     }
 }

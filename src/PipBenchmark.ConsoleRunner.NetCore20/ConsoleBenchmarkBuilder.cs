@@ -1,8 +1,7 @@
-﻿using System;
-using PipBenchmark.Console;
+﻿using PipBenchmark.Runner;
 using PipBenchmark.Runner.Console;
 
-namespace PipBenchmark.Builder.Builders
+namespace PipBenchmark.Console
 {
     public class ConsoleBenchmarkBuilder: BenchmarkBuilder
     {
