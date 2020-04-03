@@ -2,12 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>PipBenchmark</RootNamespace>
-    <AssemblyName>PipBenchmark.Framework</AssemblyName>
+    <RootNamespace>PipBenchmark.Framework</RootNamespace>
+    <AssemblyName>PipBenchmark</AssemblyName>
     <Product>Benchmarking framework for .NET</Product>
     <Company>Conceptual Vision Consulting LLC</Company>
-    <Description>Portable framework for performance benchmarking and non-functional testing</Description>
-    <Copyright>Copyright © Conceptual Vision Consulting LLC 2017-2018</Copyright>
+    <Version>3.0.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Sergey Seroukhov, Artem Hryshchenko</Authors>
+    <Description>Portable Benchmarking Framework in .NET</Description>
+    <Copyright>Copyright © Conceptual Vision Consulting LLC 2017-2020</Copyright>
+
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/pip-benchmark/pip-benchmark-dotnet</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/pip-services/pip-services/master/design/Icon.png</PackageIconUrl>
+    <PackageTags>pip-benchmark benchmarking framework</PackageTags>
+  
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

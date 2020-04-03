@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <AssemblyName>PipBenchmark</AssemblyName>
+    <AssemblyName>PipBenchmark.Console</AssemblyName>
     <RootNamespace>PipBenchmark.Console</RootNamespace>
     <Authors>Sergey Seroukhov</Authors>
     <Company>Conceptual Vision Consulting LLC</Company>
