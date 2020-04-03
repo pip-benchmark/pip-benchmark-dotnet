@@ -24,21 +24,21 @@ namespace PipBenchmark.Runner.Execution
             public string BenchmarkName;
             public double Duration;
         }
-        
+
         private readonly List<BenchmarkMetric> _benchmarkMetrics = new List<BenchmarkMetric> { };
 
-        private readonly Stopwatch _timer = new Stopwatch();
-        
         public Stopwatch Start()
         {
-            _timer.Start();
-            return _timer;
+            var timer = new Stopwatch();
+            timer.Start();
+
+            return timer;
         }
 
-        public void Stop(string benchmarkName)
+        public void Stop(string benchmarkName, Stopwatch timer)
         {
-            _timer.Stop();
-            _benchmarkMetrics.Add(new BenchmarkMetric(benchmarkName, _timer.Elapsed));
+            timer.Stop();
+            _benchmarkMetrics.Add(new BenchmarkMetric(benchmarkName, timer.Elapsed));
         }
 
         public List<BenchmarkGroup> GetAverageReport()
@@ -46,7 +46,7 @@ namespace PipBenchmark.Runner.Execution
             var report = _benchmarkMetrics
                 .GroupBy(m => m.BenchmarkName)
                 .Select(g => new BenchmarkGroup
-                    {BenchmarkName = g.Key, Duration = g.Average(m => m.Duration.TotalMilliseconds)});
+                {BenchmarkName = g.Key, Duration = g.Average(m => m.Duration.TotalMilliseconds)});
 
             return report.ToList();
         }
