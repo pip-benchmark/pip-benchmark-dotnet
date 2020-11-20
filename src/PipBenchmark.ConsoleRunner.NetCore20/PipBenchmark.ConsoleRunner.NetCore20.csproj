@@ -7,7 +7,7 @@
     <RootNamespace>PipBenchmark.ConsoleRunner</RootNamespace>
     <Authors>Sergey Seroukhov, Artem Hryshchenko</Authors>
     <Company>Conceptual Vision Consulting LLC</Company>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Console application to execute benchmarks</Description>
     <Product>Pip.Benchmark</Product>

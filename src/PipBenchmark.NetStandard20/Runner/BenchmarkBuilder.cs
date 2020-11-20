@@ -70,7 +70,7 @@ namespace PipBenchmark.Runner
             return this;
         }
 
-        public BenchmarkRunner Create()
+        public virtual BenchmarkRunner Create()
         {
             var result = this._runner;
             this._runner = new BenchmarkRunner();

@@ -31,14 +31,16 @@ namespace PipBenchmark.Console
             _runner.Configuration.MeasurementType = processedArgs.MeasurementType;
             _runner.Configuration.NominalRate = processedArgs.NominalRate;
             _runner.Configuration.ExecutionType = processedArgs.ExecutionType;
+            _runner.Configuration.Duration = processedArgs.Duration;
 
             return this;
         }
 
-        public ConsoleBenchmarkBuilder()
+        public override BenchmarkRunner Create()
         {
+            _runner = base.Create();
             ConsoleEventPrinter.Add(_runner);
-            _runner.Results.Updated -= ConsoleEventPrinter.OnResultUpdated;
+            return _runner;
         }
     }
 }
