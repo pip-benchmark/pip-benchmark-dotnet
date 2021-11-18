@@ -11,11 +11,13 @@ namespace PipBenchmark.Runner.Execution
         {
             public readonly string BenchmarkName;
             public TimeSpan Duration;
+            public readonly bool IsError;
 
-            public BenchmarkMetric(string name, TimeSpan duration)
+            public BenchmarkMetric(string name, TimeSpan duration, bool isError)
             {
                 BenchmarkName = name;
                 Duration = duration;
+                IsError = isError;
             }
         }
 
@@ -23,6 +25,8 @@ namespace PipBenchmark.Runner.Execution
         {
             public string BenchmarkName;
             public double Duration;
+            public int Count;
+            public int Errors;
         }
 
         private readonly List<BenchmarkMetric> _benchmarkMetrics = new List<BenchmarkMetric> { };
@@ -35,10 +39,10 @@ namespace PipBenchmark.Runner.Execution
             return timer;
         }
 
-        public void Stop(string benchmarkName, Stopwatch timer)
+        public void Stop(string benchmarkName, Stopwatch timer, bool isError = false)
         {
             timer.Stop();
-            _benchmarkMetrics.Add(new BenchmarkMetric(benchmarkName, timer.Elapsed));
+            _benchmarkMetrics.Add(new BenchmarkMetric(benchmarkName, timer.Elapsed, isError));
         }
 
         public List<BenchmarkGroup> GetAverageReport()
@@ -46,7 +50,12 @@ namespace PipBenchmark.Runner.Execution
             var report = _benchmarkMetrics
                 .GroupBy(m => m.BenchmarkName)
                 .Select(g => new BenchmarkGroup
-                {BenchmarkName = g.Key, Duration = g.Average(m => m.Duration.TotalMilliseconds)});
+                {
+                    BenchmarkName = g.Key,
+                    Duration = g.Average(m => m.Duration.TotalMilliseconds),
+                    Count = g.Count(),
+                    Errors = g.Count(m => m.IsError)
+                });
 
             return report.ToList();
         }

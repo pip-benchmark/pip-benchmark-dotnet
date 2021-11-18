@@ -6,7 +6,7 @@
     <AssemblyName>PipBenchmark</AssemblyName>
     <Product>Benchmarking framework for .NET</Product>
     <Company>Conceptual Vision Consulting LLC</Company>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Sergey Seroukhov, Artem Hryshchenko</Authors>
     <Description>Portable Benchmarking Framework in .NET</Description>
